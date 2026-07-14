@@ -1,0 +1,715 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Undangan Digital · Intan Mulya Berkah</title>
+  <!-- Font Google & Font Awesome -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #fbf9f7;
+      color: #1e1e2a;
+      line-height: 1.6;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    /* header */
+    header {
+      background: #ffffffec;
+      backdrop-filter: blur(4px);
+      box-shadow: 0 4px 20px rgba(0,0,0,0.02);
+      padding: 12px 0;
+      position: sticky;
+      top: 0;
+      z-index: 30;
+      border-bottom: 1px solid #f0ebe6;
+    }
+
+    .nav-wrap {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-weight: 700;
+      font-size: 1.35rem;
+      letter-spacing: -0.3px;
+      color: #2b1e16;
+      text-decoration: none;
+    }
+
+    .logo img {
+      height: 44px;
+      width: auto;
+      border-radius: 12px;
+      display: block;
+    }
+
+    .logo span {
+      background: linear-gradient(135deg, #a65e3a, #c57e5a);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 32px;
+      font-weight: 500;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      color: #3e332b;
+      transition: 0.2s;
+      font-size: 0.95rem;
+      border-bottom: 2px solid transparent;
+      padding-bottom: 4px;
+    }
+
+    .nav-links a:hover, .nav-links a.active {
+      border-bottom-color: #b47c5e;
+      color: #1f130b;
+    }
+
+    .btn-cta-header {
+      background: #2b1e16;
+      color: #f8f2ec !important;
+      padding: 8px 20px;
+      border-radius: 40px;
+      border-bottom: none !important;
+    }
+    .btn-cta-header:hover {
+      background: #4d3426;
+      color: white !important;
+    }
+
+    /* Page Title */
+    .page-title {
+      padding: 40px 0 20px;
+    }
+    .page-title h1 {
+      font-size: 2.8rem;
+      font-weight: 700;
+      letter-spacing: -1px;
+      color: #1e130d;
+    }
+    .page-title h1 i {
+      color: #b47c5e;
+    }
+    .page-title p {
+      color: #5f4d40;
+      font-size: 1.1rem;
+      margin-top: 8px;
+    }
+
+    /* Step Pemesanan */
+    .steps {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 24px;
+      margin: 30px 0 40px;
+    }
+    .step-card {
+      background: white;
+      border-radius: 24px;
+      padding: 28px 20px;
+      border: 1px solid #f0e9e3;
+      text-align: center;
+      transition: 0.2s;
+    }
+    .step-card:hover {
+      border-color: #b47c5e;
+      transform: translateY(-4px);
+    }
+    .step-number {
+      background: #f5ede7;
+      color: #b47c5e;
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 1.4rem;
+      margin: 0 auto 12px;
+    }
+    .step-card h3 {
+      font-size: 1.1rem;
+      margin-bottom: 4px;
+    }
+    .step-card p {
+      color: #6e5b4c;
+      font-size: 0.9rem;
+    }
+
+    /* Template Gallery */
+    .template-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 30px;
+      margin: 30px 0 40px;
+    }
+    .template-card {
+      background: white;
+      border-radius: 28px;
+      overflow: hidden;
+      border: 1px solid #f0e9e3;
+      transition: 0.3s;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.02);
+    }
+    .template-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 20px 40px -16px rgba(43,30,22,0.15);
+      border-color: #dccfc4;
+    }
+    .template-preview {
+      background: #e6dad2;
+      height: 180px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 3rem;
+      color: #7a5e4b;
+      background-image: radial-gradient(circle at 30% 40%, #f3ede8 0%, #ddd0c4 100%);
+    }
+    .template-preview i {
+      opacity: 0.7;
+    }
+    .template-info {
+      padding: 20px 22px 24px;
+    }
+    .template-info h3 {
+      font-size: 1.2rem;
+      font-weight: 600;
+    }
+    .template-info p {
+      color: #5f4d40;
+      font-size: 0.9rem;
+      margin: 4px 0 12px;
+    }
+    .template-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-bottom: 14px;
+    }
+    .template-tags span {
+      background: #f5ede7;
+      padding: 4px 12px;
+      border-radius: 40px;
+      font-size: 0.7rem;
+      font-weight: 600;
+      color: #4d3426;
+    }
+    .btn-template {
+      background: transparent;
+      border: 1px solid #b47c5e;
+      color: #b47c5e;
+      padding: 8px 20px;
+      border-radius: 40px;
+      font-weight: 600;
+      font-size: 0.85rem;
+      cursor: pointer;
+      transition: 0.2s;
+      text-decoration: none;
+      display: inline-block;
+    }
+    .btn-template:hover {
+      background: #b47c5e;
+      color: white;
+    }
+    .btn-template.pilih {
+      background: #2b1e16;
+      border-color: #2b1e16;
+      color: white;
+    }
+    .btn-template.pilih:hover {
+      background: #4d3426;
+    }
+
+    /* Panel Pembuatan */
+    .panel-builder {
+      background: white;
+      border-radius: 40px;
+      padding: 40px;
+      margin: 30px 0 50px;
+      border: 1px solid #f0e9e3;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.02);
+    }
+    .panel-builder h2 {
+      font-size: 1.8rem;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+    .panel-builder .sub {
+      color: #5f4d40;
+      margin-bottom: 30px;
+    }
+    .form-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+    }
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .form-group.full {
+      grid-column: 1 / -1;
+    }
+    .form-group label {
+      font-weight: 600;
+      font-size: 0.9rem;
+      color: #2b1e16;
+    }
+    .form-group input, .form-group select, .form-group textarea {
+      padding: 14px 18px;
+      border-radius: 16px;
+      border: 1px solid #e5dad2;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.95rem;
+      background: #fcfaf8;
+      transition: 0.2s;
+    }
+    .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+      outline: none;
+      border-color: #b47c5e;
+      box-shadow: 0 0 0 4px rgba(180,124,94,0.1);
+    }
+    .form-group textarea {
+      resize: vertical;
+      min-height: 100px;
+    }
+    .form-row {
+      display: flex;
+      gap: 24px;
+      grid-column: 1 / -1;
+    }
+    .form-row .form-group {
+      flex: 1;
+    }
+    .btn-submit {
+      background: #2b1e16;
+      color: white;
+      padding: 16px 40px;
+      border-radius: 60px;
+      font-weight: 700;
+      border: none;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: 0.2s;
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      grid-column: 1 / -1;
+      justify-self: start;
+      margin-top: 8px;
+    }
+    .btn-submit:hover {
+      background: #4d3426;
+      transform: translateY(-2px);
+      box-shadow: 0 12px 24px -12px rgba(43,30,22,0.3);
+    }
+
+    /* Preview panel */
+    .preview-panel {
+      background: #f5efe9;
+      border-radius: 24px;
+      padding: 24px 28px;
+      margin-top: 30px;
+      border: 1px solid #e5dad2;
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+    .preview-panel i {
+      font-size: 2.2rem;
+      color: #b47c5e;
+    }
+    .preview-panel .info {
+      flex: 1;
+    }
+    .preview-panel .info strong {
+      display: block;
+      font-size: 1.1rem;
+    }
+    .preview-panel .info span {
+      color: #5f4d40;
+      font-size: 0.9rem;
+    }
+    .preview-panel .badge-preview {
+      background: #2b1e16;
+      color: white;
+      padding: 6px 18px;
+      border-radius: 40px;
+      font-size: 0.8rem;
+      font-weight: 600;
+    }
+
+    /* footer */
+    footer {
+      margin-top: 60px;
+      padding: 40px 0 30px;
+      border-top: 1px solid #e5dad2;
+      text-align: center;
+      color: #5a473a;
+    }
+    .footer-logo {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 6px;
+    }
+    .footer-logo img {
+      height: 44px;
+      width: auto;
+      border-radius: 12px;
+    }
+    .footer-logo span {
+      font-weight: 700;
+      font-size: 1.35rem;
+      background: linear-gradient(135deg, #a65e3a, #c57e5a);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .footer-social {
+      display: flex;
+      justify-content: center;
+      gap: 28px;
+      margin: 16px 0 10px;
+      font-size: 1.4rem;
+    }
+    .footer-social a {
+      color: #4d3a2d;
+      transition: 0.2s;
+    }
+    .footer-social a:hover {
+      color: #b47c5e;
+      transform: scale(1.1);
+    }
+
+    @media (max-width: 700px) {
+      .nav-links {
+        gap: 16px;
+        flex-wrap: wrap;
+        justify-content: flex-end;
+      }
+      .form-grid {
+        grid-template-columns: 1fr;
+      }
+      .form-row {
+        flex-direction: column;
+        gap: 16px;
+      }
+      .form-row .form-group {
+        flex: auto;
+      }
+      .panel-builder {
+        padding: 24px;
+      }
+      .page-title h1 {
+        font-size: 2rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container nav-wrap">
+      <a href="index.html" class="logo">
+        <img src="https://raw.githubusercontent.com/shasanudin/IMBKreasiDigital/main/e2b6c152d8c04e91bb6da5dcd7de9cac~.image.jpg" alt="Logo Intan Mulya Berkah">
+        <span>Intan Mulya</span>
+      </a>
+      <div class="nav-links">
+        <a href="index.html">Beranda</a>
+        <a href="#" class="active">Undangan Digital</a>
+        <a href="#templates">Koleksi</a>
+        <a href="#panel-buat">Buat Undangan</a>
+        <a href="#" class="btn-cta-header">Konsultasi</a>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <div class="container">
+      <!-- Page Title -->
+      <div class="page-title">
+        <h1><i class="fas fa-envelope-open-text"></i> Undangan Digital</h1>
+        <p>Pesan undangan digital interaktif untuk pernikahan, aqiqah, ulang tahun, dan berbagai momen spesial Anda.</p>
+      </div>
+
+      <!-- Cara Pemesanan -->
+      <h2 style="font-size: 1.6rem; font-weight: 700; margin-top: 10px;"><i class="fas fa-list-check" style="color: #b47c5e;"></i> Cara Pemesanan</h2>
+      <div class="steps">
+        <div class="step-card">
+          <div class="step-number">1</div>
+          <h3>Pilih Template</h3>
+          <p>Pilih desain favorit dari koleksi template kami.</p>
+        </div>
+        <div class="step-card">
+          <div class="step-number">2</div>
+          <h3>Isi Data</h3>
+          <p>Lengkapi informasi acara & pesan personal.</p>
+        </div>
+        <div class="step-card">
+          <div class="step-number">3</div>
+          <h3>Kustomisasi</h3>
+          <p>Sesuaikan warna, font, dan elemen visual.</p>
+        </div>
+        <div class="step-card">
+          <div class="step-number">4</div>
+          <h3>Terbitkan</h3>
+          <p>Dapatkan link undangan & bagikan ke tamu.</p>
+        </div>
+      </div>
+
+      <!-- Contoh Template Undangan Digital -->
+      <h2 id="templates" style="font-size: 1.6rem; font-weight: 700; margin-top: 20px;"><i class="fas fa-th-large" style="color: #b47c5e;"></i> Contoh Template</h2>
+      <p style="color: #5f4d40; margin-bottom: 10px;">Pilih template favorit, lalu lanjutkan ke panel pembuatan di bawah.</p>
+      <div class="template-grid">
+        <div class="template-card">
+          <div class="template-preview"><i class="fas fa-heart" style="font-size: 4rem;"></i></div>
+          <div class="template-info">
+            <h3>Classic Love</h3>
+            <p>Elegansi minimalis dengan sentuhan floral.</p>
+            <div class="template-tags">
+              <span>Pernikahan</span>
+              <span>Elegan</span>
+            </div>
+            <a href="#panel-buat" class="btn-template pilih">Pilih Template</a>
+          </div>
+        </div>
+        <div class="template-card">
+          <div class="template-preview"><i class="fas fa-star" style="font-size: 4rem;"></i></div>
+          <div class="template-info">
+            <h3>Golden Glow</h3>
+            <p>Mewah dengan aksen emas dan latar gelap.</p>
+            <div class="template-tags">
+              <span>Pernikahan</span>
+              <span>Mewah</span>
+            </div>
+            <a href="#panel-buat" class="btn-template pilih">Pilih Template</a>
+          </div>
+        </div>
+        <div class="template-card">
+          <div class="template-preview"><i class="fas fa-leaf" style="font-size: 4rem;"></i></div>
+          <div class="template-info">
+            <h3>Rustic Natural</h3>
+            <p>Nuansa alam dengan warna earthy & hangat.</p>
+            <div class="template-tags">
+              <span>Outdoor</span>
+              <span>Natural</span>
+            </div>
+            <a href="#panel-buat" class="btn-template pilih">Pilih Template</a>
+          </div>
+        </div>
+        <div class="template-card">
+          <div class="template-preview"><i class="fas fa-crown" style="font-size: 4rem;"></i></div>
+          <div class="template-info">
+            <h3>Royal Ceremony</h3>
+            <p>Desain klasik dengan ornamen kerajaan.</p>
+            <div class="template-tags">
+              <span>Formal</span>
+              <span>Klasik</span>
+            </div>
+            <a href="#panel-buat" class="btn-template pilih">Pilih Template</a>
+          </div>
+        </div>
+        <div class="template-card">
+          <div class="template-preview"><i class="fas fa-baby" style="font-size: 4rem;"></i></div>
+          <div class="template-info">
+            <h3>Baby Bless</h3>
+            <p>Spesial untuk aqiqah & kelahiran dengan ilustrasi lucu.</p>
+            <div class="template-tags">
+              <span>Aqiqah</span>
+              <span>Lucu</span>
+            </div>
+            <a href="#panel-buat" class="btn-template pilih">Pilih Template</a>
+          </div>
+        </div>
+        <div class="template-card">
+          <div class="template-preview"><i class="fas fa-gift" style="font-size: 4rem;"></i></div>
+          <div class="template-info">
+            <h3>Birthday Joy</h3>
+            <p>Ceria dengan balon, kue, dan warna-warna cerah.</p>
+            <div class="template-tags">
+              <span>Ulang Tahun</span>
+              <span>Festif</span>
+            </div>
+            <a href="#panel-buat" class="btn-template pilih">Pilih Template</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Panel untuk Membuat Undangan Digital -->
+      <div class="panel-builder" id="panel-buat">
+        <h2><i class="fas fa-pen-fancy" style="color: #b47c5e;"></i> Panel Pembuatan Undangan</h2>
+        <p class="sub">Lengkapi data di bawah, kami akan proses undangan digital sesuai template pilihan.</p>
+
+        <form id="formUndangan">
+          <div class="form-grid">
+            <div class="form-group">
+              <label for="templateSelect">Pilih Template</label>
+              <select id="templateSelect">
+                <option value="Classic Love">Classic Love</option>
+                <option value="Golden Glow">Golden Glow</option>
+                <option value="Rustic Natural">Rustic Natural</option>
+                <option value="Royal Ceremony">Royal Ceremony</option>
+                <option value="Baby Bless">Baby Bless</option>
+                <option value="Birthday Joy">Birthday Joy</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="acara">Jenis Acara</label>
+              <select id="acara">
+                <option value="Pernikahan">Pernikahan</option>
+                <option value="Aqiqah">Aqiqah</option>
+                <option value="Ulang Tahun">Ulang Tahun</option>
+                <option value="Lainnya">Lainnya</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="namaAcara">Nama Acara / Mempelai</label>
+              <input type="text" id="namaAcara" placeholder="Contoh: Andi & Sinta" required>
+            </div>
+            <div class="form-group">
+              <label for="tanggal">Tanggal Acara</label>
+              <input type="date" id="tanggal" required>
+            </div>
+            <div class="form-group">
+              <label for="waktu">Waktu</label>
+              <input type="text" id="waktu" placeholder="Contoh: 10:00 - 16:00 WIB" required>
+            </div>
+            <div class="form-group">
+              <label for="lokasi">Lokasi Acara</label>
+              <input type="text" id="lokasi" placeholder="Nama venue / alamat" required>
+            </div>
+            <div class="form-group full">
+              <label for="pesan">Pesan Personal (opsional)</label>
+              <textarea id="pesan" placeholder="Tulis pesan khusus untuk tamu undangan..."></textarea>
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label for="warna1">Warna Utama</label>
+                <input type="color" id="warna1" value="#b47c5e">
+              </div>
+              <div class="form-group">
+                <label for="warna2">Warna Sekunder</label>
+                <input type="color" id="warna2" value="#f5ede7">
+              </div>
+              <div class="form-group">
+                <label for="font">Pilihan Font</label>
+                <select id="font">
+                  <option value="Inter">Inter</option>
+                  <option value="Playfair Display">Playfair Display</option>
+                  <option value="Poppins">Poppins</option>
+                </select>
+              </div>
+            </div>
+            <button type="submit" class="btn-submit"><i class="fas fa-wand-magic-sparkles"></i> Buat Undangan Sekarang</button>
+          </div>
+        </form>
+
+        <!-- Preview Ringkasan Pemesanan -->
+        <div class="preview-panel" id="previewPanel">
+          <i class="fas fa-file-pen"></i>
+          <div class="info">
+            <strong>Ringkasan Pemesanan</strong>
+            <span id="previewText">Pilih template & isi data untuk melihat ringkasan.</span>
+          </div>
+          <span class="badge-preview">Siap Dikirim</span>
+        </div>
+      </div>
+
+      <!-- Informasi tambahan -->
+      <div style="background: #fcf8f5; border-radius: 28px; padding: 28px 32px; margin: 20px 0 40px; border: 1px solid #f0e9e3;">
+        <h3 style="display: flex; gap: 10px; font-weight: 600;"><i class="fas fa-circle-info" style="color: #b47c5e;"></i> Yang Didapatkan</h3>
+        <ul style="list-style: none; display: grid; grid-template-columns: 1fr 1fr; gap: 8px 24px; margin-top: 12px; color: #4f3f33;">
+          <li><i class="fas fa-check-circle" style="color: #b47c5e; margin-right: 8px;"></i> Link undangan unik</li>
+          <li><i class="fas fa-check-circle" style="color: #b47c5e; margin-right: 8px;"></i> RSVP online & galeri foto</li>
+          <li><i class="fas fa-check-circle" style="color: #b47c5e; margin-right: 8px;"></i> Responsif untuk semua perangkat</li>
+          <li><i class="fas fa-check-circle" style="color: #b47c5e; margin-right: 8px;"></i> Kustomisasi warna & font</li>
+          <li><i class="fas fa-check-circle" style="color: #b47c5e; margin-right: 8px;"></i> Musik latar (opsional)</li>
+          <li><i class="fas fa-check-circle" style="color: #b47c5e; margin-right: 8px;"></i> Revisi hingga 3x</li>
+        </ul>
+      </div>
+
+    </div>
+  </main>
+
+  <footer>
+    <div class="container">
+      <div class="footer-logo">
+        <img src="https://raw.githubusercontent.com/shasanudin/IMBKreasiDigital/main/e2b6c152d8c04e91bb6da5dcd7de9cac~.image.jpg" alt="Logo Intan Mulya Berkah">
+        <span>Intan Mulya Berkah</span>
+      </div>
+      <p style="font-size: 0.9rem; max-width: 400px; margin: 8px auto;">Kreasi digital untuk momen berarti · undangan · album · majalah · dan lebih banyak lagi.</p>
+      <div class="footer-social">
+        <a href="#"><i class="fab fa-instagram"></i></a>
+        <a href="#"><i class="fab fa-youtube"></i></a>
+        <a href="#"><i class="fab fa-tiktok"></i></a>
+        <a href="#"><i class="fab fa-whatsapp"></i></a>
+      </div>
+      <p style="font-size: 0.75rem; margin-top: 20px; opacity: 0.6;">&copy; 2026 Intan Mulya Berkah Kreasi Digital</p>
+    </div>
+  </footer>
+
+  <script>
+    // Fungsi untuk update preview ringkasan berdasarkan form
+    document.getElementById('formUndangan').addEventListener('input', function(e) {
+      const template = document.getElementById('templateSelect').value;
+      const acara = document.getElementById('acara').value;
+      const nama = document.getElementById('namaAcara').value || '(nama acara)';
+      const tanggal = document.getElementById('tanggal').value || 'Tanggal belum diisi';
+      const lokasi = document.getElementById('lokasi').value || 'Lokasi belum diisi';
+
+      // Format tanggal
+      const dateObj = new Date(tanggal + 'T00:00:00');
+      const tanggalFormatted = tanggal ? dateObj.toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' }) : 'Tanggal belum diisi';
+
+      const previewText = `Template: ${template} | Acara: ${acara} | ${nama} | ${tanggalFormatted} | Lokasi: ${lokasi}`;
+      document.getElementById('previewText').textContent = previewText;
+    });
+
+    // Submit form
+    document.getElementById('formUndangan').addEventListener('submit', function(e) {
+      e.preventDefault();
+      alert('✅ Undangan digital Anda sedang diproses! Tim kami akan menghubungi Anda dalam 1x24 jam untuk konfirmasi dan finalisasi.');
+      // Reset atau redirect bisa ditambahkan di sini
+    });
+
+    // Saat halaman dimuat, jalankan sekali untuk preview awal
+    window.addEventListener('DOMContentLoaded', function() {
+      // Trigger input untuk preview
+      const event = new Event('input');
+      document.getElementById('formUndangan').dispatchEvent(event);
+    });
+  </script>
+</body>
+</html>
