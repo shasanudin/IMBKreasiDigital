@@ -1,0 +1,1212 @@
+<!-- kreasi.html - Halaman Kreasi Digital -->
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kreasi Digital · Intan Mulya Berkah</title>
+    <meta name="description" content="Layanan kreasi digital profesional: logo, poster, banner, video, website, UI design, dan berbagai kebutuhan kreatif lainnya.">
+    
+    <!-- Fonts & Icons -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    
+    <style>
+        /* ========== RESET & VARIABLES ========== */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        :root {
+            --primary: #2b1e16;
+            --primary-light: #4d3426;
+            --secondary: #b47c5e;
+            --secondary-light: #d89b7a;
+            --bg-light: #fbf9f7;
+            --bg-card: #ffffff;
+            --text-dark: #1e130d;
+            --text-medium: #5f4d40;
+            --border-color: #f0e9e3;
+            --shadow: 0 8px 32px rgba(0,0,0,0.06);
+            --shadow-hover: 0 20px 48px -12px rgba(43,30,22,0.15);
+            --radius: 28px;
+            --radius-sm: 16px;
+            --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg-light);
+            color: var(--text-dark);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1240px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        a { text-decoration: none; color: inherit; }
+
+        /* ========== HEADER ========== */
+        header {
+            background: rgba(255,255,255,0.92);
+            backdrop-filter: blur(12px);
+            padding: 10px 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .nav-wrap {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-weight: 800;
+            font-size: 1.25rem;
+        }
+
+        .logo img {
+            height: 44px;
+            width: auto;
+            border-radius: 12px;
+        }
+
+        .logo .brand {
+            background: linear-gradient(135deg, var(--secondary), var(--secondary-light));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            padding: 8px 16px;
+            border-radius: 40px;
+            font-weight: 500;
+            font-size: 0.9rem;
+            color: var(--text-medium);
+            transition: var(--transition);
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            background: rgba(180, 124, 94, 0.08);
+            color: var(--primary);
+        }
+
+        .nav-links a.btn-primary-nav {
+            background: var(--primary);
+            color: white;
+            padding: 8px 24px;
+        }
+
+        .nav-links a.btn-primary-nav:hover {
+            background: var(--primary-light);
+            transform: translateY(-2px);
+        }
+
+        .menu-toggle {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+            padding: 8px;
+            background: none;
+            border: none;
+        }
+
+        .menu-toggle span {
+            display: block;
+            width: 28px;
+            height: 3px;
+            background: var(--primary);
+            border-radius: 4px;
+            transition: var(--transition);
+        }
+
+        .menu-toggle.active span:nth-child(1) {
+            transform: rotate(45deg) translate(5px, 6px);
+        }
+        .menu-toggle.active span:nth-child(2) { opacity: 0; }
+        .menu-toggle.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(5px, -6px);
+        }
+
+        /* ========== PAGE HERO ========== */
+        .page-hero {
+            padding: 40px 0 30px;
+            text-align: center;
+        }
+
+        .page-hero h1 {
+            font-size: 2.8rem;
+            font-weight: 800;
+            letter-spacing: -1px;
+        }
+
+        .page-hero h1 i {
+            color: var(--secondary);
+        }
+
+        .page-hero p {
+            color: var(--text-medium);
+            font-size: 1.1rem;
+            max-width: 600px;
+            margin: 8px auto 0;
+        }
+
+        /* ========== KATEGORI KREASI ========== */
+        .kreasi-categories {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: center;
+            margin: 20px 0 30px;
+        }
+
+        .kreasi-categories .cat {
+            padding: 8px 20px;
+            border-radius: 40px;
+            background: white;
+            border: 1px solid var(--border-color);
+            font-weight: 500;
+            font-size: 0.85rem;
+            transition: var(--transition);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .kreasi-categories .cat:hover,
+        .kreasi-categories .cat.active {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+
+        /* ========== KREASI GRID ========== */
+        .kreasi-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            margin: 30px 0 40px;
+        }
+
+        .kreasi-card {
+            background: var(--bg-card);
+            border-radius: var(--radius);
+            overflow: hidden;
+            border: 1px solid var(--border-color);
+            transition: var(--transition);
+        }
+
+        .kreasi-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-hover);
+            border-color: var(--secondary);
+        }
+
+        .kreasi-card .preview {
+            height: 220px;
+            background: linear-gradient(145deg, #f3ede8, #ddd0c4);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            font-size: 3.5rem;
+            color: var(--secondary);
+            position: relative;
+        }
+
+        .kreasi-card .preview .category-badge {
+            position: absolute;
+            top: 16px;
+            left: 16px;
+            background: rgba(0,0,0,0.6);
+            color: white;
+            padding: 4px 14px;
+            border-radius: 40px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            backdrop-filter: blur(4px);
+        }
+
+        .kreasi-card .preview .price-badge {
+            position: absolute;
+            bottom: 16px;
+            right: 16px;
+            background: var(--secondary);
+            color: white;
+            padding: 4px 16px;
+            border-radius: 40px;
+            font-size: 0.85rem;
+            font-weight: 700;
+        }
+
+        .kreasi-card .preview .overlay {
+            position: absolute;
+            inset: 0;
+            background: rgba(0,0,0,0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            opacity: 0;
+            transition: var(--transition);
+        }
+
+        .kreasi-card:hover .preview .overlay {
+            opacity: 1;
+        }
+
+        .kreasi-card .preview .overlay .btn-action {
+            background: white;
+            color: var(--primary);
+            padding: 10px 24px;
+            border-radius: 40px;
+            font-weight: 700;
+            font-size: 0.85rem;
+            border: none;
+            cursor: pointer;
+            transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .kreasi-card .preview .overlay .btn-action:hover {
+            background: var(--secondary);
+            color: white;
+            transform: scale(1.05);
+        }
+
+        .kreasi-card .info {
+            padding: 20px 24px 24px;
+        }
+
+        .kreasi-card .info h3 {
+            font-weight: 700;
+            font-size: 1.15rem;
+        }
+
+        .kreasi-card .info .meta {
+            color: var(--text-medium);
+            font-size: 0.85rem;
+            margin: 4px 0 10px;
+        }
+
+        .kreasi-card .info .meta i {
+            color: var(--secondary);
+            width: 18px;
+        }
+
+        .kreasi-card .info p {
+            color: var(--text-medium);
+            font-size: 0.9rem;
+            margin-bottom: 14px;
+        }
+
+        .kreasi-card .info .tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+        }
+
+        .kreasi-card .info .tags span {
+            background: rgba(180, 124, 94, 0.08);
+            color: var(--secondary);
+            padding: 2px 14px;
+            border-radius: 40px;
+            font-size: 0.7rem;
+            font-weight: 600;
+        }
+
+        .kreasi-card .info .actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 16px;
+            flex-wrap: wrap;
+        }
+
+        .kreasi-card .info .actions .btn-sm {
+            padding: 8px 20px;
+            border-radius: 40px;
+            font-weight: 600;
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: var(--transition);
+            border: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .kreasi-card .info .actions .btn-order {
+            background: var(--primary);
+            color: white;
+        }
+
+        .kreasi-card .info .actions .btn-order:hover {
+            background: var(--primary-light);
+            transform: scale(1.02);
+        }
+
+        .kreasi-card .info .actions .btn-detail {
+            background: transparent;
+            border: 1px solid var(--border-color);
+            color: var(--text-medium);
+        }
+
+        .kreasi-card .info .actions .btn-detail:hover {
+            border-color: var(--secondary);
+            color: var(--secondary);
+        }
+
+        /* ========== PAKET HARGA ========== */
+        .pricing-section {
+            background: white;
+            border-radius: var(--radius);
+            padding: 40px;
+            margin: 30px 0 40px;
+            border: 1px solid var(--border-color);
+        }
+
+        .pricing-section h2 {
+            font-size: 1.8rem;
+            font-weight: 800;
+            text-align: center;
+        }
+
+        .pricing-section .sub {
+            text-align: center;
+            color: var(--text-medium);
+            margin-bottom: 30px;
+        }
+
+        .pricing-grid-kreasi {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 24px;
+        }
+
+        .pricing-item {
+            background: var(--bg-light);
+            border-radius: var(--radius-sm);
+            padding: 28px 22px;
+            text-align: center;
+            border: 1px solid var(--border-color);
+            transition: var(--transition);
+        }
+
+        .pricing-item:hover {
+            border-color: var(--secondary);
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .pricing-item.popular {
+            border-color: var(--secondary);
+            background: linear-gradient(145deg, #fcf8f5, #f5ede7);
+        }
+
+        .pricing-item .icon {
+            font-size: 2.4rem;
+            color: var(--secondary);
+            margin-bottom: 8px;
+        }
+
+        .pricing-item .name {
+            font-weight: 700;
+            font-size: 1.1rem;
+        }
+
+        .pricing-item .price {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: var(--primary);
+            margin: 8px 0;
+        }
+
+        .pricing-item .price small {
+            font-size: 0.8rem;
+            font-weight: 400;
+            color: var(--text-medium);
+        }
+
+        .pricing-item ul {
+            list-style: none;
+            text-align: left;
+            margin: 12px 0 16px;
+        }
+
+        .pricing-item ul li {
+            padding: 4px 0;
+            font-size: 0.85rem;
+            color: var(--text-medium);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .pricing-item ul li i {
+            color: var(--secondary);
+            width: 18px;
+        }
+
+        .pricing-item .btn-pilih {
+            background: var(--primary);
+            color: white;
+            padding: 10px 28px;
+            border-radius: 40px;
+            font-weight: 700;
+            border: none;
+            cursor: pointer;
+            transition: var(--transition);
+            width: 100%;
+        }
+
+        .pricing-item .btn-pilih:hover {
+            background: var(--primary-light);
+            transform: scale(1.02);
+        }
+
+        /* ========== FORM PEMESANAN ========== */
+        .order-form-section {
+            background: white;
+            border-radius: var(--radius);
+            padding: 40px;
+            margin: 30px 0 50px;
+            border: 1px solid var(--border-color);
+            box-shadow: var(--shadow);
+        }
+
+        .order-form-section h2 {
+            font-size: 1.8rem;
+            font-weight: 800;
+            margin-bottom: 8px;
+        }
+
+        .order-form-section .sub {
+            color: var(--text-medium);
+            margin-bottom: 30px;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .form-group.full {
+            grid-column: 1 / -1;
+        }
+
+        .form-group label {
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            padding: 14px 18px;
+            border-radius: var(--radius-sm);
+            border: 1px solid var(--border-color);
+            font-family: 'Inter', sans-serif;
+            font-size: 0.95rem;
+            background: var(--bg-light);
+            transition: var(--transition);
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--secondary);
+            box-shadow: 0 0 0 4px rgba(180, 124, 94, 0.1);
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        .btn-submit {
+            background: var(--primary);
+            color: white;
+            padding: 16px 40px;
+            border-radius: 60px;
+            font-weight: 700;
+            border: none;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: var(--transition);
+            grid-column: 1 / -1;
+            justify-self: start;
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .btn-submit:hover {
+            background: var(--primary-light);
+            transform: translateY(-2px);
+            box-shadow: 0 12px 24px -12px rgba(43,30,22,0.3);
+        }
+
+        /* ========== FOOTER ========== */
+        footer {
+            background: var(--primary);
+            color: rgba(255,255,255,0.8);
+            padding: 40px 0 24px;
+            margin-top: 40px;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 40px;
+            padding-bottom: 30px;
+            border-bottom: 1px solid rgba(255,255,255,0.08);
+        }
+
+        .footer-brand .logo-footer {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-weight: 800;
+            font-size: 1.3rem;
+            color: white;
+        }
+
+        .footer-brand .logo-footer img {
+            height: 44px;
+            border-radius: 12px;
+        }
+
+        .footer-brand p {
+            margin: 16px 0 20px;
+            max-width: 300px;
+            font-size: 0.95rem;
+            opacity: 0.7;
+        }
+
+        .footer-social {
+            display: flex;
+            gap: 14px;
+        }
+
+        .footer-social a {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.06);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition);
+            color: white;
+        }
+
+        .footer-social a:hover {
+            background: var(--secondary);
+            transform: translateY(-3px);
+        }
+
+        .footer-col h4 {
+            color: white;
+            font-weight: 700;
+            margin-bottom: 16px;
+        }
+
+        .footer-col ul {
+            list-style: none;
+        }
+
+        .footer-col ul li {
+            margin-bottom: 10px;
+        }
+
+        .footer-col ul a {
+            opacity: 0.7;
+            transition: var(--transition);
+            font-size: 0.9rem;
+        }
+
+        .footer-col ul a:hover {
+            opacity: 1;
+            color: var(--secondary-light);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 24px;
+            font-size: 0.85rem;
+            opacity: 0.5;
+        }
+
+        /* ========== RESPONSIVE ========== */
+        @media (max-width: 768px) {
+            .menu-toggle {
+                display: flex;
+            }
+
+            .nav-links {
+                display: none;
+                flex-direction: column;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: white;
+                padding: 20px 24px;
+                border-bottom: 1px solid var(--border-color);
+                width: 100%;
+            }
+
+            .nav-links.open {
+                display: flex;
+            }
+
+            .nav-links a {
+                width: 100%;
+                padding: 12px 16px;
+            }
+
+            .page-hero h1 {
+                font-size: 2rem;
+            }
+
+            .footer-grid {
+                grid-template-columns: 1fr;
+                gap: 28px;
+            }
+
+            .kreasi-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .pricing-section {
+                padding: 24px;
+            }
+
+            .order-form-section {
+                padding: 24px;
+            }
+
+            .pricing-grid-kreasi {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ========== HEADER ========== -->
+    <header>
+        <div class="container nav-wrap">
+            <a href="index.html" class="logo">
+                <img src="https://raw.githubusercontent.com/shasanudin/IMBKreasiDigital/main/e2b6c152d8c04e91bb6da5dcd7de9cac~.image.jpg" alt="Logo">
+                <span class="brand">Intan Mulya</span>
+            </a>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="index.html">🏠 Beranda</a></li>
+                <li><a href="undangan.html">💌 Undangan</a></li>
+                <li><a href="majalah.html">📰 Majalah</a></li>
+                <li><a href="musik.html">🎵 Album</a></li>
+                <li><a href="kreasi.html" class="active">🎨 Kreasi</a></li>
+                <li><a href="portofolio.html">📁 Portofolio</a></li>
+                <li><a href="blog.html">✍️ Blog</a></li>
+                <li><a href="kontak.html" class="btn-primary-nav">📞 Kontak</a></li>
+            </ul>
+            <button class="menu-toggle" id="menuToggle">
+                <span></span><span></span><span></span>
+            </button>
+        </div>
+    </header>
+
+    <!-- ========== PAGE HERO ========== -->
+    <section class="page-hero container" data-aos="fade-up">
+        <h1><i class="fas fa-pen-fancy"></i> Kreasi Digital</h1>
+        <p>Layanan kreatif digital profesional untuk berbagai kebutuhan: logo, poster, website, video, dan lainnya.</p>
+    </section>
+
+    <!-- ========== KATEGORI ========== -->
+    <div class="container">
+        <div class="kreasi-categories" data-aos="fade-up">
+            <span class="cat active">📌 Semua</span>
+            <span class="cat">🎯 Logo</span>
+            <span class="cat">🖼️ Poster</span>
+            <span class="cat">📊 Banner</span>
+            <span class="cat">📱 Feed Instagram</span>
+            <span class="cat">🎬 Video Promosi</span>
+            <span class="cat">🎞️ Animasi</span>
+            <span class="cat">💻 Website</span>
+            <span class="cat">📱 Landing Page</span>
+            <span class="cat">🎨 UI Design</span>
+            <span class="cat">📄 Mockup</span>
+            <span class="cat">📋 CV ATS</span>
+        </div>
+    </div>
+
+    <!-- ========== KREASI GRID ========== -->
+    <section class="container">
+        <div class="kreasi-grid" id="kreasiGrid" data-aos="fade-up">
+            <!-- Data akan di-load via JavaScript -->
+        </div>
+    </section>
+
+    <!-- ========== PAKET HARGA ========== -->
+    <section class="container">
+        <div class="pricing-section" data-aos="fade-up">
+            <h2>💰 Paket Kreasi Digital</h2>
+            <p class="sub">Pilih paket sesuai kebutuhan kreatif Anda.</p>
+
+            <div class="pricing-grid-kreasi">
+                <div class="pricing-item">
+                    <div class="icon">🎨</div>
+                    <div class="name">Basic</div>
+                    <div class="price">Rp 150K</div>
+                    <ul>
+                        <li><i class="fas fa-check"></i> 1 Desain</li>
+                        <li><i class="fas fa-check"></i> Revisi 1x</li>
+                        <li><i class="fas fa-check"></i> File JPG/PNG</li>
+                    </ul>
+                    <button class="btn-pilih" onclick="scrollToForm('Basic')">Pilih Paket</button>
+                </div>
+                <div class="pricing-item popular">
+                    <div class="icon">⭐</div>
+                    <div class="name">Premium</div>
+                    <div class="price">Rp 350K</div>
+                    <ul>
+                        <li><i class="fas fa-check"></i> Semua fitur Basic</li>
+                        <li><i class="fas fa-check"></i> Revisi 3x</li>
+                        <li><i class="fas fa-check"></i> File Sumber (AI/PSD)</li>
+                        <li><i class="fas fa-check"></i> 3 Variasi Desain</li>
+                    </ul>
+                    <button class="btn-pilih" onclick="scrollToForm('Premium')">Pilih Paket</button>
+                </div>
+                <div class="pricing-item">
+                    <div class="icon">👑</div>
+                    <div class="name">Exclusive</div>
+                    <div class="price">Rp 600K</div>
+                    <ul>
+                        <li><i class="fas fa-check"></i> Semua fitur Premium</li>
+                        <li><i class="fas fa-check"></i> Revisi Unlimited</li>
+                        <li><i class="fas fa-check"></i> Riset & Moodboard</li>
+                        <li><i class="fas fa-check"></i> Prioritas Pengerjaan</li>
+                    </ul>
+                    <button class="btn-pilih" onclick="scrollToForm('Exclusive')">Pilih Paket</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== FORM PEMESANAN ========== -->
+    <section class="container" id="orderSection">
+        <div class="order-form-section" data-aos="fade-up">
+            <h2><i class="fas fa-pencil" style="color: var(--secondary);"></i> Pesan Kreasi Digital</h2>
+            <p class="sub">Lengkapi data di bawah, tim kreatif kami akan segera memproses pesanan Anda.</p>
+
+            <form id="orderForm">
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="nama">Nama Lengkap</label>
+                        <input type="text" id="nama" placeholder="Nama Anda" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="wa">Nomor WhatsApp</label>
+                        <input type="text" id="wa" placeholder="0812-3456-7890" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="kategori">Kategori Kreasi</label>
+                        <select id="kategori">
+                            <option value="Logo">🎯 Logo</option>
+                            <option value="Poster">🖼️ Poster</option>
+                            <option value="Banner">📊 Banner</option>
+                            <option value="Feed Instagram">📱 Feed Instagram</option>
+                            <option value="Video Promosi">🎬 Video Promosi</option>
+                            <option value="Animasi">🎞️ Animasi</option>
+                            <option value="Website">💻 Website</option>
+                            <option value="Landing Page">📱 Landing Page</option>
+                            <option value="UI Design">🎨 UI Design</option>
+                            <option value="Mockup">📄 Mockup</option>
+                            <option value="CV ATS">📋 CV ATS</option>
+                            <option value="Lainnya">✨ Lainnya</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="paket">Pilih Paket</label>
+                        <select id="paket">
+                            <option value="Basic">Basic (Rp 150K)</option>
+                            <option value="Premium">Premium (Rp 350K)</option>
+                            <option value="Exclusive">Exclusive (Rp 600K)</option>
+                        </select>
+                    </div>
+                    <div class="form-group full">
+                        <label for="deskripsi">Deskripsi Proyek</label>
+                        <textarea id="deskripsi" placeholder="Jelaskan secara detail apa yang Anda inginkan..."></textarea>
+                    </div>
+                    <div class="form-group full">
+                        <label for="referensi">Referensi / Contoh (opsional)</label>
+                        <input type="text" id="referensi" placeholder="Contoh: gaya minimalis seperti brand X, warna biru & putih...">
+                    </div>
+                    <button type="submit" class="btn-submit">
+                        <i class="fas fa-paper-plane"></i> Kirim Pesanan
+                    </button>
+                </div>
+            </form>
+
+            <div id="formResponse" style="margin-top: 20px; display: none; padding: 16px 20px; border-radius: var(--radius-sm); background: #e8f5e9; color: #2e7d32; border: 1px solid #a5d6a7;">
+                ✅ Pesanan berhasil dikirim! Tim kami akan menghubungi Anda dalam 1x24 jam.
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== FOOTER ========== -->
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <div class="logo-footer">
+                        <img src="https://raw.githubusercontent.com/shasanudin/IMBKreasiDigital/main/e2b6c152d8c04e91bb6da5dcd7de9cac~.image.jpg" alt="Logo">
+                        <span>Intan Mulya Berkah</span>
+                    </div>
+                    <p>Solusi Kreatif Digital untuk Undangan, Media, Musik, dan Konten Digital.</p>
+                    <div class="footer-social">
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                        <a href="#"><i class="fab fa-tiktok"></i></a>
+                        <a href="#"><i class="fab fa-whatsapp"></i></a>
+                    </div>
+                </div>
+                <div class="footer-col">
+                    <h4>Layanan</h4>
+                    <ul>
+                        <li><a href="undangan.html">Undangan Digital</a></li>
+                        <li><a href="majalah.html">Majalah Digital</a></li>
+                        <li><a href="musik.html">Album Lagu</a></li>
+                        <li><a href="kreasi.html">Kreasi Digital</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Tentang</h4>
+                    <ul>
+                        <li><a href="index.html">Tentang Kami</a></li>
+                        <li><a href="portofolio.html">Portofolio</a></li>
+                        <li><a href="blog.html">Blog</a></li>
+                        <li><a href="kontak.html">Kontak</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Kontak</h4>
+                    <ul>
+                        <li><a href="https://wa.me/6281234567890"><i class="fab fa-whatsapp"></i> WhatsApp</a></li>
+                        <li><a href="mailto:info@intanmulyaberkah.com"><i class="fas fa-envelope"></i> Email</a></li>
+                        <li><a href="#"><i class="fas fa-map-marker-alt"></i> Lokasi</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                &copy; 2026 Intan Mulya Berkah Digital Kreasi. All Rights Reserved.
+            </div>
+        </div>
+    </footer>
+
+    <!-- ========== SCRIPTS ========== -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        // ========== AOS INIT ==========
+        AOS.init({ duration: 800, once: true, offset: 50 });
+
+        // ========== MOBILE MENU ==========
+        const menuToggle = document.getElementById('menuToggle');
+        const navLinks = document.getElementById('navLinks');
+
+        menuToggle.addEventListener('click', () => {
+            menuToggle.classList.toggle('active');
+            navLinks.classList.toggle('open');
+        });
+
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                menuToggle.classList.remove('active');
+                navLinks.classList.remove('open');
+            });
+        });
+
+        // ========== DATA KREASI ==========
+        const kreasiData = [
+            {
+                id: 1,
+                title: 'Logo Brand Minimalis',
+                category: 'Logo',
+                icon: 'fa-flag',
+                price: 'Rp 250K',
+                desc: 'Desain logo profesional dengan gaya minimalis modern untuk brand Anda.',
+                tags: ['Minimalis', 'Modern', 'Profesional']
+            },
+            {
+                id: 2,
+                title: 'Poster Event Konser',
+                category: 'Poster',
+                icon: 'fa-poster',
+                price: 'Rp 150K',
+                desc: 'Poster event dengan desain bold dan warna yang menarik perhatian.',
+                tags: ['Event', 'Bold', 'Colorful']
+            },
+            {
+                id: 3,
+                title: 'Banner Website Hero',
+                category: 'Banner',
+                icon: 'fa-image',
+                price: 'Rp 200K',
+                desc: 'Banner hero untuk website dengan komposisi visual yang powerful.',
+                tags: ['Website', 'Hero', 'Visual']
+            },
+            {
+                id: 4,
+                title: 'Feed Instagram 3 Post',
+                category: 'Feed Instagram',
+                icon: 'fa-square',
+                price: 'Rp 300K',
+                desc: 'Konten feed Instagram dengan tema konsisten untuk meningkatkan engagement.',
+                tags: ['Instagram', 'Konten', 'Engagement']
+            },
+            {
+                id: 5,
+                title: 'Video Promosi 60 Detik',
+                category: 'Video Promosi',
+                icon: 'fa-video',
+                price: 'Rp 800K',
+                desc: 'Video promosi pendek yang efektif untuk media sosial dan website.',
+                tags: ['Video', 'Promosi', 'Media Sosial']
+            },
+            {
+                id: 6,
+                title: 'Animasi Logo 2D',
+                category: 'Animasi',
+                icon: 'fa-film',
+                price: 'Rp 500K',
+                desc: 'Animasi logo 2D yang dinamis untuk opening video atau identitas brand.',
+                tags: ['Animasi', 'Logo', 'Dinamis']
+            },
+            {
+                id: 7,
+                title: 'Website Company Profile',
+                category: 'Website',
+                icon: 'fa-globe',
+                price: 'Rp 2.5M',
+                desc: 'Website company profile dengan desain modern dan fully responsive.',
+                tags: ['Website', 'Company Profile', 'Responsive']
+            },
+            {
+                id: 8,
+                title: 'Landing Page Promo',
+                category: 'Landing Page',
+                icon: 'fa-rocket',
+                price: 'Rp 1.2M',
+                desc: 'Landing page optimasi konversi untuk campaign promosi produk.',
+                tags: ['Landing Page', 'Konversi', 'Promo']
+            },
+            {
+                id: 9,
+                title: 'UI Design Mobile App',
+                category: 'UI Design',
+                icon: 'fa-mobile',
+                price: 'Rp 700K',
+                desc: 'User interface design untuk mobile app dengan pengalaman user yang intuitif.',
+                tags: ['UI Design', 'Mobile', 'Intuitif']
+            },
+            {
+                id: 10,
+                title: 'Mockup Product Box',
+                category: 'Mockup',
+                icon: 'fa-cube',
+                price: 'Rp 200K',
+                desc: 'Mockup 3D produk untuk presentasi packaging yang profesional.',
+                tags: ['Mockup', '3D', 'Packaging']
+            },
+            {
+                id: 11,
+                title: 'CV ATS Friendly',
+                category: 'CV ATS',
+                icon: 'fa-file-lines',
+                price: 'Rp 180K',
+                desc: 'CV dengan format ATS-friendly yang siap menembus sistem rekrutmen modern.',
+                tags: ['CV', 'ATS', 'Profesional']
+            },
+            {
+                id: 12,
+                title: 'Custom Kreasi Digital',
+                category: 'Lainnya',
+                icon: 'fa-pen-fancy',
+                price: 'Rp 100K+',
+                desc: 'Solusi kreatif custom sesuai kebutuhan spesifik Anda.',
+                tags: ['Custom', 'Kreatif', 'Spesifik']
+            }
+        ];
+
+        // ========== RENDER KREASI ==========
+        function renderKreasi(filter = 'Semua') {
+            const grid = document.getElementById('kreasiGrid');
+            const filtered = filter === 'Semua' 
+                ? kreasiData 
+                : kreasiData.filter(k => k.category === filter);
+
+            if (filtered.length === 0) {
+                grid.innerHTML = `
+                    <div style="grid-column: 1 / -1; text-align: center; padding: 60px 20px; background: white; border-radius: var(--radius); border: 1px solid var(--border-color);">
+                        <i class="fas fa-search" style="font-size: 3rem; color: var(--secondary); opacity: 0.5;"></i>
+                        <h3 style="margin-top: 12px;">Belum ada kreasi di kategori ini</h3>
+                        <p style="color: var(--text-medium);">Silakan pilih kategori lain.</p>
+                    </div>
+                `;
+                return;
+            }
+
+            grid.innerHTML = filtered.map(k => `
+                <div class="kreasi-card" data-aos="fade-up">
+                    <div class="preview">
+                        <i class="fas ${k.icon}"></i>
+                        <span class="category-badge">${k.category}</span>
+                        <span class="price-badge">${k.price}</span>
+                        <div class="overlay">
+                            <button class="btn-action" onclick="scrollToForm('${k.title}')">
+                                <i class="fas fa-shopping-cart"></i> Pesan
+                            </button>
+                            <button class="btn-action" onclick="showDetail('${k.id}')">
+                                <i class="fas fa-eye"></i> Detail
+                            </button>
+                        </div>
+                    </div>
+                    <div class="info">
+                        <h3>${k.title}</h3>
+                        <div class="meta"><i class="fas fa-tag"></i> ${k.price}</div>
+                        <p>${k.desc}</p>
+                        <div class="tags">
+                            ${k.tags.map(tag => `<span>#${tag}</span>`).join('')}
+                        </div>
+                        <div class="actions">
+                            <button class="btn-sm btn-order" onclick="scrollToForm('${k.title}')">
+                                <i class="fas fa-shopping-cart"></i> Pesan
+                            </button>
+                            <button class="btn-sm btn-detail" onclick="showDetail('${k.id}')">
+                                <i class="fas fa-eye"></i> Detail
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+
+            AOS.refresh();
+        }
+
+        // ========== SHOW DETAIL ==========
+        function showDetail(id) {
+            const item = kreasiData.find(k => k.id == id);
+            if (!item) return;
+
+            alert(
+                `📋 Detail Kreasi\n\n` +
+                `📌 Judul: ${item.title}\n` +
+                `📂 Kategori: ${item.category}\n` +
+                `💰 Harga: ${item.price}\n` +
+                `📝 Deskripsi: ${item.desc}\n` +
+                `🏷️ Tags: ${item.tags.join(', ')}\n\n` +
+                `Untuk memesan, klik tombol "Pesan" atau scroll ke form pemesanan.`
+            );
+        }
+
+        // ========== SCROLL TO FORM ==========
+        function scrollToForm(value) {
+            const form = document.getElementById('orderSection');
+            form.scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+            // Pre-fill paket jika ada
+            if (value) {
+                const select = document.getElementById('paket');
+                const options = ['Basic', 'Premium', 'Exclusive'];
+                if (options.includes(value)) {
+                    select.value = value;
+                }
+                // Coba cari di kategori
+                const catSelect = document.getElementById('kategori');
+                const catOptions = Array.from(catSelect.options).map(o => o.text);
+                const found = catOptions.find(opt => opt.includes(value) || value.includes(opt));
+                if (found) {
+                    catSelect.value = found;
+                }
+            }
+        }
+
+        // ========== KATEGORI CLICK ==========
+        document.querySelectorAll('.kreasi-categories .cat').forEach(cat => {
+            cat.addEventListener('click', function() {
+                document.querySelectorAll('.kreasi-categories .cat').forEach(c => c.classList.remove('active'));
+                this.classList.add('active');
+                const filter = this.textContent.trim().replace(/[📌🎯🖼️📊📱🎬🎞️💻🎨📄📋]/g, '').trim();
+                renderKreasi(filter);
+            });
+        });
+
+        // ========== FORM SUBMIT ==========
+        document.getElementById('orderForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const nama = document.getElementById('nama').value;
+            const wa = document.getElementById('wa').value;
+            const kategori = document.getElementById('kategori').value;
+            const paket = document.getElementById('paket').value;
+            const deskripsi = document.getElementById('deskripsi').value;
+
+            if (!nama || !wa || !deskripsi) {
+                alert('Silakan lengkapi semua data yang diperlukan.');
+                return;
+            }
+
+            const response = document.getElementById('formResponse');
+            response.style.display = 'block';
+            response.textContent = `✅ Pesanan berhasil dikirim! Tim kami akan menghubungi Anda di ${wa} dalam 1x24 jam.`;
+
+            // Simulasi reset
+            // this.reset();
+
+            setTimeout(() => {
+                response.style.display = 'none';
+            }, 8000);
+        });
+
+        // ========== INIT ==========
+        renderKreasi('Semua');
+    </script>
+</body>
+</html>
