@@ -1,0 +1,1130 @@
+<!-- portofolio.html - Halaman Portofolio -->
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portofolio · Intan Mulya Berkah</title>
+    <meta name="description" content="Koleksi portofolio karya digital terbaik dari Intan Mulya Berkah. Website, logo, undangan, majalah, video, dan berbagai karya kreatif lainnya.">
+    
+    <!-- Fonts & Icons -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    
+    <style>
+        /* ========== RESET & VARIABLES ========== */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        :root {
+            --primary: #2b1e16;
+            --primary-light: #4d3426;
+            --secondary: #b47c5e;
+            --secondary-light: #d89b7a;
+            --bg-light: #fbf9f7;
+            --bg-card: #ffffff;
+            --text-dark: #1e130d;
+            --text-medium: #5f4d40;
+            --border-color: #f0e9e3;
+            --shadow: 0 8px 32px rgba(0,0,0,0.06);
+            --shadow-hover: 0 20px 48px -12px rgba(43,30,22,0.15);
+            --radius: 28px;
+            --radius-sm: 16px;
+            --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg-light);
+            color: var(--text-dark);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1240px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        a { text-decoration: none; color: inherit; }
+
+        /* ========== HEADER ========== */
+        header {
+            background: rgba(255,255,255,0.92);
+            backdrop-filter: blur(12px);
+            padding: 10px 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .nav-wrap {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-weight: 800;
+            font-size: 1.25rem;
+        }
+
+        .logo img {
+            height: 44px;
+            width: auto;
+            border-radius: 12px;
+        }
+
+        .logo .brand {
+            background: linear-gradient(135deg, var(--secondary), var(--secondary-light));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            padding: 8px 16px;
+            border-radius: 40px;
+            font-weight: 500;
+            font-size: 0.9rem;
+            color: var(--text-medium);
+            transition: var(--transition);
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            background: rgba(180, 124, 94, 0.08);
+            color: var(--primary);
+        }
+
+        .nav-links a.btn-primary-nav {
+            background: var(--primary);
+            color: white;
+            padding: 8px 24px;
+        }
+
+        .nav-links a.btn-primary-nav:hover {
+            background: var(--primary-light);
+            transform: translateY(-2px);
+        }
+
+        .menu-toggle {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+            padding: 8px;
+            background: none;
+            border: none;
+        }
+
+        .menu-toggle span {
+            display: block;
+            width: 28px;
+            height: 3px;
+            background: var(--primary);
+            border-radius: 4px;
+            transition: var(--transition);
+        }
+
+        .menu-toggle.active span:nth-child(1) {
+            transform: rotate(45deg) translate(5px, 6px);
+        }
+        .menu-toggle.active span:nth-child(2) { opacity: 0; }
+        .menu-toggle.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(5px, -6px);
+        }
+
+        /* ========== PAGE HERO ========== */
+        .page-hero {
+            padding: 40px 0 30px;
+            text-align: center;
+        }
+
+        .page-hero h1 {
+            font-size: 2.8rem;
+            font-weight: 800;
+            letter-spacing: -1px;
+        }
+
+        .page-hero h1 i {
+            color: var(--secondary);
+        }
+
+        .page-hero p {
+            color: var(--text-medium);
+            font-size: 1.1rem;
+            max-width: 600px;
+            margin: 8px auto 0;
+        }
+
+        /* ========== FILTER PORTOFOLIO ========== */
+        .portfolio-filter {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: center;
+            margin: 20px 0 30px;
+        }
+
+        .portfolio-filter .filter-btn {
+            padding: 8px 22px;
+            border-radius: 40px;
+            background: white;
+            border: 1px solid var(--border-color);
+            font-weight: 500;
+            font-size: 0.85rem;
+            transition: var(--transition);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .portfolio-filter .filter-btn:hover,
+        .portfolio-filter .filter-btn.active {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+
+        /* ========== PORTOFOLIO GRID ========== */
+        .portfolio-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 30px;
+            margin: 30px 0 40px;
+        }
+
+        .portfolio-item {
+            background: var(--bg-card);
+            border-radius: var(--radius);
+            overflow: hidden;
+            border: 1px solid var(--border-color);
+            transition: var(--transition);
+            position: relative;
+        }
+
+        .portfolio-item:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-hover);
+            border-color: var(--secondary);
+        }
+
+        .portfolio-item .thumbnail {
+            height: 260px;
+            background: linear-gradient(145deg, #f3ede8, #ddd0c4);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+            color: var(--secondary);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .portfolio-item .thumbnail .category-tag {
+            position: absolute;
+            top: 16px;
+            left: 16px;
+            background: var(--primary);
+            color: white;
+            padding: 4px 14px;
+            border-radius: 40px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            letter-spacing: 0.3px;
+        }
+
+        .portfolio-item .thumbnail .client-badge {
+            position: absolute;
+            top: 16px;
+            right: 16px;
+            background: rgba(255,255,255,0.9);
+            color: var(--primary);
+            padding: 4px 14px;
+            border-radius: 40px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            backdrop-filter: blur(4px);
+        }
+
+        .portfolio-item .thumbnail .overlay {
+            position: absolute;
+            inset: 0;
+            background: rgba(0,0,0,0.4);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            opacity: 0;
+            transition: var(--transition);
+        }
+
+        .portfolio-item:hover .thumbnail .overlay {
+            opacity: 1;
+        }
+
+        .portfolio-item .thumbnail .overlay .btn-action {
+            background: white;
+            color: var(--primary);
+            padding: 10px 24px;
+            border-radius: 40px;
+            font-weight: 700;
+            font-size: 0.85rem;
+            border: none;
+            cursor: pointer;
+            transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .portfolio-item .thumbnail .overlay .btn-action:hover {
+            background: var(--secondary);
+            color: white;
+            transform: scale(1.05);
+        }
+
+        .portfolio-item .info {
+            padding: 20px 24px 24px;
+        }
+
+        .portfolio-item .info h3 {
+            font-weight: 700;
+            font-size: 1.15rem;
+        }
+
+        .portfolio-item .info .client {
+            color: var(--text-medium);
+            font-size: 0.9rem;
+            margin: 2px 0 8px;
+        }
+
+        .portfolio-item .info .client i {
+            color: var(--secondary);
+            width: 18px;
+        }
+
+        .portfolio-item .info .desc {
+            color: var(--text-medium);
+            font-size: 0.9rem;
+            margin-bottom: 12px;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .portfolio-item .info .tech-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+        }
+
+        .portfolio-item .info .tech-tags span {
+            background: rgba(180, 124, 94, 0.08);
+            color: var(--secondary);
+            padding: 2px 14px;
+            border-radius: 40px;
+            font-size: 0.7rem;
+            font-weight: 600;
+        }
+
+        /* ========== STATS ========== */
+        .portfolio-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+            gap: 24px;
+            padding: 30px 0;
+            border-top: 1px solid var(--border-color);
+            border-bottom: 1px solid var(--border-color);
+            margin: 20px 0 30px;
+        }
+
+        .portfolio-stats .stat {
+            text-align: center;
+        }
+
+        .portfolio-stats .stat .number {
+            font-size: 2.2rem;
+            font-weight: 800;
+            color: var(--primary);
+        }
+
+        .portfolio-stats .stat .label {
+            font-size: 0.9rem;
+            color: var(--text-medium);
+        }
+
+        /* ========== MODAL DETAIL ========== */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.7);
+            z-index: 9999;
+            padding: 20px;
+            justify-content: center;
+            align-items: center;
+            backdrop-filter: blur(8px);
+        }
+
+        .modal-overlay.active {
+            display: flex;
+        }
+
+        .modal-container {
+            background: white;
+            border-radius: var(--radius);
+            max-width: 700px;
+            width: 100%;
+            max-height: 90vh;
+            overflow: hidden;
+            position: relative;
+            animation: modalIn 0.3s ease;
+        }
+
+        @keyframes modalIn {
+            from { transform: scale(0.9) translateY(20px); opacity: 0; }
+            to { transform: scale(1) translateY(0); opacity: 1; }
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 24px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .modal-header h3 {
+            font-weight: 700;
+            font-size: 1.3rem;
+        }
+
+        .modal-header .close-modal {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--text-medium);
+            transition: var(--transition);
+            padding: 4px 8px;
+            border-radius: 8px;
+        }
+
+        .modal-header .close-modal:hover {
+            color: #c62828;
+            background: #fee;
+        }
+
+        .modal-body {
+            padding: 24px;
+            overflow-y: auto;
+            max-height: calc(90vh - 80px);
+        }
+
+        .modal-body .detail-thumb {
+            height: 240px;
+            background: linear-gradient(145deg, #f3ede8, #ddd0c4);
+            border-radius: var(--radius-sm);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+            color: var(--secondary);
+            margin-bottom: 20px;
+        }
+
+        .modal-body .detail-meta {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin-bottom: 16px;
+        }
+
+        .modal-body .detail-meta .meta-item {
+            background: var(--bg-light);
+            padding: 10px 16px;
+            border-radius: var(--radius-sm);
+            border: 1px solid var(--border-color);
+        }
+
+        .modal-body .detail-meta .meta-item .label {
+            font-size: 0.7rem;
+            color: var(--text-medium);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .modal-body .detail-meta .meta-item .value {
+            font-weight: 600;
+            font-size: 0.95rem;
+        }
+
+        .modal-body .detail-desc {
+            color: var(--text-medium);
+            margin-bottom: 16px;
+        }
+
+        .modal-body .detail-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            margin-bottom: 20px;
+        }
+
+        .modal-body .detail-tags span {
+            background: rgba(180, 124, 94, 0.08);
+            color: var(--secondary);
+            padding: 4px 16px;
+            border-radius: 40px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .modal-body .btn-modal-order {
+            background: var(--primary);
+            color: white;
+            padding: 14px 32px;
+            border-radius: 40px;
+            font-weight: 700;
+            border: none;
+            cursor: pointer;
+            transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            width: 100%;
+            justify-content: center;
+        }
+
+        .modal-body .btn-modal-order:hover {
+            background: var(--primary-light);
+            transform: scale(1.02);
+        }
+
+        /* ========== FOOTER ========== */
+        footer {
+            background: var(--primary);
+            color: rgba(255,255,255,0.8);
+            padding: 40px 0 24px;
+            margin-top: 40px;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 40px;
+            padding-bottom: 30px;
+            border-bottom: 1px solid rgba(255,255,255,0.08);
+        }
+
+        .footer-brand .logo-footer {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-weight: 800;
+            font-size: 1.3rem;
+            color: white;
+        }
+
+        .footer-brand .logo-footer img {
+            height: 44px;
+            border-radius: 12px;
+        }
+
+        .footer-brand p {
+            margin: 16px 0 20px;
+            max-width: 300px;
+            font-size: 0.95rem;
+            opacity: 0.7;
+        }
+
+        .footer-social {
+            display: flex;
+            gap: 14px;
+        }
+
+        .footer-social a {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.06);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition);
+            color: white;
+        }
+
+        .footer-social a:hover {
+            background: var(--secondary);
+            transform: translateY(-3px);
+        }
+
+        .footer-col h4 {
+            color: white;
+            font-weight: 700;
+            margin-bottom: 16px;
+        }
+
+        .footer-col ul {
+            list-style: none;
+        }
+
+        .footer-col ul li {
+            margin-bottom: 10px;
+        }
+
+        .footer-col ul a {
+            opacity: 0.7;
+            transition: var(--transition);
+            font-size: 0.9rem;
+        }
+
+        .footer-col ul a:hover {
+            opacity: 1;
+            color: var(--secondary-light);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 24px;
+            font-size: 0.85rem;
+            opacity: 0.5;
+        }
+
+        /* ========== RESPONSIVE ========== */
+        @media (max-width: 768px) {
+            .menu-toggle {
+                display: flex;
+            }
+
+            .nav-links {
+                display: none;
+                flex-direction: column;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: white;
+                padding: 20px 24px;
+                border-bottom: 1px solid var(--border-color);
+                width: 100%;
+            }
+
+            .nav-links.open {
+                display: flex;
+            }
+
+            .nav-links a {
+                width: 100%;
+                padding: 12px 16px;
+            }
+
+            .page-hero h1 {
+                font-size: 2rem;
+            }
+
+            .footer-grid {
+                grid-template-columns: 1fr;
+                gap: 28px;
+            }
+
+            .portfolio-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .modal-container {
+                max-width: 100%;
+                max-height: 100vh;
+                border-radius: 0;
+            }
+
+            .modal-body {
+                max-height: calc(100vh - 80px);
+            }
+
+            .modal-body .detail-meta {
+                grid-template-columns: 1fr;
+            }
+
+            .portfolio-stats {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .portfolio-stats {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ========== HEADER ========== -->
+    <header>
+        <div class="container nav-wrap">
+            <a href="index.html" class="logo">
+                <img src="https://raw.githubusercontent.com/shasanudin/IMBKreasiDigital/main/e2b6c152d8c04e91bb6da5dcd7de9cac~.image.jpg" alt="Logo">
+                <span class="brand">Intan Mulya</span>
+            </a>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="index.html">🏠 Beranda</a></li>
+                <li><a href="undangan.html">💌 Undangan</a></li>
+                <li><a href="majalah.html">📰 Majalah</a></li>
+                <li><a href="musik.html">🎵 Album</a></li>
+                <li><a href="kreasi.html">🎨 Kreasi</a></li>
+                <li><a href="portofolio.html" class="active">📁 Portofolio</a></li>
+                <li><a href="blog.html">✍️ Blog</a></li>
+                <li><a href="kontak.html" class="btn-primary-nav">📞 Kontak</a></li>
+            </ul>
+            <button class="menu-toggle" id="menuToggle">
+                <span></span><span></span><span></span>
+            </button>
+        </div>
+    </header>
+
+    <!-- ========== PAGE HERO ========== -->
+    <section class="page-hero container" data-aos="fade-up">
+        <h1><i class="fas fa-folder-open"></i> Portofolio</h1>
+        <p>Koleksi karya terbaik kami dari berbagai proyek digital yang telah diselesaikan untuk klien.</p>
+    </section>
+
+    <!-- ========== STATS ========== -->
+    <div class="container">
+        <div class="portfolio-stats" data-aos="fade-up">
+            <div class="stat">
+                <div class="number" id="statProjects">0</div>
+                <div class="label">Total Proyek</div>
+            </div>
+            <div class="stat">
+                <div class="number" id="statClients">0</div>
+                <div class="label">Klien Puas</div>
+            </div>
+            <div class="stat">
+                <div class="number" id="statCategories">0</div>
+                <div class="label">Kategori Karya</div>
+            </div>
+            <div class="stat">
+                <div class="number" id="statAwards">0</div>
+                <div class="label">Penghargaan</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ========== FILTER ========== -->
+    <div class="container">
+        <div class="portfolio-filter" data-aos="fade-up">
+            <button class="filter-btn active" data-filter="all">📌 Semua</button>
+            <button class="filter-btn" data-filter="website">💻 Website</button>
+            <button class="filter-btn" data-filter="logo">🎯 Logo</button>
+            <button class="filter-btn" data-filter="undangan">💌 Undangan</button>
+            <button class="filter-btn" data-filter="poster">🖼️ Poster</button>
+            <button class="filter-btn" data-filter="majalah">📰 Majalah</button>
+            <button class="filter-btn" data-filter="video">🎬 Video</button>
+        </div>
+    </div>
+
+    <!-- ========== PORTOFOLIO GRID ========== -->
+    <section class="container">
+        <div class="portfolio-grid" id="portfolioGrid" data-aos="fade-up">
+            <!-- Data akan di-load via JavaScript -->
+        </div>
+    </section>
+
+    <!-- ========== CTA ========== -->
+    <section class="container">
+        <div style="background: linear-gradient(135deg, var(--primary), var(--primary-light)); border-radius: var(--radius); padding: 40px 36px; margin: 20px 0 40px; text-align: center; color: white;" data-aos="fade-up">
+            <h2 style="font-size: 1.8rem; font-weight: 800;">Tertarik dengan Karya Kami?</h2>
+            <p style="opacity: 0.8; max-width: 500px; margin: 8px auto 20px;">Konsultasikan ide Anda dan wujudkan proyek digital bersama kami.</p>
+            <a href="kontak.html" style="background: white; color: var(--primary); padding: 14px 36px; border-radius: 60px; font-weight: 700; display: inline-flex; align-items: center; gap: 10px; transition: var(--transition);">
+                <i class="fas fa-comment-dots"></i> Konsultasi Sekarang
+            </a>
+        </div>
+    </section>
+
+    <!-- ========== MODAL DETAIL ========== -->
+    <div class="modal-overlay" id="modalOverlay">
+        <div class="modal-container">
+            <div class="modal-header">
+                <h3 id="modalTitle">Detail Proyek</h3>
+                <button class="close-modal" id="closeModal">
+                    <i class="fas fa-xmark"></i>
+                </button>
+            </div>
+            <div class="modal-body" id="modalBody">
+                <!-- Data akan di-load via JavaScript -->
+            </div>
+        </div>
+    </div>
+
+    <!-- ========== FOOTER ========== -->
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <div class="logo-footer">
+                        <img src="https://raw.githubusercontent.com/shasanudin/IMBKreasiDigital/main/e2b6c152d8c04e91bb6da5dcd7de9cac~.image.jpg" alt="Logo">
+                        <span>Intan Mulya Berkah</span>
+                    </div>
+                    <p>Solusi Kreatif Digital untuk Undangan, Media, Musik, dan Konten Digital.</p>
+                    <div class="footer-social">
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                        <a href="#"><i class="fab fa-tiktok"></i></a>
+                        <a href="#"><i class="fab fa-whatsapp"></i></a>
+                    </div>
+                </div>
+                <div class="footer-col">
+                    <h4>Layanan</h4>
+                    <ul>
+                        <li><a href="undangan.html">Undangan Digital</a></li>
+                        <li><a href="majalah.html">Majalah Digital</a></li>
+                        <li><a href="musik.html">Album Lagu</a></li>
+                        <li><a href="kreasi.html">Kreasi Digital</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Tentang</h4>
+                    <ul>
+                        <li><a href="index.html">Tentang Kami</a></li>
+                        <li><a href="portofolio.html">Portofolio</a></li>
+                        <li><a href="blog.html">Blog</a></li>
+                        <li><a href="kontak.html">Kontak</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Kontak</h4>
+                    <ul>
+                        <li><a href="https://wa.me/6281234567890"><i class="fab fa-whatsapp"></i> WhatsApp</a></li>
+                        <li><a href="mailto:info@intanmulyaberkah.com"><i class="fas fa-envelope"></i> Email</a></li>
+                        <li><a href="#"><i class="fas fa-map-marker-alt"></i> Lokasi</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                &copy; 2026 Intan Mulya Berkah Digital Kreasi. All Rights Reserved.
+            </div>
+        </div>
+    </footer>
+
+    <!-- ========== SCRIPTS ========== -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        // ========== AOS INIT ==========
+        AOS.init({ duration: 800, once: true, offset: 50 });
+
+        // ========== MOBILE MENU ==========
+        const menuToggle = document.getElementById('menuToggle');
+        const navLinks = document.getElementById('navLinks');
+
+        menuToggle.addEventListener('click', () => {
+            menuToggle.classList.toggle('active');
+            navLinks.classList.toggle('open');
+        });
+
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                menuToggle.classList.remove('active');
+                navLinks.classList.remove('open');
+            });
+        });
+
+        // ========== DATA PORTOFOLIO ==========
+        const portfolioData = [
+            {
+                id: 1,
+                title: 'Company Profile - Digital Agency',
+                category: 'website',
+                client: 'PT. Kreatif Digital',
+                icon: 'fa-globe',
+                desc: 'Website company profile dengan desain modern, fully responsive, dan animasi interaktif. Dilengkapi dengan CMS untuk update konten.',
+                techs: ['React', 'Tailwind', 'Node.js'],
+                year: '2025'
+            },
+            {
+                id: 2,
+                title: 'Logo Brand - Coffee Shop',
+                category: 'logo',
+                client: 'Kopi Nusantara',
+                icon: 'fa-mug-saucer',
+                desc: 'Desain logo dengan sentuhan vintage dan elemen kopi. Identitas brand yang kuat dan mudah dikenali.',
+                techs: ['Illustrator', 'Photoshop'],
+                year: '2025'
+            },
+            {
+                id: 3,
+                title: 'Undangan Pernikahan Digital',
+                category: 'undangan',
+                client: 'Andi & Sinta',
+                icon: 'fa-heart',
+                desc: 'Undangan digital premium dengan tema klasik, dilengkapi RSVP online, galeri foto, dan musik latar.',
+                techs: ['HTML5', 'CSS3', 'JavaScript'],
+                year: '2026'
+            },
+            {
+                id: 4,
+                title: 'Poster Campaign - Go Green',
+                category: 'poster',
+                client: 'Eco Foundation',
+                icon: 'fa-leaf',
+                desc: 'Poster kampanye lingkungan dengan desain bold dan pesan yang kuat. Menggunakan ilustrasi dan tipografi yang menarik.',
+                techs: ['Photoshop', 'Illustrator'],
+                year: '2025'
+            },
+            {
+                id: 5,
+                title: 'Majalah Digital - Berkah Vol.2',
+                category: 'majalah',
+                client: 'Intan Mulya Berkah',
+                icon: 'fa-book',
+                desc: 'Majalah digital interaktif dengan efek flip, dilengkapi dengan konten inspiratif dan desain visual yang memukau.',
+                techs: ['HTML5', 'CSS3', 'JavaScript'],
+                year: '2026'
+            },
+            {
+                id: 6,
+                title: 'Video Promosi - Launching Product',
+                category: 'video',
+                client: 'Tech Startup ID',
+                icon: 'fa-video',
+                desc: 'Video promosi pendek untuk launching produk baru. Durasi 60 detik dengan motion graphic dan voice over.',
+                techs: ['After Effects', 'Premiere Pro'],
+                year: '2025'
+            },
+            {
+                id: 7,
+                title: 'Landing Page - E-commerce',
+                category: 'website',
+                client: 'ShopNusantara',
+                icon: 'fa-store',
+                desc: 'Landing page untuk e-commerce dengan optimasi konversi tinggi. Dilengkapi dengan testimonial dan CTA yang jelas.',
+                techs: ['HTML5', 'CSS3', 'JavaScript'],
+                year: '2026'
+            },
+            {
+                id: 8,
+                title: 'Logo Brand - Startup',
+                category: 'logo',
+                client: 'Inovasi Digital',
+                icon: 'fa-rocket',
+                desc: 'Logo modern dengan simbol roket dan gradasi warna yang mencerminkan inovasi dan kecepatan.',
+                techs: ['Illustrator', 'Figma'],
+                year: '2025'
+            },
+            {
+                id: 9,
+                title: 'Undangan Aqiqah Digital',
+                category: 'undangan',
+                client: 'Keluarga Bahagia',
+                icon: 'fa-baby',
+                desc: 'Undangan aqiqah digital dengan nuansa islami yang hangat. Dilengkapi dengan countdown dan doa bersama.',
+                techs: ['HTML5', 'CSS3', 'JavaScript'],
+                year: '2026'
+            },
+            {
+                id: 10,
+                title: 'Poster Event - Music Festival',
+                category: 'poster',
+                client: 'Soundscape Fest',
+                icon: 'fa-music',
+                desc: 'Poster event festival musik dengan desain vibrant dan typography yang bold. Menarik perhatian target audiens.',
+                techs: ['Photoshop', 'Illustrator'],
+                year: '2025'
+            },
+            {
+                id: 11,
+                title: 'Majalah Digital - Bisnis Review',
+                category: 'majalah',
+                client: 'Bisnis Indonesia',
+                icon: 'fa-chart-line',
+                desc: 'Majalah digital tentang review bisnis dan strategi marketing. Dilengkapi dengan infografis dan data visual.',
+                techs: ['HTML5', 'CSS3', 'JavaScript'],
+                year: '2026'
+            },
+            {
+                id: 12,
+                title: 'Animasi Logo - Branding',
+                category: 'video',
+                client: 'Creative Studio',
+                icon: 'fa-film',
+                desc: 'Animasi logo 2D dengan transisi yang halus dan elegan. Cocok untuk opening video perusahaan.',
+                techs: ['After Effects', 'Illustrator'],
+                year: '2025'
+            }
+        ];
+
+        // ========== RENDER PORTOFOLIO ==========
+        function renderPortfolio(filter = 'all') {
+            const grid = document.getElementById('portfolioGrid');
+            const filtered = filter === 'all' 
+                ? portfolioData 
+                : portfolioData.filter(p => p.category === filter);
+
+            if (filtered.length === 0) {
+                grid.innerHTML = `
+                    <div style="grid-column: 1 / -1; text-align: center; padding: 60px 20px; background: white; border-radius: var(--radius); border: 1px solid var(--border-color);">
+                        <i class="fas fa-search" style="font-size: 3rem; color: var(--secondary); opacity: 0.5;"></i>
+                        <h3 style="margin-top: 12px;">Belum ada portofolio di kategori ini</h3>
+                        <p style="color: var(--text-medium);">Silakan pilih kategori lain.</p>
+                    </div>
+                `;
+                return;
+            }
+
+            grid.innerHTML = filtered.map(item => `
+                <div class="portfolio-item" data-aos="fade-up">
+                    <div class="thumbnail">
+                        <i class="fas ${item.icon}"></i>
+                        <span class="category-tag">${item.category.toUpperCase()}</span>
+                        <span class="client-badge">${item.client}</span>
+                        <div class="overlay">
+                            <button class="btn-action" onclick="openModal('${item.id}')">
+                                <i class="fas fa-eye"></i> Lihat Detail
+                            </button>
+                        </div>
+                    </div>
+                    <div class="info">
+                        <h3>${item.title}</h3>
+                        <div class="client"><i class="fas fa-user"></i> ${item.client}</div>
+                        <div class="desc">${item.desc}</div>
+                        <div class="tech-tags">
+                            ${item.techs.map(tech => `<span>${tech}</span>`).join('')}
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+
+            AOS.refresh();
+        }
+
+        // ========== MODAL ==========
+        function openModal(id) {
+            const item = portfolioData.find(p => p.id == id);
+            if (!item) return;
+
+            const modal = document.getElementById('modalOverlay');
+            document.getElementById('modalTitle').textContent = item.title;
+
+            document.getElementById('modalBody').innerHTML = `
+                <div class="detail-thumb">
+                    <i class="fas ${item.icon}"></i>
+                </div>
+                <div class="detail-meta">
+                    <div class="meta-item">
+                        <div class="label">Klien</div>
+                        <div class="value">${item.client}</div>
+                    </div>
+                    <div class="meta-item">
+                        <div class="label">Kategori</div>
+                        <div class="value">${item.category.toUpperCase()}</div>
+                    </div>
+                    <div class="meta-item">
+                        <div class="label">Tahun</div>
+                        <div class="value">${item.year}</div>
+                    </div>
+                    <div class="meta-item">
+                        <div class="label">Teknologi</div>
+                        <div class="value">${item.techs.join(', ')}</div>
+                    </div>
+                </div>
+                <div class="detail-desc">${item.desc}</div>
+                <div class="detail-tags">
+                    ${item.techs.map(tech => `<span>#${tech}</span>`).join('')}
+                </div>
+                <button class="btn-modal-order" onclick="closeModal(); window.location.href='kontak.html';">
+                    <i class="fas fa-comment-dots"></i> Konsultasi Proyek Serupa
+                </button>
+            `;
+
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal() {
+            document.getElementById('modalOverlay').classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        document.getElementById('closeModal').addEventListener('click', closeModal);
+        document.getElementById('modalOverlay').addEventListener('click', function(e) {
+            if (e.target === this) closeModal();
+        });
+
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') closeModal();
+        });
+
+        // ========== FILTER ==========
+        document.querySelectorAll('.portfolio-filter .filter-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                document.querySelectorAll('.portfolio-filter .filter-btn').forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+                renderPortfolio(this.dataset.filter);
+            });
+        });
+
+        // ========== STATS ANIMATION ==========
+        function animatePortfolioStats() {
+            const stats = [
+                { id: 'statProjects', target: portfolioData.length },
+                { id: 'statClients', target: 45 },
+                { id: 'statCategories', target: 7 },
+                { id: 'statAwards', target: 12 }
+            ];
+
+            stats.forEach(stat => {
+                const el = document.getElementById(stat.id);
+                if (!el) return;
+                let current = 0;
+                const increment = Math.ceil(stat.target / 30);
+                const timer = setInterval(() => {
+                    current += increment;
+                    if (current >= stat.target) {
+                        current = stat.target;
+                        clearInterval(timer);
+                    }
+                    el.textContent = current + '+';
+                }, 30);
+            });
+        }
+
+        // Run stats animation when visible
+        const statsObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    animatePortfolioStats();
+                    statsObserver.disconnect();
+                }
+            });
+        });
+
+        const statsSection = document.querySelector('.portfolio-stats');
+        if (statsSection) {
+            statsObserver.observe(statsSection);
+        }
+
+        // ========== INIT ==========
+        renderPortfolio('all');
+    </script>
+</body>
+</html>
