@@ -1,0 +1,1453 @@
+<!-- blog.html - Halaman Blog -->
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog · Intan Mulya Berkah</title>
+    <meta name="description" content="Artikel inspiratif tentang desain, branding, undangan digital, tutorial, dan tips kreatif dari Intan Mulya Berkah.">
+    
+    <!-- Fonts & Icons -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    
+    <style>
+        /* ========== RESET & VARIABLES ========== */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        :root {
+            --primary: #2b1e16;
+            --primary-light: #4d3426;
+            --secondary: #b47c5e;
+            --secondary-light: #d89b7a;
+            --bg-light: #fbf9f7;
+            --bg-card: #ffffff;
+            --text-dark: #1e130d;
+            --text-medium: #5f4d40;
+            --border-color: #f0e9e3;
+            --shadow: 0 8px 32px rgba(0,0,0,0.06);
+            --shadow-hover: 0 20px 48px -12px rgba(43,30,22,0.15);
+            --radius: 28px;
+            --radius-sm: 16px;
+            --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg-light);
+            color: var(--text-dark);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1240px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        a { text-decoration: none; color: inherit; }
+
+        /* ========== HEADER ========== */
+        header {
+            background: rgba(255,255,255,0.92);
+            backdrop-filter: blur(12px);
+            padding: 10px 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .nav-wrap {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-weight: 800;
+            font-size: 1.25rem;
+        }
+
+        .logo img {
+            height: 44px;
+            width: auto;
+            border-radius: 12px;
+        }
+
+        .logo .brand {
+            background: linear-gradient(135deg, var(--secondary), var(--secondary-light));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            padding: 8px 16px;
+            border-radius: 40px;
+            font-weight: 500;
+            font-size: 0.9rem;
+            color: var(--text-medium);
+            transition: var(--transition);
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            background: rgba(180, 124, 94, 0.08);
+            color: var(--primary);
+        }
+
+        .nav-links a.btn-primary-nav {
+            background: var(--primary);
+            color: white;
+            padding: 8px 24px;
+        }
+
+        .nav-links a.btn-primary-nav:hover {
+            background: var(--primary-light);
+            transform: translateY(-2px);
+        }
+
+        .menu-toggle {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+            padding: 8px;
+            background: none;
+            border: none;
+        }
+
+        .menu-toggle span {
+            display: block;
+            width: 28px;
+            height: 3px;
+            background: var(--primary);
+            border-radius: 4px;
+            transition: var(--transition);
+        }
+
+        .menu-toggle.active span:nth-child(1) {
+            transform: rotate(45deg) translate(5px, 6px);
+        }
+        .menu-toggle.active span:nth-child(2) { opacity: 0; }
+        .menu-toggle.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(5px, -6px);
+        }
+
+        /* ========== PAGE HERO ========== */
+        .page-hero {
+            padding: 40px 0 30px;
+            text-align: center;
+        }
+
+        .page-hero h1 {
+            font-size: 2.8rem;
+            font-weight: 800;
+            letter-spacing: -1px;
+        }
+
+        .page-hero h1 i {
+            color: var(--secondary);
+        }
+
+        .page-hero p {
+            color: var(--text-medium);
+            font-size: 1.1rem;
+            max-width: 600px;
+            margin: 8px auto 0;
+        }
+
+        /* ========== SEARCH & CATEGORIES ========== */
+        .blog-toolbar {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 16px;
+            justify-content: space-between;
+            align-items: center;
+            margin: 20px 0 30px;
+        }
+
+        .blog-search {
+            display: flex;
+            gap: 8px;
+            flex: 1;
+            max-width: 400px;
+        }
+
+        .blog-search input {
+            flex: 1;
+            padding: 12px 18px;
+            border-radius: var(--radius-sm);
+            border: 1px solid var(--border-color);
+            font-family: 'Inter', sans-serif;
+            font-size: 0.95rem;
+            background: white;
+            transition: var(--transition);
+        }
+
+        .blog-search input:focus {
+            outline: none;
+            border-color: var(--secondary);
+            box-shadow: 0 0 0 4px rgba(180, 124, 94, 0.1);
+        }
+
+        .blog-search .btn-search {
+            background: var(--primary);
+            color: white;
+            padding: 12px 20px;
+            border-radius: var(--radius-sm);
+            border: none;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .blog-search .btn-search:hover {
+            background: var(--primary-light);
+        }
+
+        .blog-categories {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .blog-categories .cat {
+            padding: 6px 16px;
+            border-radius: 40px;
+            background: white;
+            border: 1px solid var(--border-color);
+            font-weight: 500;
+            font-size: 0.8rem;
+            transition: var(--transition);
+            cursor: pointer;
+        }
+
+        .blog-categories .cat:hover,
+        .blog-categories .cat.active {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+
+        /* ========== FEATURED ARTICLE ========== */
+        .featured-article {
+            background: white;
+            border-radius: var(--radius);
+            overflow: hidden;
+            border: 1px solid var(--border-color);
+            margin: 20px 0 40px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            transition: var(--transition);
+        }
+
+        .featured-article:hover {
+            box-shadow: var(--shadow-hover);
+        }
+
+        .featured-article .featured-image {
+            min-height: 300px;
+            background: linear-gradient(145deg, #f3ede8, #ddd0c4);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 5rem;
+            color: var(--secondary);
+        }
+
+        .featured-article .featured-content {
+            padding: 32px 36px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .featured-article .featured-content .badge {
+            display: inline-block;
+            background: var(--secondary);
+            color: white;
+            padding: 2px 14px;
+            border-radius: 40px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            width: fit-content;
+            margin-bottom: 12px;
+        }
+
+        .featured-article .featured-content h2 {
+            font-size: 1.6rem;
+            font-weight: 800;
+            margin-bottom: 8px;
+        }
+
+        .featured-article .featured-content .meta {
+            color: var(--text-medium);
+            font-size: 0.85rem;
+            margin-bottom: 12px;
+        }
+
+        .featured-article .featured-content .meta i {
+            color: var(--secondary);
+            margin-right: 4px;
+        }
+
+        .featured-article .featured-content p {
+            color: var(--text-medium);
+            margin-bottom: 16px;
+        }
+
+        .featured-article .featured-content .btn-read {
+            background: var(--primary);
+            color: white;
+            padding: 10px 28px;
+            border-radius: 40px;
+            font-weight: 600;
+            border: none;
+            cursor: pointer;
+            transition: var(--transition);
+            width: fit-content;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .featured-article .featured-content .btn-read:hover {
+            background: var(--primary-light);
+            transform: scale(1.02);
+        }
+
+        /* ========== BLOG GRID ========== */
+        .blog-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 30px;
+            margin: 30px 0 40px;
+        }
+
+        .blog-card {
+            background: var(--bg-card);
+            border-radius: var(--radius);
+            overflow: hidden;
+            border: 1px solid var(--border-color);
+            transition: var(--transition);
+        }
+
+        .blog-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-hover);
+            border-color: var(--secondary);
+        }
+
+        .blog-card .thumb {
+            height: 200px;
+            background: linear-gradient(145deg, #f3ede8, #ddd0c4);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3.5rem;
+            color: var(--secondary);
+            position: relative;
+        }
+
+        .blog-card .thumb .category-badge {
+            position: absolute;
+            top: 16px;
+            left: 16px;
+            background: var(--primary);
+            color: white;
+            padding: 4px 14px;
+            border-radius: 40px;
+            font-size: 0.7rem;
+            font-weight: 600;
+        }
+
+        .blog-card .info {
+            padding: 20px 24px 24px;
+        }
+
+        .blog-card .info .meta {
+            color: var(--text-medium);
+            font-size: 0.8rem;
+            margin-bottom: 8px;
+        }
+
+        .blog-card .info .meta i {
+            color: var(--secondary);
+            margin-right: 4px;
+        }
+
+        .blog-card .info h3 {
+            font-weight: 700;
+            font-size: 1.15rem;
+            margin-bottom: 8px;
+            line-height: 1.4;
+        }
+
+        .blog-card .info p {
+            color: var(--text-medium);
+            font-size: 0.9rem;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            margin-bottom: 14px;
+        }
+
+        .blog-card .info .tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            margin-bottom: 14px;
+        }
+
+        .blog-card .info .tags span {
+            background: rgba(180, 124, 94, 0.08);
+            color: var(--secondary);
+            padding: 2px 14px;
+            border-radius: 40px;
+            font-size: 0.7rem;
+            font-weight: 600;
+        }
+
+        .blog-card .info .btn-read {
+            background: transparent;
+            border: 1px solid var(--border-color);
+            padding: 8px 24px;
+            border-radius: 40px;
+            font-weight: 600;
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .blog-card .info .btn-read:hover {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+
+        /* ========== PAGINATION ========== */
+        .pagination {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            margin: 20px 0 40px;
+        }
+
+        .pagination button {
+            padding: 10px 18px;
+            border-radius: var(--radius-sm);
+            border: 1px solid var(--border-color);
+            background: white;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .pagination button:hover,
+        .pagination button.active {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+
+        .pagination button:disabled {
+            opacity: 0.4;
+            cursor: not-allowed;
+        }
+
+        /* ========== MODAL ARTIKEL ========== */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.7);
+            z-index: 9999;
+            padding: 20px;
+            justify-content: center;
+            align-items: center;
+            backdrop-filter: blur(8px);
+        }
+
+        .modal-overlay.active {
+            display: flex;
+        }
+
+        .modal-container {
+            background: white;
+            border-radius: var(--radius);
+            max-width: 800px;
+            width: 100%;
+            max-height: 90vh;
+            overflow: hidden;
+            position: relative;
+            animation: modalIn 0.3s ease;
+        }
+
+        @keyframes modalIn {
+            from { transform: scale(0.9) translateY(20px); opacity: 0; }
+            to { transform: scale(1) translateY(0); opacity: 1; }
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 24px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .modal-header h3 {
+            font-weight: 700;
+            font-size: 1.2rem;
+        }
+
+        .modal-header .close-modal {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--text-medium);
+            transition: var(--transition);
+            padding: 4px 8px;
+            border-radius: 8px;
+        }
+
+        .modal-header .close-modal:hover {
+            color: #c62828;
+            background: #fee;
+        }
+
+        .modal-body {
+            padding: 24px;
+            overflow-y: auto;
+            max-height: calc(90vh - 80px);
+        }
+
+        .modal-body .article-thumb {
+            height: 200px;
+            background: linear-gradient(145deg, #f3ede8, #ddd0c4);
+            border-radius: var(--radius-sm);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+            color: var(--secondary);
+            margin-bottom: 20px;
+        }
+
+        .modal-body .article-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 16px;
+            color: var(--text-medium);
+            font-size: 0.85rem;
+            margin-bottom: 16px;
+        }
+
+        .modal-body .article-meta i {
+            color: var(--secondary);
+            margin-right: 4px;
+        }
+
+        .modal-body .article-content {
+            color: var(--text-medium);
+            line-height: 1.8;
+        }
+
+        .modal-body .article-content h4 {
+            color: var(--text-dark);
+            margin: 16px 0 8px;
+        }
+
+        .modal-body .article-content ul {
+            padding-left: 20px;
+            margin: 8px 0 16px;
+        }
+
+        .modal-body .article-content ul li {
+            margin-bottom: 4px;
+        }
+
+        /* ========== NEWSLETTER ========== */
+        .newsletter-section {
+            background: linear-gradient(135deg, var(--primary), var(--primary-light));
+            border-radius: var(--radius);
+            padding: 40px 36px;
+            margin: 30px 0;
+            text-align: center;
+            color: white;
+        }
+
+        .newsletter-section h2 {
+            font-size: 1.6rem;
+            font-weight: 800;
+        }
+
+        .newsletter-section p {
+            opacity: 0.8;
+            max-width: 500px;
+            margin: 8px auto 20px;
+        }
+
+        .newsletter-form {
+            display: flex;
+            gap: 12px;
+            max-width: 480px;
+            margin: 0 auto;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .newsletter-form input {
+            flex: 1;
+            padding: 14px 20px;
+            border-radius: 40px;
+            border: none;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.95rem;
+            min-width: 200px;
+        }
+
+        .newsletter-form input:focus {
+            outline: 2px solid var(--secondary);
+        }
+
+        .newsletter-form .btn-subscribe {
+            background: var(--secondary);
+            color: white;
+            padding: 14px 32px;
+            border-radius: 40px;
+            font-weight: 700;
+            border: none;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .newsletter-form .btn-subscribe:hover {
+            background: var(--secondary-light);
+            transform: scale(1.02);
+        }
+
+        /* ========== FOOTER ========== */
+        footer {
+            background: var(--primary);
+            color: rgba(255,255,255,0.8);
+            padding: 40px 0 24px;
+            margin-top: 40px;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 40px;
+            padding-bottom: 30px;
+            border-bottom: 1px solid rgba(255,255,255,0.08);
+        }
+
+        .footer-brand .logo-footer {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-weight: 800;
+            font-size: 1.3rem;
+            color: white;
+        }
+
+        .footer-brand .logo-footer img {
+            height: 44px;
+            border-radius: 12px;
+        }
+
+        .footer-brand p {
+            margin: 16px 0 20px;
+            max-width: 300px;
+            font-size: 0.95rem;
+            opacity: 0.7;
+        }
+
+        .footer-social {
+            display: flex;
+            gap: 14px;
+        }
+
+        .footer-social a {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.06);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition);
+            color: white;
+        }
+
+        .footer-social a:hover {
+            background: var(--secondary);
+            transform: translateY(-3px);
+        }
+
+        .footer-col h4 {
+            color: white;
+            font-weight: 700;
+            margin-bottom: 16px;
+        }
+
+        .footer-col ul {
+            list-style: none;
+        }
+
+        .footer-col ul li {
+            margin-bottom: 10px;
+        }
+
+        .footer-col ul a {
+            opacity: 0.7;
+            transition: var(--transition);
+            font-size: 0.9rem;
+        }
+
+        .footer-col ul a:hover {
+            opacity: 1;
+            color: var(--secondary-light);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 24px;
+            font-size: 0.85rem;
+            opacity: 0.5;
+        }
+
+        /* ========== RESPONSIVE ========== */
+        @media (max-width: 768px) {
+            .menu-toggle {
+                display: flex;
+            }
+
+            .nav-links {
+                display: none;
+                flex-direction: column;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: white;
+                padding: 20px 24px;
+                border-bottom: 1px solid var(--border-color);
+                width: 100%;
+            }
+
+            .nav-links.open {
+                display: flex;
+            }
+
+            .nav-links a {
+                width: 100%;
+                padding: 12px 16px;
+            }
+
+            .page-hero h1 {
+                font-size: 2rem;
+            }
+
+            .footer-grid {
+                grid-template-columns: 1fr;
+                gap: 28px;
+            }
+
+            .blog-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .featured-article {
+                grid-template-columns: 1fr;
+            }
+
+            .featured-article .featured-image {
+                min-height: 200px;
+            }
+
+            .featured-article .featured-content {
+                padding: 24px;
+            }
+
+            .blog-toolbar {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .blog-search {
+                max-width: 100%;
+            }
+
+            .modal-container {
+                max-width: 100%;
+                max-height: 100vh;
+                border-radius: 0;
+            }
+
+            .modal-body {
+                max-height: calc(100vh - 80px);
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ========== HEADER ========== -->
+    <header>
+        <div class="container nav-wrap">
+            <a href="index.html" class="logo">
+                <img src="https://raw.githubusercontent.com/shasanudin/IMBKreasiDigital/main/e2b6c152d8c04e91bb6da5dcd7de9cac~.image.jpg" alt="Logo">
+                <span class="brand">Intan Mulya</span>
+            </a>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="index.html">🏠 Beranda</a></li>
+                <li><a href="undangan.html">💌 Undangan</a></li>
+                <li><a href="majalah.html">📰 Majalah</a></li>
+                <li><a href="musik.html">🎵 Album</a></li>
+                <li><a href="kreasi.html">🎨 Kreasi</a></li>
+                <li><a href="portofolio.html">📁 Portofolio</a></li>
+                <li><a href="blog.html" class="active">✍️ Blog</a></li>
+                <li><a href="kontak.html" class="btn-primary-nav">📞 Kontak</a></li>
+            </ul>
+            <button class="menu-toggle" id="menuToggle">
+                <span></span><span></span><span></span>
+            </button>
+        </div>
+    </header>
+
+    <!-- ========== PAGE HERO ========== -->
+    <section class="page-hero container" data-aos="fade-up">
+        <h1><i class="fas fa-pen-nib"></i> Blog</h1>
+        <p>Artikel inspiratif tentang desain, branding, undangan digital, tutorial, dan tips kreatif untuk Anda.</p>
+    </section>
+
+    <!-- ========== SEARCH & CATEGORIES ========== -->
+    <div class="container">
+        <div class="blog-toolbar" data-aos="fade-up">
+            <div class="blog-search">
+                <input type="text" id="searchInput" placeholder="Cari artikel..." onkeyup="searchArticles()">
+                <button class="btn-search" onclick="searchArticles()"><i class="fas fa-search"></i></button>
+            </div>
+            <div class="blog-categories" id="categoryContainer">
+                <!-- Data akan di-load via JavaScript -->
+            </div>
+        </div>
+    </div>
+
+    <!-- ========== FEATURED ARTICLE ========== -->
+    <section class="container">
+        <div id="featuredContainer" data-aos="fade-up">
+            <!-- Data akan di-load via JavaScript -->
+        </div>
+    </section>
+
+    <!-- ========== BLOG GRID ========== -->
+    <section class="container">
+        <div class="blog-grid" id="blogGrid" data-aos="fade-up">
+            <!-- Data akan di-load via JavaScript -->
+        </div>
+
+        <!-- ========== PAGINATION ========== -->
+        <div class="pagination" id="pagination">
+            <button id="prevPage" onclick="changePage(-1)"><i class="fas fa-chevron-left"></i></button>
+            <button id="page1" class="active" onclick="goToPage(1)">1</button>
+            <button id="page2" onclick="goToPage(2)">2</button>
+            <button id="page3" onclick="goToPage(3)">3</button>
+            <button id="nextPage" onclick="changePage(1)"><i class="fas fa-chevron-right"></i></button>
+        </div>
+    </section>
+
+    <!-- ========== NEWSLETTER ========== -->
+    <section class="container">
+        <div class="newsletter-section" data-aos="fade-up">
+            <h2>📬 Dapatkan Artikel Terbaru</h2>
+            <p>Berlangganan newsletter kami untuk mendapatkan tips dan inspirasi kreatif setiap minggu.</p>
+            <form class="newsletter-form" onsubmit="subscribeNewsletter(event)">
+                <input type="email" placeholder="Email Anda" required>
+                <button type="submit" class="btn-subscribe">Berlangganan</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- ========== MODAL ARTIKEL ========== -->
+    <div class="modal-overlay" id="modalOverlay">
+        <div class="modal-container">
+            <div class="modal-header">
+                <h3 id="modalTitle">📖 Artikel</h3>
+                <button class="close-modal" id="closeModal">
+                    <i class="fas fa-xmark"></i>
+                </button>
+            </div>
+            <div class="modal-body" id="modalBody">
+                <!-- Data akan di-load via JavaScript -->
+            </div>
+        </div>
+    </div>
+
+    <!-- ========== FOOTER ========== -->
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <div class="logo-footer">
+                        <img src="https://raw.githubusercontent.com/shasanudin/IMBKreasiDigital/main/e2b6c152d8c04e91bb6da5dcd7de9cac~.image.jpg" alt="Logo">
+                        <span>Intan Mulya Berkah</span>
+                    </div>
+                    <p>Solusi Kreatif Digital untuk Undangan, Media, Musik, dan Konten Digital.</p>
+                    <div class="footer-social">
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                        <a href="#"><i class="fab fa-tiktok"></i></a>
+                        <a href="#"><i class="fab fa-whatsapp"></i></a>
+                    </div>
+                </div>
+                <div class="footer-col">
+                    <h4>Layanan</h4>
+                    <ul>
+                        <li><a href="undangan.html">Undangan Digital</a></li>
+                        <li><a href="majalah.html">Majalah Digital</a></li>
+                        <li><a href="musik.html">Album Lagu</a></li>
+                        <li><a href="kreasi.html">Kreasi Digital</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Tentang</h4>
+                    <ul>
+                        <li><a href="index.html">Tentang Kami</a></li>
+                        <li><a href="portofolio.html">Portofolio</a></li>
+                        <li><a href="blog.html">Blog</a></li>
+                        <li><a href="kontak.html">Kontak</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Kontak</h4>
+                    <ul>
+                        <li><a href="https://wa.me/6281234567890"><i class="fab fa-whatsapp"></i> WhatsApp</a></li>
+                        <li><a href="mailto:info@intanmulyaberkah.com"><i class="fas fa-envelope"></i> Email</a></li>
+                        <li><a href="#"><i class="fas fa-map-marker-alt"></i> Lokasi</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                &copy; 2026 Intan Mulya Berkah Digital Kreasi. All Rights Reserved.
+            </div>
+        </div>
+    </footer>
+
+    <!-- ========== SCRIPTS ========== -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        // ========== AOS INIT ==========
+        AOS.init({ duration: 800, once: true, offset: 50 });
+
+        // ========== MOBILE MENU ==========
+        const menuToggle = document.getElementById('menuToggle');
+        const navLinks = document.getElementById('navLinks');
+
+        menuToggle.addEventListener('click', () => {
+            menuToggle.classList.toggle('active');
+            navLinks.classList.toggle('open');
+        });
+
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                menuToggle.classList.remove('active');
+                navLinks.classList.remove('open');
+            });
+        });
+
+        // ========== DATA ARTIKEL ==========
+        const blogData = [
+            {
+                id: 1,
+                title: 'Cara Membuat Undangan Digital yang Menarik',
+                category: 'Tutorial',
+                icon: 'fa-envelope-open-text',
+                date: '10 Januari 2026',
+                readTime: '5 menit',
+                excerpt: 'Pelajari langkah-langkah membuat undangan digital yang elegan dan interaktif untuk berbagai acara.',
+                tags: ['Undangan Digital', 'Tutorial', 'Desain'],
+                content: `
+                    <h4>Pendahuluan</h4>
+                    <p>Undangan digital kini menjadi pilihan utama untuk berbagai acara. Selain praktis, undangan digital juga lebih ramah lingkungan dan bisa dibagikan dengan mudah.</p>
+                    
+                    <h4>Langkah 1: Tentukan Tema</h4>
+                    <p>Pilih tema yang sesuai dengan acara Anda. Untuk pernikahan, pilih tema romantis. Untuk ulang tahun, pilih tema yang ceria.</p>
+                    
+                    <h4>Langkah 2: Pilih Platform</h4>
+                    <p>Gunakan platform seperti Intan Mulya Berkah yang menyediakan berbagai template siap pakai.</p>
+                    
+                    <h4>Langkah 3: Kustomisasi</h4>
+                    <p>Sesuaikan warna, font, dan elemen visual. Tambahkan foto dan musik latar untuk kesan yang lebih personal.</p>
+                    
+                    <h4>Langkah 4: Bagikan</h4>
+                    <p>Setelah selesai, bagikan link undangan melalui WhatsApp, email, atau media sosial.</p>
+                `
+            },
+            {
+                id: 2,
+                title: 'Inspirasi Logo untuk Brand Anda',
+                category: 'Inspirasi',
+                icon: 'fa-pen-fancy',
+                date: '15 Januari 2026',
+                readTime: '4 menit',
+                excerpt: 'Temukan inspirasi desain logo yang tepat untuk brand Anda. Dari minimalis hingga mewah.',
+                tags: ['Logo', 'Branding', 'Inspirasi'],
+                content: `
+                    <h4>Mengapa Logo Penting?</h4>
+                    <p>Logo adalah identitas visual pertama brand Anda. Logo yang baik akan mudah dikenali dan diingat oleh pelanggan.</p>
+                    
+                    <h4>Gaya Logo yang Populer</h4>
+                    <ul>
+                        <li><strong>Minimalis</strong> - Simpel, bersih, dan modern</li>
+                        <li><strong>Vintage</strong> - Memberikan kesan klasik dan autentik</li>
+                        <li><strong>Geometris</strong> - Menggunakan bentuk-bentuk dasar</li>
+                        <li><strong>Hand-drawn</strong> - Memberikan sentuhan personal dan artistik</li>
+                    </ul>
+                    
+                    <h4>Tips Memilih Warna</h4>
+                    <p>Pilih warna yang mencerminkan kepribadian brand. Biru untuk kepercayaan, merah untuk energi, hijau untuk alam.</p>
+                `
+            },
+            {
+                id: 3,
+                title: 'Tutorial Canva untuk Pemula',
+                category: 'Tutorial',
+                icon: 'fa-paintbrush',
+                date: '20 Januari 2026',
+                readTime: '6 menit',
+                excerpt: 'Panduan lengkap menggunakan Canva untuk membuat desain grafis yang profesional tanpa ribet.',
+                tags: ['Canva', 'Desain Grafis', 'Tutorial'],
+                content: `
+                    <h4>Apa itu Canva?</h4>
+                    <p>Canva adalah platform desain grafis online yang mudah digunakan. Cocok untuk pemula hingga profesional.</p>
+                    
+                    <h4>Memulai dengan Canva</h4>
+                    <p>Buat akun gratis di canva.com. Pilih template atau mulai dari kanvas kosong.</p>
+                    
+                    <h4>Fitur Utama Canva</h4>
+                    <ul>
+                        <li><strong>Template</strong> - Ribuan template siap pakai</li>
+                        <li><strong>Elemen</strong> - Ikon, ilustrasi, dan foto</li>
+                        <li><strong>Font</strong> - Berbagai pilihan font menarik</li>
+                        <li><strong>Collaboration</strong> - Bisa dikerjakan bersama tim</li>
+                    </ul>
+                    
+                    <h4>Tips Desain dengan Canva</h4>
+                    <p>Gunakan warna yang konsisten, pilih font yang mudah dibaca, dan jangan terlalu banyak elemen.</p>
+                `
+            },
+            {
+                id: 4,
+                title: 'Tips Branding untuk UMKM',
+                category: 'Tips',
+                icon: 'fa-bullhorn',
+                date: '25 Januari 2026',
+                readTime: '5 menit',
+                excerpt: 'Strategi branding yang efektif untuk UMKM agar lebih dikenal dan dipercaya oleh pelanggan.',
+                tags: ['Branding', 'UMKM', 'Tips'],
+                content: `
+                    <h4>Branding untuk UMKM</h4>
+                    <p>Branding bukan hanya untuk perusahaan besar. UMKM juga perlu membangun identitas yang kuat.</p>
+                    
+                    <h4>Langkah Awal Branding</h4>
+                    <ul>
+                        <li><strong>Kenali Target Audiens</strong> - Siapa pelanggan Anda?</li>
+                        <li><strong>Buat Nama yang Mudah Diingat</strong> - Nama yang unik dan relevan</li>
+                        <li><strong>Desain Logo</strong> - Investasi pada logo profesional</li>
+                        <li><strong>Konsistensi Visual</strong> - Gunakan warna dan font yang sama</li>
+                    </ul>
+                    
+                    <h4>Manfaat Branding</h4>
+                    <p>Branding yang baik akan meningkatkan kepercayaan, loyalitas, dan nilai jual produk Anda.</p>
+                `
+            },
+            {
+                id: 5,
+                title: 'Cara Membuat Website dengan HTML CSS',
+                category: 'Tutorial',
+                icon: 'fa-code',
+                date: '1 Februari 2026',
+                readTime: '7 menit',
+                excerpt: 'Panduan langkah demi langkah membuat website sederhana dengan HTML dan CSS untuk pemula.',
+                tags: ['HTML', 'CSS', 'Website'],
+                content: `
+                    <h4>Mengenal HTML</h4>
+                    <p>HTML adalah bahasa markup untuk membuat struktur halaman web. CSS digunakan untuk styling.</p>
+                    
+                    <h4>Struktur Dasar HTML</h4>
+                    <pre style="background: #f5f5f5; padding: 12px; border-radius: 8px; overflow-x: auto;">
+                    &lt;!DOCTYPE html&gt;
+                    &lt;html&gt;
+                    &lt;head&gt;
+                        &lt;title&gt;Website Saya&lt;/title&gt;
+                    &lt;/head&gt;
+                    &lt;body&gt;
+                        &lt;h1&gt;Halo Dunia!&lt;/h1&gt;
+                        &lt;p&gt;Ini website pertama saya.&lt;/p&gt;
+                    &lt;/body&gt;
+                    &lt;/html&gt;
+                    </pre>
+                    
+                    <h4>Menambahkan CSS</h4>
+                    <p>Tambahkan CSS untuk mempercantik tampilan website Anda.</p>
+                `
+            },
+            {
+                id: 6,
+                title: 'Ide Konten Instagram untuk Bisnis',
+                category: 'Tips',
+                icon: 'fa-instagram',
+                date: '5 Februari 2026',
+                readTime: '4 menit',
+                excerpt: 'Kumpulan ide konten Instagram yang menarik untuk meningkatkan engagement bisnis Anda.',
+                tags: ['Instagram', 'Konten', 'Bisnis'],
+                content: `
+                    <h4>Konten Instagram yang Efektif</h4>
+                    <p>Instagram adalah platform visual. Konten yang menarik akan meningkatkan engagement.</p>
+                    
+                    <h4>Ide Konten</h4>
+                    <ul>
+                        <li><strong>Behind the Scenes</strong> - Proses pembuatan produk</li>
+                        <li><strong>Testimonial</strong> - Review dari pelanggan</li>
+                        <li><strong>Tips & Trik</strong> - Berbagi pengetahuan</li>
+                        <li><strong>Giveaway</strong> - Meningkatkan interaksi</li>
+                    </ul>
+                    
+                    <h4>Tips Optimalisasi</h4>
+                    <p>Gunakan hashtag yang relevan, posting pada jam terbaik, dan interaksi dengan followers.</p>
+                `
+            },
+            {
+                id: 7,
+                title: 'Panduan Memilih Font untuk Brand',
+                category: 'Inspirasi',
+                icon: 'fa-font',
+                date: '10 Februari 2026',
+                readTime: '5 menit',
+                excerpt: 'Tips memilih font yang tepat untuk brand Anda agar terlihat profesional dan konsisten.',
+                tags: ['Font', 'Branding', 'Desain'],
+                content: `
+                    <h4>Pentingnya Font dalam Branding</h4>
+                    <p>Font adalah elemen penting dalam branding. Font yang tepat akan memperkuat identitas brand.</p>
+                    
+                    <h4>Jenis Font</h4>
+                    <ul>
+                        <li><strong>Serif</strong> - Klasik, elegan, terpercaya</li>
+                        <li><strong>Sans-serif</strong> - Modern, bersih, minimalis</li>
+                        <li><strong>Script</strong> - Elegan, personal, artistik</li>
+                        <li><strong>Display</strong> - Unik, menarik perhatian</li>
+                    </ul>
+                    
+                    <h4>Tips Memilih Font</h4>
+                    <p>Pilih maksimal 2-3 font, pastikan mudah dibaca, dan konsisten di semua platform.</p>
+                `
+            },
+            {
+                id: 8,
+                title: 'Cara Meningkatkan SEO Website',
+                category: 'Tips',
+                icon: 'fa-search',
+                date: '15 Februari 2026',
+                readTime: '6 menit',
+                excerpt: 'Strategi SEO yang efektif untuk meningkatkan peringkat website Anda di Google.',
+                tags: ['SEO', 'Website', 'Digital Marketing'],
+                content: `
+                    <h4>Apa itu SEO?</h4>
+                    <p>SEO adalah optimasi untuk meningkatkan peringkat website di mesin pencari Google.</p>
+                    
+                    <h4>Tips SEO</h4>
+                    <ul>
+                        <li><strong>Riset Keyword</strong> - Cari kata kunci yang relevan</li>
+                        <li><strong>Konten Berkualitas</strong> - Konten yang bermanfaat</li>
+                        <li><strong>Optimasi On-page</strong> - Judul, meta deskripsi, URL</li>
+                        <li><strong>Backlink</strong> - Dapatkan link dari website lain</li>
+                    </ul>
+                    
+                    <h4>Tools SEO</h4>
+                    <p>Gunakan tools seperti Google Analytics dan Google Search Console untuk monitoring.</p>
+                `
+            },
+            {
+                id: 9,
+                title: 'Mengenal Motion Graphic untuk Promosi',
+                category: 'Inspirasi',
+                icon: 'fa-film',
+                date: '20 Februari 2026',
+                readTime: '5 menit',
+                excerpt: 'Pengenalan motion graphic dan bagaimana menggunakannya untuk promosi bisnis yang lebih menarik.',
+                tags: ['Motion Graphic', 'Video', 'Promosi'],
+                content: `
+                    <h4>Apa itu Motion Graphic?</h4>
+                    <p>Motion graphic adalah animasi visual yang menggabungkan elemen desain dan gerakan untuk menyampaikan pesan.</p>
+                    
+                    <h4>Manfaat Motion Graphic</h4>
+                    <ul>
+                        <li><strong>Menarik Perhatian</strong> - Visual yang dinamis</li>
+                        <li><strong>Menjelaskan Konsep</strong> - Mudah dipahami</li>
+                        <li><strong>Meningkatkan Engagement</strong> - Konten yang menghibur</li>
+                    </ul>
+                    
+                    <h4>Tools Motion Graphic</h4>
+                    <p>Adobe After Effects, Blender, Canva (fitur animasi), dan lainnya.</p>
+                `
+            }
+        ];
+
+        // ========== KATEGORI UNIK ==========
+        const categories = ['Semua', ...new Set(blogData.map(a => a.category))];
+
+        // ========== VARIABLES ==========
+        let currentCategory = 'Semua';
+        let currentPage = 1;
+        const postsPerPage = 6;
+
+        // ========== RENDER KATEGORI ==========
+        function renderCategories() {
+            const container = document.getElementById('categoryContainer');
+            container.innerHTML = categories.map(cat => `
+                <span class="cat ${cat === 'Semua' ? 'active' : ''}" onclick="filterCategory('${cat}')">${cat}</span>
+            `).join('');
+        }
+
+        // ========== FILTER BY CATEGORY ==========
+        function filterCategory(category) {
+            currentCategory = category;
+            currentPage = 1;
+            
+            document.querySelectorAll('.blog-categories .cat').forEach(c => {
+                c.classList.toggle('active', c.textContent === category);
+            });
+            
+            renderBlog();
+        }
+
+        // ========== SEARCH ==========
+        function searchArticles() {
+            currentPage = 1;
+            renderBlog();
+        }
+
+        // ========== RENDER FEATURED ==========
+        function renderFeatured() {
+            const container = document.getElementById('featuredContainer');
+            const featured = blogData[0];
+            
+            container.innerHTML = `
+                <div class="featured-article" data-aos="fade-up">
+                    <div class="featured-image">
+                        <i class="fas ${featured.icon}"></i>
+                    </div>
+                    <div class="featured-content">
+                        <span class="badge">⭐ Featured</span>
+                        <h2>${featured.title}</h2>
+                        <div class="meta">
+                            <span><i class="far fa-calendar"></i> ${featured.date}</span>
+                            <span><i class="far fa-clock"></i> ${featured.readTime}</span>
+                            <span><i class="fas fa-tag"></i> ${featured.category}</span>
+                        </div>
+                        <p>${featured.excerpt}</p>
+                        <button class="btn-read" onclick="openArticle('${featured.id}')">
+                            <i class="fas fa-book-open"></i> Baca Artikel
+                        </button>
+                    </div>
+                </div>
+            `;
+        }
+
+        // ========== RENDER BLOG ==========
+        function renderBlog() {
+            const grid = document.getElementById('blogGrid');
+            const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+            
+            let filtered = blogData.filter(a => {
+                const matchCategory = currentCategory === 'Semua' || a.category === currentCategory;
+                const matchSearch = a.title.toLowerCase().includes(searchTerm) || 
+                                   a.excerpt.toLowerCase().includes(searchTerm) ||
+                                   a.tags.some(t => t.toLowerCase().includes(searchTerm));
+                return matchCategory && matchSearch;
+            });
+
+            // Skip first item for featured
+            const startIndex = (currentPage - 1) * postsPerPage;
+            const paginated = filtered.slice(startIndex, startIndex + postsPerPage);
+
+            if (paginated.length === 0) {
+                grid.innerHTML = `
+                    <div style="grid-column: 1 / -1; text-align: center; padding: 60px 20px; background: white; border-radius: var(--radius); border: 1px solid var(--border-color);">
+                        <i class="fas fa-search" style="font-size: 3rem; color: var(--secondary); opacity: 0.5;"></i>
+                        <h3 style="margin-top: 12px;">Tidak ada artikel ditemukan</h3>
+                        <p style="color: var(--text-medium);">Coba dengan kata kunci lain atau pilih kategori yang berbeda.</p>
+                    </div>
+                `;
+                updatePagination(filtered.length);
+                return;
+            }
+
+            grid.innerHTML = paginated.map(article => `
+                <div class="blog-card" data-aos="fade-up">
+                    <div class="thumb">
+                        <i class="fas ${article.icon}"></i>
+                        <span class="category-badge">${article.category}</span>
+                    </div>
+                    <div class="info">
+                        <div class="meta">
+                            <span><i class="far fa-calendar"></i> ${article.date}</span>
+                            <span><i class="far fa-clock"></i> ${article.readTime}</span>
+                        </div>
+                        <h3>${article.title}</h3>
+                        <p>${article.excerpt}</p>
+                        <div class="tags">
+                            ${article.tags.map(tag => `<span>#${tag}</span>`).join('')}
+                        </div>
+                        <button class="btn-read" onclick="openArticle('${article.id}')">
+                            <i class="fas fa-book-open"></i> Baca Selengkapnya
+                        </button>
+                    </div>
+                </div>
+            `).join('');
+
+            updatePagination(filtered.length);
+            AOS.refresh();
+        }
+
+        // ========== PAGINATION ==========
+        function updatePagination(total) {
+            const totalPages = Math.ceil(total / postsPerPage);
+            
+            document.getElementById('prevPage').disabled = currentPage <= 1;
+            document.getElementById('nextPage').disabled = currentPage >= totalPages;
+
+            // Update page buttons
+            for (let i = 1; i <= 3; i++) {
+                const btn = document.getElementById(`page${i}`);
+                if (btn) {
+                    btn.style.display = i <= totalPages ? 'inline-block' : 'none';
+                    btn.classList.toggle('active', i === currentPage);
+                    btn.textContent = i;
+                }
+            }
+        }
+
+        function changePage(delta) {
+            const total = blogData.filter(a => {
+                const matchCategory = currentCategory === 'Semua' || a.category === currentCategory;
+                const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+                const matchSearch = a.title.toLowerCase().includes(searchTerm) || 
+                                   a.excerpt.toLowerCase().includes(searchTerm) ||
+                                   a.tags.some(t => t.toLowerCase().includes(searchTerm));
+                return matchCategory && matchSearch;
+            }).length;
+            
+            const totalPages = Math.ceil(total / postsPerPage);
+            const newPage = currentPage + delta;
+            if (newPage >= 1 && newPage <= totalPages) {
+                currentPage = newPage;
+                renderBlog();
+                window.scrollTo({ top: document.querySelector('.blog-grid').offsetTop - 120, behavior: 'smooth' });
+            }
+        }
+
+        function goToPage(page) {
+            const total = blogData.filter(a => {
+                const matchCategory = currentCategory === 'Semua' || a.category === currentCategory;
+                const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+                const matchSearch = a.title.toLowerCase().includes(searchTerm) || 
+                                   a.excerpt.toLowerCase().includes(searchTerm) ||
+                                   a.tags.some(t => t.toLowerCase().includes(searchTerm));
+                return matchCategory && matchSearch;
+            }).length;
+            
+            const totalPages = Math.ceil(total / postsPerPage);
+            if (page >= 1 && page <= totalPages) {
+                currentPage = page;
+                renderBlog();
+                window.scrollTo({ top: document.querySelector('.blog-grid').offsetTop - 120, behavior: 'smooth' });
+            }
+        }
+
+        // ========== OPEN ARTICLE ==========
+        function openArticle(id) {
+            const article = blogData.find(a => a.id == id);
+            if (!article) return;
+
+            const modal = document.getElementById('modalOverlay');
+            document.getElementById('modalTitle').textContent = `📖 ${article.title}`;
+
+            document.getElementById('modalBody').innerHTML = `
+                <div class="article-thumb">
+                    <i class="fas ${article.icon}"></i>
+                </div>
+                <div class="article-meta">
+                    <span><i class="far fa-calendar"></i> ${article.date}</span>
+                    <span><i class="far fa-clock"></i> ${article.readTime}</span>
+                    <span><i class="fas fa-tag"></i> ${article.category}</span>
+                </div>
+                <div class="article-content">
+                    ${article.content}
+                </div>
+                <div style="margin-top: 20px; display: flex; flex-wrap: wrap; gap: 8px;">
+                    ${article.tags.map(tag => `<span style="background: rgba(180,124,94,0.08); color: var(--secondary); padding: 4px 16px; border-radius: 40px; font-size: 0.8rem; font-weight: 600;">#${tag}</span>`).join('')}
+                </div>
+                <button style="margin-top: 20px; background: var(--primary); color: white; padding: 12px 32px; border-radius: 40px; font-weight: 700; border: none; cursor: pointer; transition: var(--transition); width: 100%;" onclick="closeModal()">
+                    <i class="fas fa-check"></i> Selesai Membaca
+                </button>
+            `;
+
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal() {
+            document.getElementById('modalOverlay').classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        document.getElementById('closeModal').addEventListener('click', closeModal);
+        document.getElementById('modalOverlay').addEventListener('click', function(e) {
+            if (e.target === this) closeModal();
+        });
+
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') closeModal();
+        });
+
+        // ========== NEWSLETTER ==========
+        function subscribeNewsletter(e) {
+            e.preventDefault();
+            const email = e.target.querySelector('input').value;
+            if (email) {
+                alert(`✅ Berhasil berlangganan! Email ${email} akan mendapatkan update artikel terbaru.`);
+                e.target.reset();
+            }
+        }
+
+        // ========== INIT ==========
+        renderCategories();
+        renderFeatured();
+        renderBlog();
+    </script>
+</body>
+</html>
