@@ -1,0 +1,1049 @@
+<!-- majalah.html - Halaman Majalah Digital -->
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Majalah Digital · Intan Mulya Berkah</title>
+    <meta name="description" content="Majalah digital interaktif dengan efek flip. Baca majalah online, download PDF, dan nikmati pengalaman membaca yang menyenangkan.">
+    
+    <!-- Fonts & Icons -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    
+    <style>
+        /* ========== RESET & VARIABLES ========== */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        :root {
+            --primary: #2b1e16;
+            --primary-light: #4d3426;
+            --secondary: #b47c5e;
+            --secondary-light: #d89b7a;
+            --bg-light: #fbf9f7;
+            --bg-card: #ffffff;
+            --text-dark: #1e130d;
+            --text-medium: #5f4d40;
+            --border-color: #f0e9e3;
+            --shadow: 0 8px 32px rgba(0,0,0,0.06);
+            --shadow-hover: 0 20px 48px -12px rgba(43,30,22,0.15);
+            --radius: 28px;
+            --radius-sm: 16px;
+            --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg-light);
+            color: var(--text-dark);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1240px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        a { text-decoration: none; color: inherit; }
+
+        /* ========== HEADER ========== */
+        header {
+            background: rgba(255,255,255,0.92);
+            backdrop-filter: blur(12px);
+            padding: 10px 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .nav-wrap {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-weight: 800;
+            font-size: 1.25rem;
+        }
+
+        .logo img {
+            height: 44px;
+            width: auto;
+            border-radius: 12px;
+        }
+
+        .logo .brand {
+            background: linear-gradient(135deg, var(--secondary), var(--secondary-light));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            padding: 8px 16px;
+            border-radius: 40px;
+            font-weight: 500;
+            font-size: 0.9rem;
+            color: var(--text-medium);
+            transition: var(--transition);
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            background: rgba(180, 124, 94, 0.08);
+            color: var(--primary);
+        }
+
+        .nav-links a.btn-primary-nav {
+            background: var(--primary);
+            color: white;
+            padding: 8px 24px;
+        }
+
+        .nav-links a.btn-primary-nav:hover {
+            background: var(--primary-light);
+            transform: translateY(-2px);
+        }
+
+        .menu-toggle {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+            padding: 8px;
+            background: none;
+            border: none;
+        }
+
+        .menu-toggle span {
+            display: block;
+            width: 28px;
+            height: 3px;
+            background: var(--primary);
+            border-radius: 4px;
+            transition: var(--transition);
+        }
+
+        .menu-toggle.active span:nth-child(1) {
+            transform: rotate(45deg) translate(5px, 6px);
+        }
+        .menu-toggle.active span:nth-child(2) { opacity: 0; }
+        .menu-toggle.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(5px, -6px);
+        }
+
+        /* ========== PAGE HERO ========== */
+        .page-hero {
+            padding: 40px 0 30px;
+            text-align: center;
+        }
+
+        .page-hero h1 {
+            font-size: 2.8rem;
+            font-weight: 800;
+            letter-spacing: -1px;
+        }
+
+        .page-hero h1 i {
+            color: var(--secondary);
+        }
+
+        .page-hero p {
+            color: var(--text-medium);
+            font-size: 1.1rem;
+            max-width: 600px;
+            margin: 8px auto 0;
+        }
+
+        /* ========== KATEGORI MAJALAH ========== */
+        .magazine-categories {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: center;
+            margin: 20px 0 30px;
+        }
+
+        .magazine-categories .cat {
+            padding: 8px 20px;
+            border-radius: 40px;
+            background: white;
+            border: 1px solid var(--border-color);
+            font-weight: 500;
+            font-size: 0.85rem;
+            transition: var(--transition);
+            cursor: pointer;
+        }
+
+        .magazine-categories .cat:hover,
+        .magazine-categories .cat.active {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+
+        /* ========== MAJALAH GRID ========== */
+        .magazine-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            margin: 30px 0 40px;
+        }
+
+        .magazine-card {
+            background: var(--bg-card);
+            border-radius: var(--radius);
+            overflow: hidden;
+            border: 1px solid var(--border-color);
+            transition: var(--transition);
+        }
+
+        .magazine-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-hover);
+            border-color: var(--secondary);
+        }
+
+        .magazine-card .cover {
+            height: 280px;
+            background: linear-gradient(145deg, #f3ede8, #ddd0c4);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+            color: var(--secondary);
+            position: relative;
+        }
+
+        .magazine-card .cover .issue-badge {
+            position: absolute;
+            top: 16px;
+            right: 16px;
+            background: var(--primary);
+            color: white;
+            padding: 4px 14px;
+            border-radius: 40px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+
+        .magazine-card .cover .overlay {
+            position: absolute;
+            inset: 0;
+            background: rgba(0,0,0,0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 16px;
+            opacity: 0;
+            transition: var(--transition);
+        }
+
+        .magazine-card:hover .cover .overlay {
+            opacity: 1;
+        }
+
+        .magazine-card .cover .overlay .btn-action {
+            background: white;
+            color: var(--primary);
+            padding: 10px 24px;
+            border-radius: 40px;
+            font-weight: 700;
+            font-size: 0.85rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+            transition: var(--transition);
+            border: none;
+        }
+
+        .magazine-card .cover .overlay .btn-action:hover {
+            transform: scale(1.05);
+            background: var(--secondary);
+            color: white;
+        }
+
+        .magazine-card .info {
+            padding: 20px 24px 24px;
+        }
+
+        .magazine-card .info h3 {
+            font-weight: 700;
+            font-size: 1.2rem;
+        }
+
+        .magazine-card .info .meta {
+            display: flex;
+            gap: 16px;
+            color: var(--text-medium);
+            font-size: 0.85rem;
+            margin: 4px 0 10px;
+        }
+
+        .magazine-card .info .meta i {
+            color: var(--secondary);
+            width: 18px;
+        }
+
+        .magazine-card .info p {
+            color: var(--text-medium);
+            font-size: 0.9rem;
+            margin-bottom: 14px;
+        }
+
+        .magazine-card .info .tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+        }
+
+        .magazine-card .info .tags span {
+            background: rgba(180, 124, 94, 0.08);
+            color: var(--secondary);
+            padding: 2px 14px;
+            border-radius: 40px;
+            font-size: 0.7rem;
+            font-weight: 600;
+        }
+
+        .magazine-card .info .actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 16px;
+            flex-wrap: wrap;
+        }
+
+        .magazine-card .info .actions .btn-sm {
+            padding: 8px 20px;
+            border-radius: 40px;
+            font-weight: 600;
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: var(--transition);
+            border: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .magazine-card .info .actions .btn-baca {
+            background: var(--primary);
+            color: white;
+        }
+
+        .magazine-card .info .actions .btn-baca:hover {
+            background: var(--primary-light);
+        }
+
+        .magazine-card .info .actions .btn-download {
+            background: transparent;
+            border: 1px solid var(--border-color);
+            color: var(--text-medium);
+        }
+
+        .magazine-card .info .actions .btn-download:hover {
+            border-color: var(--secondary);
+            color: var(--secondary);
+        }
+
+        /* ========== POPUP READER ========== */
+        .reader-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.85);
+            z-index: 9999;
+            padding: 20px;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .reader-overlay.active {
+            display: flex;
+        }
+
+        .reader-container {
+            background: white;
+            border-radius: var(--radius);
+            max-width: 900px;
+            width: 100%;
+            max-height: 90vh;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .reader-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px 24px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .reader-header h3 {
+            font-weight: 700;
+        }
+
+        .reader-header .close-reader {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--text-medium);
+            transition: var(--transition);
+        }
+
+        .reader-header .close-reader:hover {
+            color: var(--primary);
+            transform: rotate(90deg);
+        }
+
+        .reader-body {
+            padding: 24px;
+            overflow-y: auto;
+            max-height: calc(90vh - 80px);
+        }
+
+        .reader-body .pdf-placeholder {
+            background: var(--bg-light);
+            border-radius: var(--radius-sm);
+            padding: 60px 20px;
+            text-align: center;
+            border: 2px dashed var(--border-color);
+        }
+
+        .reader-body .pdf-placeholder i {
+            font-size: 4rem;
+            color: var(--secondary);
+            margin-bottom: 16px;
+        }
+
+        .reader-body .pdf-placeholder h4 {
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .reader-body .pdf-placeholder p {
+            color: var(--text-medium);
+            margin-bottom: 20px;
+        }
+
+        .reader-body .pdf-placeholder .btn-download-pdf {
+            background: var(--primary);
+            color: white;
+            padding: 12px 32px;
+            border-radius: 40px;
+            font-weight: 700;
+            border: none;
+            cursor: pointer;
+            transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .reader-body .pdf-placeholder .btn-download-pdf:hover {
+            background: var(--primary-light);
+            transform: scale(1.02);
+        }
+
+        /* ========== FITUR LAIN ========== */
+        .features-magazine {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 24px;
+            margin: 30px 0 40px;
+            padding: 32px 28px;
+            background: white;
+            border-radius: var(--radius);
+            border: 1px solid var(--border-color);
+        }
+
+        .features-magazine .feature {
+            text-align: center;
+        }
+
+        .features-magazine .feature i {
+            font-size: 2.4rem;
+            color: var(--secondary);
+            margin-bottom: 8px;
+        }
+
+        .features-magazine .feature h4 {
+            font-weight: 700;
+            font-size: 1rem;
+        }
+
+        .features-magazine .feature p {
+            font-size: 0.85rem;
+            color: var(--text-medium);
+        }
+
+        /* ========== FOOTER ========== */
+        footer {
+            background: var(--primary);
+            color: rgba(255,255,255,0.8);
+            padding: 40px 0 24px;
+            margin-top: 40px;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 40px;
+            padding-bottom: 30px;
+            border-bottom: 1px solid rgba(255,255,255,0.08);
+        }
+
+        .footer-brand .logo-footer {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-weight: 800;
+            font-size: 1.3rem;
+            color: white;
+        }
+
+        .footer-brand .logo-footer img {
+            height: 44px;
+            border-radius: 12px;
+        }
+
+        .footer-brand p {
+            margin: 16px 0 20px;
+            max-width: 300px;
+            font-size: 0.95rem;
+            opacity: 0.7;
+        }
+
+        .footer-social {
+            display: flex;
+            gap: 14px;
+        }
+
+        .footer-social a {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.06);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition);
+            color: white;
+        }
+
+        .footer-social a:hover {
+            background: var(--secondary);
+            transform: translateY(-3px);
+        }
+
+        .footer-col h4 {
+            color: white;
+            font-weight: 700;
+            margin-bottom: 16px;
+        }
+
+        .footer-col ul {
+            list-style: none;
+        }
+
+        .footer-col ul li {
+            margin-bottom: 10px;
+        }
+
+        .footer-col ul a {
+            opacity: 0.7;
+            transition: var(--transition);
+            font-size: 0.9rem;
+        }
+
+        .footer-col ul a:hover {
+            opacity: 1;
+            color: var(--secondary-light);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 24px;
+            font-size: 0.85rem;
+            opacity: 0.5;
+        }
+
+        /* ========== RESPONSIVE ========== */
+        @media (max-width: 768px) {
+            .menu-toggle {
+                display: flex;
+            }
+
+            .nav-links {
+                display: none;
+                flex-direction: column;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: white;
+                padding: 20px 24px;
+                border-bottom: 1px solid var(--border-color);
+                width: 100%;
+            }
+
+            .nav-links.open {
+                display: flex;
+            }
+
+            .nav-links a {
+                width: 100%;
+                padding: 12px 16px;
+            }
+
+            .page-hero h1 {
+                font-size: 2rem;
+            }
+
+            .footer-grid {
+                grid-template-columns: 1fr;
+                gap: 28px;
+            }
+
+            .magazine-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .reader-container {
+                max-width: 100%;
+                max-height: 100vh;
+                border-radius: 0;
+            }
+
+            .reader-body {
+                max-height: calc(100vh - 80px);
+            }
+
+            .features-magazine {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .features-magazine {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ========== HEADER ========== -->
+    <header>
+        <div class="container nav-wrap">
+            <a href="index.html" class="logo">
+                <img src="https://raw.githubusercontent.com/shasanudin/IMBKreasiDigital/main/e2b6c152d8c04e91bb6da5dcd7de9cac~.image.jpg" alt="Logo">
+                <span class="brand">Intan Mulya</span>
+            </a>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="index.html">🏠 Beranda</a></li>
+                <li><a href="undangan.html">💌 Undangan</a></li>
+                <li><a href="majalah.html" class="active">📰 Majalah</a></li>
+                <li><a href="musik.html">🎵 Album</a></li>
+                <li><a href="kreasi.html">🎨 Kreasi</a></li>
+                <li><a href="portofolio.html">📁 Portofolio</a></li>
+                <li><a href="blog.html">✍️ Blog</a></li>
+                <li><a href="kontak.html" class="btn-primary-nav">📞 Kontak</a></li>
+            </ul>
+            <button class="menu-toggle" id="menuToggle">
+                <span></span><span></span><span></span>
+            </button>
+        </div>
+    </header>
+
+    <!-- ========== PAGE HERO ========== -->
+    <section class="page-hero container" data-aos="fade-up">
+        <h1><i class="fas fa-book-open"></i> Majalah Digital</h1>
+        <p>Baca majalah online dengan efek flip. Nikmati pengalaman membaca digital yang interaktif dan menyenangkan.</p>
+    </section>
+
+    <!-- ========== KATEGORI ========== -->
+    <div class="container">
+        <div class="magazine-categories" data-aos="fade-up">
+            <span class="cat active">Semua</span>
+            <span class="cat">🎨 Lifestyle</span>
+            <span class="cat">💼 Bisnis</span>
+            <span class="cat">🎭 Budaya</span>
+            <span class="cat">🌿 Alam</span>
+            <span class="cat">📚 Pendidikan</span>
+            <span class="cat">🏠 Interior</span>
+            <span class="cat">🍳 Kuliner</span>
+        </div>
+    </div>
+
+    <!-- ========== FITUR MAJALAH ========== -->
+    <div class="container">
+        <div class="features-magazine" data-aos="fade-up">
+            <div class="feature">
+                <i class="fas fa-arrows-rotate"></i>
+                <h4>Efek Flip</h4>
+                <p>Pengalaman membaca seperti majalah sungguhan</p>
+            </div>
+            <div class="feature">
+                <i class="fas fa-download"></i>
+                <h4>Download PDF</h4>
+                <p>Simpan majalah untuk dibaca offline</p>
+            </div>
+            <div class="feature">
+                <i class="fas fa-mobile-screen-button"></i>
+                <h4>Responsif</h4>
+                <p>Baca di semua perangkat dengan nyaman</p>
+            </div>
+            <div class="feature">
+                <i class="fas fa-share-nodes"></i>
+                <h4>Bagikan</h4>
+                <p>Bagikan majalah ke teman & kolega</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- ========== MAJALAH GRID ========== -->
+    <section class="container">
+        <div class="magazine-grid" id="magazineGrid" data-aos="fade-up">
+            <!-- Data akan di-load via JavaScript -->
+        </div>
+    </section>
+
+    <!-- ========== CTA ========== -->
+    <section class="container">
+        <div style="background: linear-gradient(135deg, var(--primary), var(--primary-light)); border-radius: var(--radius); padding: 40px 36px; margin: 20px 0 40px; text-align: center; color: white;" data-aos="fade-up">
+            <h2 style="font-size: 1.8rem; font-weight: 800;">Ingin Membuat Majalah Digital?</h2>
+            <p style="opacity: 0.8; max-width: 500px; margin: 8px auto 20px;">Kami siap membantu Anda membuat majalah digital interaktif untuk brand atau event Anda.</p>
+            <a href="kontak.html" style="background: white; color: var(--primary); padding: 14px 36px; border-radius: 60px; font-weight: 700; display: inline-flex; align-items: center; gap: 10px; transition: var(--transition);">
+                <i class="fas fa-comment-dots"></i> Konsultasi Sekarang
+            </a>
+        </div>
+    </section>
+
+    <!-- ========== READER POPUP ========== -->
+    <div class="reader-overlay" id="readerOverlay">
+        <div class="reader-container">
+            <div class="reader-header">
+                <h3 id="readerTitle">📖 Membaca Majalah</h3>
+                <button class="close-reader" id="closeReader">
+                    <i class="fas fa-xmark"></i>
+                </button>
+            </div>
+            <div class="reader-body">
+                <div class="pdf-placeholder">
+                    <i class="fas fa-file-pdf"></i>
+                    <h4 id="readerName">Nama Majalah</h4>
+                    <p id="readerDesc">Deskripsi majalah akan muncul di sini.</p>
+                    <button class="btn-download-pdf" id="downloadPdfBtn">
+                        <i class="fas fa-download"></i> Download PDF
+                    </button>
+                    <p style="margin-top: 16px; font-size: 0.8rem; opacity: 0.6;">
+                        <i class="fas fa-info-circle"></i> 
+                        Untuk membaca dengan efek flip, download PDF dan buka dengan pembaca PDF favorit Anda.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ========== FOOTER ========== -->
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <div class="logo-footer">
+                        <img src="https://raw.githubusercontent.com/shasanudin/IMBKreasiDigital/main/e2b6c152d8c04e91bb6da5dcd7de9cac~.image.jpg" alt="Logo">
+                        <span>Intan Mulya Berkah</span>
+                    </div>
+                    <p>Solusi Kreatif Digital untuk Undangan, Media, Musik, dan Konten Digital.</p>
+                    <div class="footer-social">
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                        <a href="#"><i class="fab fa-tiktok"></i></a>
+                        <a href="#"><i class="fab fa-whatsapp"></i></a>
+                    </div>
+                </div>
+                <div class="footer-col">
+                    <h4>Layanan</h4>
+                    <ul>
+                        <li><a href="undangan.html">Undangan Digital</a></li>
+                        <li><a href="majalah.html">Majalah Digital</a></li>
+                        <li><a href="musik.html">Album Lagu</a></li>
+                        <li><a href="kreasi.html">Kreasi Digital</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Tentang</h4>
+                    <ul>
+                        <li><a href="index.html">Tentang Kami</a></li>
+                        <li><a href="portofolio.html">Portofolio</a></li>
+                        <li><a href="blog.html">Blog</a></li>
+                        <li><a href="kontak.html">Kontak</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Kontak</h4>
+                    <ul>
+                        <li><a href="https://wa.me/6281234567890"><i class="fab fa-whatsapp"></i> WhatsApp</a></li>
+                        <li><a href="mailto:info@intanmulyaberkah.com"><i class="fas fa-envelope"></i> Email</a></li>
+                        <li><a href="#"><i class="fas fa-map-marker-alt"></i> Lokasi</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                &copy; 2026 Intan Mulya Berkah Digital Kreasi. All Rights Reserved.
+            </div>
+        </div>
+    </footer>
+
+    <!-- ========== SCRIPTS ========== -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        // ========== AOS INIT ==========
+        AOS.init({ duration: 800, once: true, offset: 50 });
+
+        // ========== MOBILE MENU ==========
+        const menuToggle = document.getElementById('menuToggle');
+        const navLinks = document.getElementById('navLinks');
+
+        menuToggle.addEventListener('click', () => {
+            menuToggle.classList.toggle('active');
+            navLinks.classList.toggle('open');
+        });
+
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                menuToggle.classList.remove('active');
+                navLinks.classList.remove('open');
+            });
+        });
+
+        // ========== DATA MAJALAH ==========
+        const magazines = [
+            {
+                id: 1,
+                title: 'Berkah Lifestyle Vol. 1',
+                category: 'Lifestyle',
+                issue: 'Edisi Januari 2026',
+                icon: 'fa-leaf',
+                desc: 'Menjelajahi gaya hidup sehat, tren terkini, dan inspirasi sehari-hari untuk hidup lebih bermakna.',
+                tags: ['Gaya Hidup', 'Tren', 'Inspirasi'],
+                pdfUrl: '#',
+                coverEmoji: '🌿'
+            },
+            {
+                id: 2,
+                title: 'Bisnis Digital Review',
+                category: 'Bisnis',
+                issue: 'Edisi Februari 2026',
+                icon: 'fa-chart-line',
+                desc: 'Analisis mendalam tentang transformasi digital, strategi pemasaran, dan peluang bisnis baru.',
+                tags: ['Bisnis', 'Digital', 'Strategi'],
+                pdfUrl: '#',
+                coverEmoji: '📈'
+            },
+            {
+                id: 3,
+                title: 'Budaya Nusantara',
+                category: 'Budaya',
+                issue: 'Edisi Maret 2026',
+                icon: 'fa-landmark',
+                desc: 'Mengulas kekayaan budaya Indonesia, dari seni, tradisi, hingga kearifan lokal yang memukau.',
+                tags: ['Budaya', 'Tradisi', 'Seni'],
+                pdfUrl: '#',
+                coverEmoji: '🎭'
+            },
+            {
+                id: 4,
+                title: 'Alam & Petualangan',
+                category: 'Alam',
+                issue: 'Edisi April 2026',
+                icon: 'fa-mountain',
+                desc: 'Jelajahi keindahan alam Indonesia, petualangan seru, dan tips bertualang yang aman.',
+                tags: ['Alam', 'Petualangan', 'Travel'],
+                pdfUrl: '#',
+                coverEmoji: '🏔️'
+            },
+            {
+                id: 5,
+                title: 'Pendidikan Masa Depan',
+                category: 'Pendidikan',
+                issue: 'Edisi Mei 2026',
+                icon: 'fa-graduation-cap',
+                desc: 'Membahas inovasi pendidikan, metode belajar baru, dan masa depan generasi muda.',
+                tags: ['Pendidikan', 'Inovasi', 'Generasi'],
+                pdfUrl: '#',
+                coverEmoji: '📚'
+            },
+            {
+                id: 6,
+                title: 'Interior & Desain',
+                category: 'Interior',
+                issue: 'Edisi Juni 2026',
+                icon: 'fa-house-chimney',
+                desc: 'Inspirasi desain interior minimalis, modern, dan tradisional untuk hunian impian.',
+                tags: ['Interior', 'Desain', 'Rumah'],
+                pdfUrl: '#',
+                coverEmoji: '🏠'
+            },
+            {
+                id: 7,
+                title: 'Kuliner Nusantara',
+                category: 'Kuliner',
+                issue: 'Edisi Juli 2026',
+                icon: 'fa-utensils',
+                desc: 'Menelusuri cita rasa otentik masakan tradisional dari berbagai daerah di Indonesia.',
+                tags: ['Kuliner', 'Masakan', 'Tradisional'],
+                pdfUrl: '#',
+                coverEmoji: '🍳'
+            },
+            {
+                id: 8,
+                title: 'Berkah Lifestyle Vol. 2',
+                category: 'Lifestyle',
+                issue: 'Edisi Agustus 2026',
+                icon: 'fa-spa',
+                desc: 'Edisi spesial tentang wellness, self-care, dan keseimbangan hidup di era modern.',
+                tags: ['Wellness', 'Self-care', 'Keseimbangan'],
+                pdfUrl: '#',
+                coverEmoji: '🌸'
+            }
+        ];
+
+        // ========== RENDER MAJALAH ==========
+        function renderMagazines(filter = 'Semua') {
+            const grid = document.getElementById('magazineGrid');
+            const filtered = filter === 'Semua' 
+                ? magazines 
+                : magazines.filter(m => m.category === filter);
+
+            if (filtered.length === 0) {
+                grid.innerHTML = `
+                    <div style="grid-column: 1 / -1; text-align: center; padding: 60px 20px; background: white; border-radius: var(--radius); border: 1px solid var(--border-color);">
+                        <i class="fas fa-search" style="font-size: 3rem; color: var(--secondary); opacity: 0.5;"></i>
+                        <h3 style="margin-top: 12px;">Belum ada majalah di kategori ini</h3>
+                        <p style="color: var(--text-medium);">Nantikan edisi terbaru dari kami.</p>
+                    </div>
+                `;
+                return;
+            }
+
+            grid.innerHTML = filtered.map(m => `
+                <div class="magazine-card" data-aos="fade-up">
+                    <div class="cover">
+                        <span style="font-size: 4rem;">${m.coverEmoji}</span>
+                        <span class="issue-badge">${m.issue}</span>
+                        <div class="overlay">
+                            <button class="btn-action" onclick="openReader('${m.id}')">
+                                <i class="fas fa-eye"></i> Baca
+                            </button>
+                            <button class="btn-action" onclick="downloadMagazine('${m.id}')">
+                                <i class="fas fa-download"></i> PDF
+                            </button>
+                        </div>
+                    </div>
+                    <div class="info">
+                        <h3>${m.title}</h3>
+                        <div class="meta">
+                            <span><i class="far fa-calendar"></i> ${m.issue}</span>
+                            <span><i class="far fa-folder-open"></i> ${m.category}</span>
+                        </div>
+                        <p>${m.desc}</p>
+                        <div class="tags">
+                            ${m.tags.map(tag => `<span>#${tag}</span>`).join('')}
+                        </div>
+                        <div class="actions">
+                            <button class="btn-sm btn-baca" onclick="openReader('${m.id}')">
+                                <i class="fas fa-book-open"></i> Baca
+                            </button>
+                            <button class="btn-sm btn-download" onclick="downloadMagazine('${m.id}')">
+                                <i class="fas fa-file-pdf"></i> Download PDF
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+
+            AOS.refresh();
+        }
+
+        // ========== READER ==========
+        let currentMagazine = null;
+
+        function openReader(id) {
+            const mag = magazines.find(m => m.id == id);
+            if (!mag) return;
+
+            currentMagazine = mag;
+
+            document.getElementById('readerTitle').textContent = `📖 ${mag.title}`;
+            document.getElementById('readerName').textContent = mag.title;
+            document.getElementById('readerDesc').textContent = `${mag.issue} · ${mag.category} · ${mag.desc}`;
+            document.getElementById('downloadPdfBtn').onclick = () => downloadMagazine(id);
+            
+            document.getElementById('readerOverlay').classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeReader() {
+            document.getElementById('readerOverlay').classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        document.getElementById('closeReader').addEventListener('click', closeReader);
+
+        document.getElementById('readerOverlay').addEventListener('click', function(e) {
+            if (e.target === this) closeReader();
+        });
+
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') closeReader();
+        });
+
+        // ========== DOWNLOAD MAGAZINE ==========
+        function downloadMagazine(id) {
+            const mag = magazines.find(m => m.id == id);
+            if (!mag) return;
+
+            // Simulasi download
+            alert(`📥 Mengunduh "${mag.title}" (PDF)\n\nMajalah akan segera terdownload.`);
+            
+            // Bisa diarahkan ke URL PDF
+            // window.open(mag.pdfUrl, '_blank');
+        }
+
+        // ========== KATEGORI CLICK ==========
+        document.querySelectorAll('.magazine-categories .cat').forEach(cat => {
+            cat.addEventListener('click', function() {
+                document.querySelectorAll('.magazine-categories .cat').forEach(c => c.classList.remove('active'));
+                this.classList.add('active');
+                renderMagazines(this.textContent.trim());
+            });
+        });
+
+        // ========== INIT ==========
+        renderMagazines('Semua');
+    </script>
+</body>
+</html>
