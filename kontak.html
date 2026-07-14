@@ -1,0 +1,979 @@
+<!-- kontak.html - Halaman Kontak -->
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kontak · Intan Mulya Berkah</title>
+    <meta name="description" content="Hubungi Intan Mulya Berkah Digital Kreasi. Konsultasi gratis untuk undangan digital, majalah, album lagu, dan kreasi digital lainnya.">
+    
+    <!-- Fonts & Icons -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    
+    <style>
+        /* ========== RESET & VARIABLES ========== */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        :root {
+            --primary: #2b1e16;
+            --primary-light: #4d3426;
+            --secondary: #b47c5e;
+            --secondary-light: #d89b7a;
+            --bg-light: #fbf9f7;
+            --bg-card: #ffffff;
+            --text-dark: #1e130d;
+            --text-medium: #5f4d40;
+            --border-color: #f0e9e3;
+            --shadow: 0 8px 32px rgba(0,0,0,0.06);
+            --shadow-hover: 0 20px 48px -12px rgba(43,30,22,0.15);
+            --radius: 28px;
+            --radius-sm: 16px;
+            --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg-light);
+            color: var(--text-dark);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1240px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        a { text-decoration: none; color: inherit; }
+
+        /* ========== HEADER ========== */
+        header {
+            background: rgba(255,255,255,0.92);
+            backdrop-filter: blur(12px);
+            padding: 10px 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .nav-wrap {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-weight: 800;
+            font-size: 1.25rem;
+        }
+
+        .logo img {
+            height: 44px;
+            width: auto;
+            border-radius: 12px;
+        }
+
+        .logo .brand {
+            background: linear-gradient(135deg, var(--secondary), var(--secondary-light));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            padding: 8px 16px;
+            border-radius: 40px;
+            font-weight: 500;
+            font-size: 0.9rem;
+            color: var(--text-medium);
+            transition: var(--transition);
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            background: rgba(180, 124, 94, 0.08);
+            color: var(--primary);
+        }
+
+        .nav-links a.btn-primary-nav {
+            background: var(--primary);
+            color: white;
+            padding: 8px 24px;
+        }
+
+        .nav-links a.btn-primary-nav:hover {
+            background: var(--primary-light);
+            transform: translateY(-2px);
+        }
+
+        .menu-toggle {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+            padding: 8px;
+            background: none;
+            border: none;
+        }
+
+        .menu-toggle span {
+            display: block;
+            width: 28px;
+            height: 3px;
+            background: var(--primary);
+            border-radius: 4px;
+            transition: var(--transition);
+        }
+
+        .menu-toggle.active span:nth-child(1) {
+            transform: rotate(45deg) translate(5px, 6px);
+        }
+        .menu-toggle.active span:nth-child(2) { opacity: 0; }
+        .menu-toggle.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(5px, -6px);
+        }
+
+        /* ========== PAGE HERO ========== */
+        .page-hero {
+            padding: 40px 0 30px;
+            text-align: center;
+        }
+
+        .page-hero h1 {
+            font-size: 2.8rem;
+            font-weight: 800;
+            letter-spacing: -1px;
+        }
+
+        .page-hero h1 i {
+            color: var(--secondary);
+        }
+
+        .page-hero p {
+            color: var(--text-medium);
+            font-size: 1.1rem;
+            max-width: 600px;
+            margin: 8px auto 0;
+        }
+
+        /* ========== CONTACT INFO CARDS ========== */
+        .contact-info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 24px;
+            margin: 30px 0 40px;
+        }
+
+        .contact-info-card {
+            background: var(--bg-card);
+            border-radius: var(--radius);
+            padding: 28px 24px;
+            border: 1px solid var(--border-color);
+            text-align: center;
+            transition: var(--transition);
+        }
+
+        .contact-info-card:hover {
+            transform: translateY(-6px);
+            box-shadow: var(--shadow-hover);
+            border-color: var(--secondary);
+        }
+
+        .contact-info-card .icon {
+            font-size: 2.4rem;
+            color: var(--secondary);
+            margin-bottom: 12px;
+        }
+
+        .contact-info-card h3 {
+            font-weight: 700;
+            font-size: 1rem;
+        }
+
+        .contact-info-card p {
+            color: var(--text-medium);
+            font-size: 0.9rem;
+            margin-top: 4px;
+        }
+
+        .contact-info-card a {
+            color: var(--secondary);
+            font-weight: 600;
+            transition: var(--transition);
+        }
+
+        .contact-info-card a:hover {
+            color: var(--primary-light);
+        }
+
+        /* ========== CONTACT SECTION ========== */
+        .contact-section {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            margin: 30px 0 50px;
+        }
+
+        /* ========== FORM ========== */
+        .contact-form-wrapper {
+            background: var(--bg-card);
+            border-radius: var(--radius);
+            padding: 40px;
+            border: 1px solid var(--border-color);
+            box-shadow: var(--shadow);
+        }
+
+        .contact-form-wrapper h2 {
+            font-size: 1.6rem;
+            font-weight: 800;
+            margin-bottom: 8px;
+        }
+
+        .contact-form-wrapper .sub {
+            color: var(--text-medium);
+            margin-bottom: 24px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            margin-bottom: 18px;
+        }
+
+        .form-group label {
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        .form-group label .required {
+            color: #c62828;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            padding: 14px 18px;
+            border-radius: var(--radius-sm);
+            border: 1px solid var(--border-color);
+            font-family: 'Inter', sans-serif;
+            font-size: 0.95rem;
+            background: var(--bg-light);
+            transition: var(--transition);
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--secondary);
+            box-shadow: 0 0 0 4px rgba(180, 124, 94, 0.1);
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 130px;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 18px;
+        }
+
+        .btn-submit {
+            background: var(--primary);
+            color: white;
+            padding: 16px 40px;
+            border-radius: 60px;
+            font-weight: 700;
+            border: none;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            width: 100%;
+            justify-content: center;
+        }
+
+        .btn-submit:hover {
+            background: var(--primary-light);
+            transform: translateY(-2px);
+            box-shadow: 0 12px 24px -12px rgba(43,30,22,0.3);
+        }
+
+        #formResponse {
+            margin-top: 16px;
+            padding: 14px 20px;
+            border-radius: var(--radius-sm);
+            display: none;
+        }
+
+        #formResponse.success {
+            display: block;
+            background: #e8f5e9;
+            color: #2e7d32;
+            border: 1px solid #a5d6a7;
+        }
+
+        #formResponse.error {
+            display: block;
+            background: #ffebee;
+            color: #c62828;
+            border: 1px solid #ef9a9a;
+        }
+
+        /* ========== MAP & INFO ========== */
+        .contact-info-side {
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+        }
+
+        .map-container {
+            background: var(--bg-card);
+            border-radius: var(--radius);
+            overflow: hidden;
+            border: 1px solid var(--border-color);
+            min-height: 300px;
+            position: relative;
+        }
+
+        .map-container iframe {
+            width: 100%;
+            height: 100%;
+            min-height: 300px;
+            border: none;
+        }
+
+        .map-placeholder {
+            width: 100%;
+            height: 100%;
+            min-height: 300px;
+            background: linear-gradient(145deg, #f3ede8, #ddd0c4);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-medium);
+            padding: 20px;
+            text-align: center;
+        }
+
+        .map-placeholder i {
+            font-size: 3.5rem;
+            color: var(--secondary);
+            margin-bottom: 12px;
+        }
+
+        .map-placeholder h4 {
+            font-weight: 700;
+            margin-bottom: 4px;
+            color: var(--text-dark);
+        }
+
+        .contact-info-extra {
+            background: var(--bg-card);
+            border-radius: var(--radius);
+            padding: 28px 32px;
+            border: 1px solid var(--border-color);
+        }
+
+        .contact-info-extra h3 {
+            font-weight: 700;
+            margin-bottom: 16px;
+            font-size: 1.1rem;
+        }
+
+        .contact-info-extra .item {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            padding: 10px 0;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .contact-info-extra .item:last-child {
+            border-bottom: none;
+        }
+
+        .contact-info-extra .item i {
+            width: 36px;
+            height: 36px;
+            background: rgba(180, 124, 94, 0.08);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--secondary);
+            flex-shrink: 0;
+        }
+
+        .contact-info-extra .item .label {
+            font-weight: 600;
+            font-size: 0.85rem;
+            color: var(--text-medium);
+        }
+
+        .contact-info-extra .item .value {
+            font-weight: 500;
+        }
+
+        .contact-info-extra .item .value a {
+            color: var(--secondary);
+            transition: var(--transition);
+        }
+
+        .contact-info-extra .item .value a:hover {
+            color: var(--primary-light);
+        }
+
+        /* ========== SOCIAL MEDIA ========== */
+        .social-media-section {
+            background: var(--bg-card);
+            border-radius: var(--radius);
+            padding: 32px 36px;
+            border: 1px solid var(--border-color);
+            margin: 20px 0 40px;
+            text-align: center;
+        }
+
+        .social-media-section h3 {
+            font-weight: 700;
+            font-size: 1.2rem;
+            margin-bottom: 16px;
+        }
+
+        .social-icons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .social-icons a {
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            background: var(--bg-light);
+            border: 1px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.6rem;
+            color: var(--text-medium);
+            transition: var(--transition);
+        }
+
+        .social-icons a:hover {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .social-icons a .fa-instagram:hover { background: #E4405F; }
+        .social-icons a .fa-youtube:hover { background: #FF0000; }
+        .social-icons a .fa-tiktok:hover { background: #000000; }
+        .social-icons a .fa-whatsapp:hover { background: #25D366; }
+        .social-icons a .fa-facebook:hover { background: #1877F2; }
+        .social-icons a .fa-x-twitter:hover { background: #000000; }
+
+        /* ========== FOOTER ========== */
+        footer {
+            background: var(--primary);
+            color: rgba(255,255,255,0.8);
+            padding: 40px 0 24px;
+            margin-top: 40px;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 40px;
+            padding-bottom: 30px;
+            border-bottom: 1px solid rgba(255,255,255,0.08);
+        }
+
+        .footer-brand .logo-footer {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-weight: 800;
+            font-size: 1.3rem;
+            color: white;
+        }
+
+        .footer-brand .logo-footer img {
+            height: 44px;
+            border-radius: 12px;
+        }
+
+        .footer-brand p {
+            margin: 16px 0 20px;
+            max-width: 300px;
+            font-size: 0.95rem;
+            opacity: 0.7;
+        }
+
+        .footer-social {
+            display: flex;
+            gap: 14px;
+        }
+
+        .footer-social a {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.06);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition);
+            color: white;
+        }
+
+        .footer-social a:hover {
+            background: var(--secondary);
+            transform: translateY(-3px);
+        }
+
+        .footer-col h4 {
+            color: white;
+            font-weight: 700;
+            margin-bottom: 16px;
+        }
+
+        .footer-col ul {
+            list-style: none;
+        }
+
+        .footer-col ul li {
+            margin-bottom: 10px;
+        }
+
+        .footer-col ul a {
+            opacity: 0.7;
+            transition: var(--transition);
+            font-size: 0.9rem;
+        }
+
+        .footer-col ul a:hover {
+            opacity: 1;
+            color: var(--secondary-light);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 24px;
+            font-size: 0.85rem;
+            opacity: 0.5;
+        }
+
+        /* ========== RESPONSIVE ========== */
+        @media (max-width: 992px) {
+            .contact-section {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .menu-toggle {
+                display: flex;
+            }
+
+            .nav-links {
+                display: none;
+                flex-direction: column;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: white;
+                padding: 20px 24px;
+                border-bottom: 1px solid var(--border-color);
+                width: 100%;
+            }
+
+            .nav-links.open {
+                display: flex;
+            }
+
+            .nav-links a {
+                width: 100%;
+                padding: 12px 16px;
+            }
+
+            .page-hero h1 {
+                font-size: 2rem;
+            }
+
+            .footer-grid {
+                grid-template-columns: 1fr;
+                gap: 28px;
+            }
+
+            .contact-form-wrapper {
+                padding: 24px;
+            }
+
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+
+            .contact-info-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .social-icons a {
+                width: 48px;
+                height: 48px;
+                font-size: 1.3rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .contact-info-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ========== HEADER ========== -->
+    <header>
+        <div class="container nav-wrap">
+            <a href="index.html" class="logo">
+                <img src="https://raw.githubusercontent.com/shasanudin/IMBKreasiDigital/main/e2b6c152d8c04e91bb6da5dcd7de9cac~.image.jpg" alt="Logo">
+                <span class="brand">Intan Mulya</span>
+            </a>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="index.html">🏠 Beranda</a></li>
+                <li><a href="undangan.html">💌 Undangan</a></li>
+                <li><a href="majalah.html">📰 Majalah</a></li>
+                <li><a href="musik.html">🎵 Album</a></li>
+                <li><a href="kreasi.html">🎨 Kreasi</a></li>
+                <li><a href="portofolio.html">📁 Portofolio</a></li>
+                <li><a href="blog.html">✍️ Blog</a></li>
+                <li><a href="kontak.html" class="active btn-primary-nav">📞 Kontak</a></li>
+            </ul>
+            <button class="menu-toggle" id="menuToggle">
+                <span></span><span></span><span></span>
+            </button>
+        </div>
+    </header>
+
+    <!-- ========== PAGE HERO ========== -->
+    <section class="page-hero container" data-aos="fade-up">
+        <h1><i class="fas fa-phone"></i> Hubungi Kami</h1>
+        <p>Konsultasikan ide dan kebutuhan kreatif digital Anda. Kami siap membantu mewujudkannya.</p>
+    </section>
+
+    <!-- ========== CONTACT INFO CARDS ========== -->
+    <div class="container">
+        <div class="contact-info-grid" data-aos="fade-up">
+            <div class="contact-info-card">
+                <div class="icon"><i class="fab fa-whatsapp"></i></div>
+                <h3>WhatsApp</h3>
+                <p><a href="https://wa.me/6281234567890" target="_blank">+62 812-3456-7890</a></p>
+                <p style="font-size: 0.8rem; color: var(--text-medium);">Respon cepat 1x24 jam</p>
+            </div>
+            <div class="contact-info-card">
+                <div class="icon"><i class="fas fa-envelope"></i></div>
+                <h3>Email</h3>
+                <p><a href="mailto:info@intanmulyaberkah.com">info@intanmulyaberkah.com</a></p>
+                <p style="font-size: 0.8rem; color: var(--text-medium);">Balas dalam 2x24 jam</p>
+            </div>
+            <div class="contact-info-card">
+                <div class="icon"><i class="fas fa-phone"></i></div>
+                <h3>Telepon</h3>
+                <p><a href="tel:+6281234567890">+62 812-3456-7890</a></p>
+                <p style="font-size: 0.8rem; color: var(--text-medium);">Senin-Jumat 08:00-20:00</p>
+            </div>
+            <div class="contact-info-card">
+                <div class="icon"><i class="fas fa-map-marker-alt"></i></div>
+                <h3>Lokasi</h3>
+                <p>Jl. Contoh No. 123, Kota Kreatif</p>
+                <p style="font-size: 0.8rem; color: var(--text-medium);">Lihat di Google Maps ↓</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- ========== CONTACT SECTION ========== -->
+    <section class="container">
+        <div class="contact-section" data-aos="fade-up">
+            <!-- ===== FORM ===== -->
+            <div class="contact-form-wrapper">
+                <h2><i class="fas fa-pen" style="color: var(--secondary);"></i> Kirim Pesan</h2>
+                <p class="sub">Isi form di bawah, tim kami akan segera merespon pesan Anda.</p>
+
+                <form id="contactForm">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="nama">Nama Lengkap <span class="required">*</span></label>
+                            <input type="text" id="nama" placeholder="Nama Anda" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email <span class="required">*</span></label>
+                            <input type="email" id="email" placeholder="email@anda.com" required>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="wa">Nomor WhatsApp</label>
+                            <input type="text" id="wa" placeholder="0812-3456-7890">
+                        </div>
+                        <div class="form-group">
+                            <label for="layanan">Layanan yang Diminati</label>
+                            <select id="layanan">
+                                <option value="">Pilih layanan...</option>
+                                <option value="Undangan Digital">💌 Undangan Digital</option>
+                                <option value="Majalah Digital">📰 Majalah Digital</option>
+                                <option value="Album Lagu">🎵 Album Lagu</option>
+                                <option value="Kreasi Digital">🎨 Kreasi Digital</option>
+                                <option value="Website">💻 Website</option>
+                                <option value="Lainnya">✨ Lainnya</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="subject">Subjek</label>
+                        <input type="text" id="subject" placeholder="Judul pesan Anda">
+                    </div>
+                    <div class="form-group">
+                        <label for="message">Pesan <span class="required">*</span></label>
+                        <textarea id="message" placeholder="Tulis pesan atau pertanyaan Anda..." required></textarea>
+                    </div>
+                    <button type="submit" class="btn-submit">
+                        <i class="fas fa-paper-plane"></i> Kirim Pesan
+                    </button>
+                </form>
+
+                <div id="formResponse"></div>
+            </div>
+
+            <!-- ===== MAP & INFO SIDE ===== -->
+            <div class="contact-info-side">
+                <div class="map-container">
+                    <!-- Google Maps Embed (ganti dengan alamat Anda) -->
+                    <iframe 
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3959.153327525681!2d110.406822!3d-7.126147!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e7089e7b6b1b1b1%3A0x1234567890abcdef!2sSemarang!5e0!3m2!1sid!2sid!4v1700000000000!5m2!1sid!2sid" 
+                        allowfullscreen="" 
+                        loading="lazy" 
+                        referrerpolicy="no-referrer-when-downgrade">
+                    </iframe>
+                </div>
+
+                <div class="contact-info-extra">
+                    <h3>📋 Informasi Lainnya</h3>
+                    <div class="item">
+                        <i class="fas fa-clock"></i>
+                        <div>
+                            <div class="label">Jam Operasional</div>
+                            <div class="value">Senin - Jumat: 08:00 - 20:00 WIB</div>
+                        </div>
+                    </div>
+                    <div class="item">
+                        <i class="fas fa-calendar-check"></i>
+                        <div>
+                            <div class="label">Konsultasi</div>
+                            <div class="value">Gratis konsultasi untuk semua layanan</div>
+                        </div>
+                    </div>
+                    <div class="item">
+                        <i class="fas fa-trophy"></i>
+                        <div>
+                            <div class="label">Pengalaman</div>
+                            <div class="value">50+ proyek telah selesai</div>
+                        </div>
+                    </div>
+                    <div class="item">
+                        <i class="fas fa-shield-halved"></i>
+                        <div>
+                            <div class="label">Garansi</div>
+                            <div class="value">Revisi hingga puas untuk setiap proyek</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== SOCIAL MEDIA ========== -->
+    <section class="container">
+        <div class="social-media-section" data-aos="fade-up">
+            <h3>🌐 Ikuti Kami di Media Sosial</h3>
+            <div class="social-icons">
+                <a href="#" target="_blank" title="Instagram"><i class="fab fa-instagram"></i></a>
+                <a href="#" target="_blank" title="YouTube"><i class="fab fa-youtube"></i></a>
+                <a href="#" target="_blank" title="TikTok"><i class="fab fa-tiktok"></i></a>
+                <a href="#" target="_blank" title="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+                <a href="#" target="_blank" title="Facebook"><i class="fab fa-facebook"></i></a>
+                <a href="#" target="_blank" title="Twitter / X"><i class="fab fa-x-twitter"></i></a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== FOOTER ========== -->
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <div class="logo-footer">
+                        <img src="https://raw.githubusercontent.com/shasanudin/IMBKreasiDigital/main/e2b6c152d8c04e91bb6da5dcd7de9cac~.image.jpg" alt="Logo">
+                        <span>Intan Mulya Berkah</span>
+                    </div>
+                    <p>Solusi Kreatif Digital untuk Undangan, Media, Musik, dan Konten Digital.</p>
+                    <div class="footer-social">
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                        <a href="#"><i class="fab fa-tiktok"></i></a>
+                        <a href="#"><i class="fab fa-whatsapp"></i></a>
+                    </div>
+                </div>
+                <div class="footer-col">
+                    <h4>Layanan</h4>
+                    <ul>
+                        <li><a href="undangan.html">Undangan Digital</a></li>
+                        <li><a href="majalah.html">Majalah Digital</a></li>
+                        <li><a href="musik.html">Album Lagu</a></li>
+                        <li><a href="kreasi.html">Kreasi Digital</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Tentang</h4>
+                    <ul>
+                        <li><a href="index.html">Tentang Kami</a></li>
+                        <li><a href="portofolio.html">Portofolio</a></li>
+                        <li><a href="blog.html">Blog</a></li>
+                        <li><a href="kontak.html">Kontak</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Kontak</h4>
+                    <ul>
+                        <li><a href="https://wa.me/6281234567890"><i class="fab fa-whatsapp"></i> WhatsApp</a></li>
+                        <li><a href="mailto:info@intanmulyaberkah.com"><i class="fas fa-envelope"></i> Email</a></li>
+                        <li><a href="#"><i class="fas fa-map-marker-alt"></i> Lokasi</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                &copy; 2026 Intan Mulya Berkah Digital Kreasi. All Rights Reserved.
+            </div>
+        </div>
+    </footer>
+
+    <!-- ========== SCRIPTS ========== -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        // ========== AOS INIT ==========
+        AOS.init({ duration: 800, once: true, offset: 50 });
+
+        // ========== MOBILE MENU ==========
+        const menuToggle = document.getElementById('menuToggle');
+        const navLinks = document.getElementById('navLinks');
+
+        menuToggle.addEventListener('click', () => {
+            menuToggle.classList.toggle('active');
+            navLinks.classList.toggle('open');
+        });
+
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                menuToggle.classList.remove('active');
+                navLinks.classList.remove('open');
+            });
+        });
+
+        // ========== FORM SUBMIT ==========
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const nama = document.getElementById('nama').value.trim();
+            const email = document.getElementById('email').value.trim();
+            const wa = document.getElementById('wa').value.trim();
+            const layanan = document.getElementById('layanan').value;
+            const subject = document.getElementById('subject').value.trim();
+            const message = document.getElementById('message').value.trim();
+
+            // Validasi
+            if (!nama || !email || !message) {
+                const response = document.getElementById('formResponse');
+                response.className = 'error';
+                response.textContent = '⚠️ Mohon lengkapi data yang wajib diisi (Nama, Email, dan Pesan).';
+                response.style.display = 'block';
+                return;
+            }
+
+            // Validasi email
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(email)) {
+                const response = document.getElementById('formResponse');
+                response.className = 'error';
+                response.textContent = '⚠️ Mohon masukkan alamat email yang valid.';
+                response.style.display = 'block';
+                return;
+            }
+
+            // Simulasi pengiriman ke Firestore / Email
+            const response = document.getElementById('formResponse');
+            response.className = 'success';
+            response.innerHTML = `
+                ✅ Pesan berhasil dikirim!<br>
+                <small style="display: block; margin-top: 4px;">
+                    Terima kasih <strong>${nama}</strong>, tim kami akan menghubungi Anda dalam 1x24 jam.
+                </small>
+            `;
+            response.style.display = 'block';
+
+            // Reset form
+            // this.reset();
+
+            // Bisa ditambahkan pengiriman ke WhatsApp
+            // const waMessage = `📋 *Pesan dari ${nama}*\n\n📧 Email: ${email}\n📱 WA: ${wa || '-'}\n📌 Layanan: ${layanan || '-'}\n📝 Subjek: ${subject || '-'}\n\n💬 ${message}`;
+            // window.open(`https://wa.me/6281234567890?text=${encodeURIComponent(waMessage)}`, '_blank');
+
+            setTimeout(() => {
+                response.style.display = 'none';
+            }, 10000);
+        });
+
+        // ========== VALIDASI REAL-TIME ==========
+        document.querySelectorAll('#contactForm input, #contactForm textarea').forEach(input => {
+            input.addEventListener('blur', function() {
+                if (this.hasAttribute('required') && !this.value.trim()) {
+                    this.style.borderColor = '#c62828';
+                } else {
+                    this.style.borderColor = '';
+                }
+            });
+            input.addEventListener('input', function() {
+                if (this.value.trim()) {
+                    this.style.borderColor = '';
+                }
+            });
+        });
+    </script>
+</body>
+</html>
