@@ -34,7 +34,7 @@
       background: #ffffffec;
       backdrop-filter: blur(4px);
       box-shadow: 0 4px 20px rgba(0,0,0,0.02);
-      padding: 18px 0;
+      padding: 12px 0;
       position: sticky;
       top: 0;
       z-index: 30;
@@ -50,16 +50,19 @@
     .logo {
       display: flex;
       align-items: center;
-      gap: 8px;
+      gap: 12px;
       font-weight: 700;
       font-size: 1.35rem;
       letter-spacing: -0.3px;
       color: #2b1e16;
+      text-decoration: none;
     }
 
-    .logo i {
-      color: #b47c5e;
-      font-size: 1.6rem;
+    .logo img {
+      height: 44px;
+      width: auto;
+      border-radius: 12px;
+      display: block;
     }
 
     .logo span {
@@ -389,6 +392,29 @@
       color: #5a473a;
     }
 
+    .footer-logo {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 6px;
+    }
+
+    .footer-logo img {
+      height: 44px;
+      width: auto;
+      border-radius: 12px;
+    }
+
+    .footer-logo span {
+      font-weight: 700;
+      font-size: 1.35rem;
+      background: linear-gradient(135deg, #a65e3a, #c57e5a);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
     .footer-social {
       display: flex;
       justify-content: center;
@@ -427,10 +453,10 @@
 <body>
   <header>
     <div class="container nav-wrap">
-      <div class="logo">
-        <i class="fas fa-crown"></i>
+      <a href="#" class="logo">
+        <img src="https://raw.githubusercontent.com/shasanudin/IMBKreasiDigital/main/e2b6c152d8c04e91bb6da5dcd7de9cac~.image.jpg" alt="Logo Intan Mulya Berkah">
         <span>Intan Mulya</span>
-      </div>
+      </a>
       <div class="nav-links">
         <a href="#">Beranda</a>
         <a href="#layanan">Layanan</a>
@@ -581,8 +607,8 @@
 
   <footer>
     <div class="container">
-      <div class="logo" style="justify-content: center; margin-bottom: 6px;">
-        <i class="fas fa-crown"></i>
+      <div class="footer-logo">
+        <img src="https://raw.githubusercontent.com/shasanudin/IMBKreasiDigital/main/e2b6c152d8c04e91bb6da5dcd7de9cac~.image.jpg" alt="Logo Intan Mulya Berkah">
         <span>Intan Mulya Berkah</span>
       </div>
       <p style="font-size: 0.9rem; max-width: 400px; margin: 8px auto;">Kreasi digital untuk momen berarti · undangan · album · majalah · dan lebih banyak lagi.</p>
