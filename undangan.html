@@ -1,0 +1,1109 @@
+<!-- undangan.html - Halaman Undangan Digital -->
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Undangan Digital · Intan Mulya Berkah</title>
+    <meta name="description" content="Buat undangan digital premium untuk pernikahan, aqiqah, ulang tahun, dan berbagai acara lainnya.">
+    
+    <!-- Fonts & Icons -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    
+    <style>
+        /* ========== RESET & VARIABLES ========== */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        :root {
+            --primary: #2b1e16;
+            --primary-light: #4d3426;
+            --secondary: #b47c5e;
+            --secondary-light: #d89b7a;
+            --bg-light: #fbf9f7;
+            --bg-card: #ffffff;
+            --text-dark: #1e130d;
+            --text-medium: #5f4d40;
+            --border-color: #f0e9e3;
+            --shadow: 0 8px 32px rgba(0,0,0,0.06);
+            --shadow-hover: 0 20px 48px -12px rgba(43,30,22,0.15);
+            --radius: 28px;
+            --radius-sm: 16px;
+            --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg-light);
+            color: var(--text-dark);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1240px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        a { text-decoration: none; color: inherit; }
+
+        /* ========== HEADER ========== */
+        header {
+            background: rgba(255,255,255,0.92);
+            backdrop-filter: blur(12px);
+            padding: 10px 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .nav-wrap {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-weight: 800;
+            font-size: 1.25rem;
+        }
+
+        .logo img {
+            height: 44px;
+            width: auto;
+            border-radius: 12px;
+        }
+
+        .logo .brand {
+            background: linear-gradient(135deg, var(--secondary), var(--secondary-light));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            padding: 8px 16px;
+            border-radius: 40px;
+            font-weight: 500;
+            font-size: 0.9rem;
+            color: var(--text-medium);
+            transition: var(--transition);
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            background: rgba(180, 124, 94, 0.08);
+            color: var(--primary);
+        }
+
+        .nav-links a.btn-primary-nav {
+            background: var(--primary);
+            color: white;
+            padding: 8px 24px;
+        }
+
+        .nav-links a.btn-primary-nav:hover {
+            background: var(--primary-light);
+            transform: translateY(-2px);
+        }
+
+        .menu-toggle {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+            padding: 8px;
+            background: none;
+            border: none;
+        }
+
+        .menu-toggle span {
+            display: block;
+            width: 28px;
+            height: 3px;
+            background: var(--primary);
+            border-radius: 4px;
+            transition: var(--transition);
+        }
+
+        .menu-toggle.active span:nth-child(1) {
+            transform: rotate(45deg) translate(5px, 6px);
+        }
+        .menu-toggle.active span:nth-child(2) { opacity: 0; }
+        .menu-toggle.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(5px, -6px);
+        }
+
+        /* ========== PAGE HERO ========== */
+        .page-hero {
+            padding: 40px 0 30px;
+            text-align: center;
+        }
+
+        .page-hero h1 {
+            font-size: 2.8rem;
+            font-weight: 800;
+            letter-spacing: -1px;
+        }
+
+        .page-hero h1 i {
+            color: var(--secondary);
+        }
+
+        .page-hero p {
+            color: var(--text-medium);
+            font-size: 1.1rem;
+            max-width: 600px;
+            margin: 8px auto 0;
+        }
+
+        .page-hero .price-badge {
+            display: inline-block;
+            background: rgba(180, 124, 94, 0.12);
+            color: var(--secondary);
+            padding: 8px 24px;
+            border-radius: 40px;
+            font-weight: 700;
+            margin-top: 16px;
+            font-size: 1.1rem;
+        }
+
+        /* ========== KATEGORI ========== */
+        .categories {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: center;
+            margin: 20px 0 30px;
+        }
+
+        .categories .cat {
+            padding: 8px 20px;
+            border-radius: 40px;
+            background: white;
+            border: 1px solid var(--border-color);
+            font-weight: 500;
+            font-size: 0.85rem;
+            transition: var(--transition);
+            cursor: pointer;
+        }
+
+        .categories .cat:hover,
+        .categories .cat.active {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+
+        /* ========== TEMPLATE GRID ========== */
+        .template-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            margin: 30px 0 40px;
+        }
+
+        .template-card {
+            background: var(--bg-card);
+            border-radius: var(--radius);
+            overflow: hidden;
+            border: 1px solid var(--border-color);
+            transition: var(--transition);
+        }
+
+        .template-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-hover);
+            border-color: var(--secondary);
+        }
+
+        .template-card .preview {
+            height: 220px;
+            background: linear-gradient(145deg, #f3ede8, #ddd0c4);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            font-size: 3.5rem;
+            color: var(--secondary);
+            position: relative;
+        }
+
+        .template-card .preview .overlay {
+            position: absolute;
+            inset: 0;
+            background: rgba(0,0,0,0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: var(--transition);
+        }
+
+        .template-card:hover .preview .overlay {
+            opacity: 1;
+        }
+
+        .template-card .preview .overlay .btn-demo {
+            background: white;
+            color: var(--primary);
+            padding: 10px 28px;
+            border-radius: 40px;
+            font-weight: 700;
+            font-size: 0.9rem;
+        }
+
+        .template-card .info {
+            padding: 20px 24px 24px;
+        }
+
+        .template-card .info h3 {
+            font-weight: 700;
+            font-size: 1.2rem;
+        }
+
+        .template-card .info p {
+            color: var(--text-medium);
+            font-size: 0.9rem;
+            margin: 4px 0 12px;
+        }
+
+        .template-card .info .tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            margin-bottom: 14px;
+        }
+
+        .template-card .info .tags span {
+            background: rgba(180, 124, 94, 0.08);
+            color: var(--secondary);
+            padding: 2px 14px;
+            border-radius: 40px;
+            font-size: 0.7rem;
+            font-weight: 600;
+        }
+
+        .template-card .info .btn-pilih {
+            background: var(--primary);
+            color: white;
+            padding: 10px 24px;
+            border-radius: 40px;
+            font-weight: 600;
+            font-size: 0.85rem;
+            border: none;
+            cursor: pointer;
+            transition: var(--transition);
+            display: inline-block;
+        }
+
+        .template-card .info .btn-pilih:hover {
+            background: var(--primary-light);
+            transform: scale(1.02);
+        }
+
+        /* ========== FILTER TEMPLATE ========== */
+        .filter-section {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: center;
+            margin: 10px 0 20px;
+        }
+
+        .filter-section .filter-btn {
+            padding: 6px 18px;
+            border-radius: 40px;
+            background: transparent;
+            border: 1px solid var(--border-color);
+            font-weight: 500;
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .filter-section .filter-btn:hover,
+        .filter-section .filter-btn.active {
+            background: var(--secondary);
+            color: white;
+            border-color: var(--secondary);
+        }
+
+        /* ========== HARGA ========== */
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 24px;
+            margin: 30px 0 40px;
+        }
+
+        .pricing-card {
+            background: var(--bg-card);
+            border-radius: var(--radius);
+            padding: 32px 24px;
+            border: 1px solid var(--border-color);
+            text-align: center;
+            transition: var(--transition);
+        }
+
+        .pricing-card:hover {
+            border-color: var(--secondary);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .pricing-card.popular {
+            border-color: var(--secondary);
+            background: linear-gradient(145deg, #fcf8f5, #f5ede7);
+        }
+
+        .pricing-card .name {
+            font-weight: 700;
+            font-size: 1.2rem;
+        }
+
+        .pricing-card .price {
+            font-size: 2.2rem;
+            font-weight: 800;
+            color: var(--primary);
+            margin: 12px 0;
+        }
+
+        .pricing-card .price small {
+            font-size: 0.9rem;
+            font-weight: 400;
+            color: var(--text-medium);
+        }
+
+        .pricing-card ul {
+            list-style: none;
+            text-align: left;
+            margin: 16px 0 20px;
+        }
+
+        .pricing-card ul li {
+            padding: 6px 0;
+            font-size: 0.9rem;
+            color: var(--text-medium);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .pricing-card ul li i {
+            color: var(--secondary);
+            width: 20px;
+        }
+
+        .pricing-card .btn-pilih {
+            background: var(--primary);
+            color: white;
+            padding: 12px 32px;
+            border-radius: 40px;
+            font-weight: 700;
+            border: none;
+            cursor: pointer;
+            transition: var(--transition);
+            width: 100%;
+        }
+
+        .pricing-card .btn-pilih:hover {
+            background: var(--primary-light);
+        }
+
+        /* ========== FORM PEMESANAN ========== */
+        .order-form-section {
+            background: white;
+            border-radius: var(--radius);
+            padding: 40px;
+            margin: 30px 0 50px;
+            border: 1px solid var(--border-color);
+            box-shadow: var(--shadow);
+        }
+
+        .order-form-section h2 {
+            font-size: 1.8rem;
+            font-weight: 800;
+            margin-bottom: 8px;
+        }
+
+        .order-form-section .sub {
+            color: var(--text-medium);
+            margin-bottom: 30px;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .form-group.full {
+            grid-column: 1 / -1;
+        }
+
+        .form-group label {
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            padding: 14px 18px;
+            border-radius: var(--radius-sm);
+            border: 1px solid var(--border-color);
+            font-family: 'Inter', sans-serif;
+            font-size: 0.95rem;
+            background: var(--bg-light);
+            transition: var(--transition);
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--secondary);
+            box-shadow: 0 0 0 4px rgba(180, 124, 94, 0.1);
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        .btn-submit {
+            background: var(--primary);
+            color: white;
+            padding: 16px 40px;
+            border-radius: 60px;
+            font-weight: 700;
+            border: none;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: var(--transition);
+            grid-column: 1 / -1;
+            justify-self: start;
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .btn-submit:hover {
+            background: var(--primary-light);
+            transform: translateY(-2px);
+            box-shadow: 0 12px 24px -12px rgba(43,30,22,0.3);
+        }
+
+        /* ========== FOOTER ========== */
+        footer {
+            background: var(--primary);
+            color: rgba(255,255,255,0.8);
+            padding: 40px 0 24px;
+            margin-top: 40px;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 40px;
+            padding-bottom: 30px;
+            border-bottom: 1px solid rgba(255,255,255,0.08);
+        }
+
+        .footer-brand .logo-footer {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-weight: 800;
+            font-size: 1.3rem;
+            color: white;
+        }
+
+        .footer-brand .logo-footer img {
+            height: 44px;
+            border-radius: 12px;
+        }
+
+        .footer-brand p {
+            margin: 16px 0 20px;
+            max-width: 300px;
+            font-size: 0.95rem;
+            opacity: 0.7;
+        }
+
+        .footer-social {
+            display: flex;
+            gap: 14px;
+        }
+
+        .footer-social a {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.06);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition);
+            color: white;
+        }
+
+        .footer-social a:hover {
+            background: var(--secondary);
+            transform: translateY(-3px);
+        }
+
+        .footer-col h4 {
+            color: white;
+            font-weight: 700;
+            margin-bottom: 16px;
+        }
+
+        .footer-col ul {
+            list-style: none;
+        }
+
+        .footer-col ul li {
+            margin-bottom: 10px;
+        }
+
+        .footer-col ul a {
+            opacity: 0.7;
+            transition: var(--transition);
+            font-size: 0.9rem;
+        }
+
+        .footer-col ul a:hover {
+            opacity: 1;
+            color: var(--secondary-light);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 24px;
+            font-size: 0.85rem;
+            opacity: 0.5;
+        }
+
+        /* ========== RESPONSIVE ========== */
+        @media (max-width: 768px) {
+            .menu-toggle {
+                display: flex;
+            }
+
+            .nav-links {
+                display: none;
+                flex-direction: column;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: white;
+                padding: 20px 24px;
+                border-bottom: 1px solid var(--border-color);
+                width: 100%;
+            }
+
+            .nav-links.open {
+                display: flex;
+            }
+
+            .nav-links a {
+                width: 100%;
+                padding: 12px 16px;
+            }
+
+            .page-hero h1 {
+                font-size: 2rem;
+            }
+
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-grid {
+                grid-template-columns: 1fr;
+                gap: 28px;
+            }
+
+            .template-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .pricing-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .order-form-section {
+                padding: 24px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ========== HEADER ========== -->
+    <header>
+        <div class="container nav-wrap">
+            <a href="index.html" class="logo">
+                <img src="https://raw.githubusercontent.com/shasanudin/IMBKreasiDigital/main/e2b6c152d8c04e91bb6da5dcd7de9cac~.image.jpg" alt="Logo">
+                <span class="brand">Intan Mulya</span>
+            </a>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="index.html">🏠 Beranda</a></li>
+                <li><a href="undangan.html" class="active">💌 Undangan</a></li>
+                <li><a href="majalah.html">📰 Majalah</a></li>
+                <li><a href="musik.html">🎵 Album</a></li>
+                <li><a href="kreasi.html">🎨 Kreasi</a></li>
+                <li><a href="portofolio.html">📁 Portofolio</a></li>
+                <li><a href="blog.html">✍️ Blog</a></li>
+                <li><a href="kontak.html" class="btn-primary-nav">📞 Kontak</a></li>
+            </ul>
+            <button class="menu-toggle" id="menuToggle">
+                <span></span><span></span><span></span>
+            </button>
+        </div>
+    </header>
+
+    <!-- ========== PAGE HERO ========== -->
+    <section class="page-hero container" data-aos="fade-up">
+        <h1><i class="fas fa-envelope-open-text"></i> Undangan Digital</h1>
+        <p>Buat undangan digital premium untuk berbagai momen spesial Anda.</p>
+        <div class="price-badge">Mulai Rp 150.000</div>
+    </section>
+
+    <!-- ========== KATEGORI ========== -->
+    <div class="container">
+        <div class="categories" data-aos="fade-up">
+            <span class="cat active">Semua</span>
+            <span class="cat">💍 Pernikahan</span>
+            <span class="cat">👶 Aqiqah</span>
+            <span class="cat">✂️ Khitan</span>
+            <span class="cat">🎂 Ulang Tahun</span>
+            <span class="cat">🎓 Wisuda</span>
+            <span class="cat">🤝 Tasyakuran</span>
+            <span class="cat">🏢 Grand Opening</span>
+            <span class="cat">📚 Seminar</span>
+            <span class="cat">🤝 Meeting</span>
+            <span class="cat">🎉 Reuni</span>
+            <span class="cat">✨ Custom</span>
+        </div>
+    </div>
+
+    <!-- ========== FILTER TEMPLATE ========== -->
+    <div class="container">
+        <div class="filter-section" data-aos="fade-up">
+            <button class="filter-btn active" data-filter="all">Semua</button>
+            <button class="filter-btn" data-filter="modern">Modern</button>
+            <button class="filter-btn" data-filter="elegan">Elegan</button>
+            <button class="filter-btn" data-filter="minimalis">Minimalis</button>
+            <button class="filter-btn" data-filter="islami">Islami</button>
+            <button class="filter-btn" data-filter="luxury">Luxury</button>
+            <button class="filter-btn" data-filter="kartun">Kartun</button>
+            <button class="filter-btn" data-filter="simple">Simple</button>
+        </div>
+    </div>
+
+    <!-- ========== TEMPLATE GRID ========== -->
+    <section class="container">
+        <div class="template-grid" id="templateGrid" data-aos="fade-up">
+            <!-- Data akan di-load via JavaScript -->
+        </div>
+    </section>
+
+    <!-- ========== HARGA ========== -->
+    <section class="container">
+        <h2 style="font-size: 1.8rem; font-weight: 800; margin-top: 20px;" data-aos="fade-up">💰 Paket Harga</h2>
+        <p style="color: var(--text-medium); margin-bottom: 10px;" data-aos="fade-up">Pilih paket yang sesuai dengan kebutuhan Anda.</p>
+
+        <div class="pricing-grid" data-aos="fade-up">
+            <div class="pricing-card">
+                <div class="name">Basic</div>
+                <div class="price">Rp 150K <small>/undangan</small></div>
+                <ul>
+                    <li><i class="fas fa-check"></i> 1 Template pilihan</li>
+                    <li><i class="fas fa-check"></i> Custom nama & tanggal</li>
+                    <li><i class="fas fa-check"></i> Link undangan unik</li>
+                    <li><i class="fas fa-check"></i> Responsif mobile</li>
+                </ul>
+                <button class="btn-pilih" onclick="scrollToForm()">Pilih Paket</button>
+            </div>
+            <div class="pricing-card popular">
+                <div class="name">Premium ⭐</div>
+                <div class="price">Rp 350K <small>/undangan</small></div>
+                <ul>
+                    <li><i class="fas fa-check"></i> Semua fitur Basic</li>
+                    <li><i class="fas fa-check"></i> Custom warna & font</li>
+                    <li><i class="fas fa-check"></i> Galeri foto</li>
+                    <li><i class="fas fa-check"></i> RSVP online</li>
+                    <li><i class="fas fa-check"></i> Musik latar</li>
+                </ul>
+                <button class="btn-pilih" onclick="scrollToForm()">Pilih Paket</button>
+            </div>
+            <div class="pricing-card">
+                <div class="name">Exclusive</div>
+                <div class="price">Rp 550K <small>/undangan</small></div>
+                <ul>
+                    <li><i class="fas fa-check"></i> Semua fitur Premium</li>
+                    <li><i class="fas fa-check"></i> Desain eksklusif</li>
+                    <li><i class="fas fa-check"></i> Video pembuka</li>
+                    <li><i class="fas fa-check"></i> Countdown timer</li>
+                    <li><i class="fas fa-check"></i> Revisi hingga 3x</li>
+                </ul>
+                <button class="btn-pilih" onclick="scrollToForm()">Pilih Paket</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== FORM PEMESANAN ========== -->
+    <section class="container" id="orderSection">
+        <div class="order-form-section" data-aos="fade-up">
+            <h2><i class="fas fa-pen-fancy" style="color: var(--secondary);"></i> Pesan Undangan Sekarang</h2>
+            <p class="sub">Lengkapi data di bawah, tim kami akan memproses undangan digital Anda.</p>
+
+            <form id="orderForm">
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="nama">Nama Lengkap</label>
+                        <input type="text" id="nama" placeholder="Nama Anda" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="wa">Nomor WhatsApp</label>
+                        <input type="text" id="wa" placeholder="0812-3456-7890" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="jenis">Jenis Undangan</label>
+                        <select id="jenis">
+                            <option value="Pernikahan">💍 Pernikahan</option>
+                            <option value="Aqiqah">👶 Aqiqah</option>
+                            <option value="Khitan">✂️ Khitan</option>
+                            <option value="Ulang Tahun">🎂 Ulang Tahun</option>
+                            <option value="Wisuda">🎓 Wisuda</option>
+                            <option value="Tasyakuran">🤝 Tasyakuran</option>
+                            <option value="Grand Opening">🏢 Grand Opening</option>
+                            <option value="Seminar">📚 Seminar</option>
+                            <option value="Meeting">🤝 Meeting</option>
+                            <option value="Reuni">🎉 Reuni</option>
+                            <option value="Custom">✨ Custom</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="template">Pilih Template</label>
+                        <select id="template">
+                            <option value="Sakura">🌸 Sakura</option>
+                            <option value="Gold">✨ Gold</option>
+                            <option value="Islami">🕌 Islami</option>
+                            <option value="Modern">💎 Modern</option>
+                            <option value="Classic">📜 Classic</option>
+                            <option value="Luxury">👑 Luxury</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="tanggal">Tanggal Acara</label>
+                        <input type="date" id="tanggal" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="lokasi">Lokasi Acara</label>
+                        <input type="text" id="lokasi" placeholder="Nama venue / alamat" required>
+                    </div>
+                    <div class="form-group full">
+                        <label for="catatan">Catatan Tambahan</label>
+                        <textarea id="catatan" placeholder="Tulis catatan atau permintaan khusus..."></textarea>
+                    </div>
+                    <button type="submit" class="btn-submit">
+                        <i class="fas fa-paper-plane"></i> Kirim Pesanan
+                    </button>
+                </div>
+            </form>
+
+            <div id="formResponse" style="margin-top: 20px; display: none; padding: 16px 20px; border-radius: var(--radius-sm); background: #e8f5e9; color: #2e7d32; border: 1px solid #a5d6a7;">
+                ✅ Pesanan berhasil dikirim! Tim kami akan menghubungi Anda dalam 1x24 jam.
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== FOOTER ========== -->
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <div class="logo-footer">
+                        <img src="https://raw.githubusercontent.com/shasanudin/IMBKreasiDigital/main/e2b6c152d8c04e91bb6da5dcd7de9cac~.image.jpg" alt="Logo">
+                        <span>Intan Mulya Berkah</span>
+                    </div>
+                    <p>Solusi Kreatif Digital untuk Undangan, Media, Musik, dan Konten Digital.</p>
+                    <div class="footer-social">
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                        <a href="#"><i class="fab fa-tiktok"></i></a>
+                        <a href="#"><i class="fab fa-whatsapp"></i></a>
+                    </div>
+                </div>
+                <div class="footer-col">
+                    <h4>Layanan</h4>
+                    <ul>
+                        <li><a href="undangan.html">Undangan Digital</a></li>
+                        <li><a href="majalah.html">Majalah Digital</a></li>
+                        <li><a href="musik.html">Album Lagu</a></li>
+                        <li><a href="kreasi.html">Kreasi Digital</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Tentang</h4>
+                    <ul>
+                        <li><a href="index.html">Tentang Kami</a></li>
+                        <li><a href="portofolio.html">Portofolio</a></li>
+                        <li><a href="blog.html">Blog</a></li>
+                        <li><a href="kontak.html">Kontak</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Kontak</h4>
+                    <ul>
+                        <li><a href="https://wa.me/6281234567890"><i class="fab fa-whatsapp"></i> WhatsApp</a></li>
+                        <li><a href="mailto:info@intanmulyaberkah.com"><i class="fas fa-envelope"></i> Email</a></li>
+                        <li><a href="#"><i class="fas fa-map-marker-alt"></i> Lokasi</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                &copy; 2026 Intan Mulya Berkah Digital Kreasi. All Rights Reserved.
+            </div>
+        </div>
+    </footer>
+
+    <!-- ========== SCRIPTS ========== -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        // ========== AOS INIT ==========
+        AOS.init({ duration: 800, once: true, offset: 50 });
+
+        // ========== MOBILE MENU ==========
+        const menuToggle = document.getElementById('menuToggle');
+        const navLinks = document.getElementById('navLinks');
+
+        menuToggle.addEventListener('click', () => {
+            menuToggle.classList.toggle('active');
+            navLinks.classList.toggle('open');
+        });
+
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                menuToggle.classList.remove('active');
+                navLinks.classList.remove('open');
+            });
+        });
+
+        // ========== TEMPLATE DATA ==========
+        const templates = [
+            {
+                name: 'Sakura',
+                category: ['modern', 'elegan'],
+                tags: ['🌸 Floral', 'Elegan'],
+                icon: 'fa-heart',
+                desc: 'Nuansa Jepang dengan sentuhan bunga sakura yang romantis.'
+            },
+            {
+                name: 'Gold',
+                category: ['luxury', 'elegan'],
+                tags: ['✨ Mewah', 'Gold'],
+                icon: 'fa-star',
+                desc: 'Desain mewah dengan aksen emas untuk acara istimewa.'
+            },
+            {
+                name: 'Islami',
+                category: ['islami', 'minimalis'],
+                tags: ['🕌 Islami', 'Khitan'],
+                icon: 'fa-mosque',
+                desc: 'Nuansa islami dengan kaligrafi dan warna yang teduh.'
+            },
+            {
+                name: 'Modern',
+                category: ['modern', 'minimalis'],
+                tags: ['💎 Modern', 'Bold'],
+                icon: 'fa-gem',
+                desc: 'Desain kontemporer dengan tipografi yang bersih dan modern.'
+            },
+            {
+                name: 'Classic',
+                category: ['elegan', 'simple'],
+                tags: ['📜 Klasik', 'Elegant'],
+                icon: 'fa-crown',
+                desc: 'Keanggunan klasik dengan ornamen dan detail yang timeless.'
+            },
+            {
+                name: 'Luxury',
+                category: ['luxury', 'elegan'],
+                tags: ['👑 Luxury', 'Premium'],
+                icon: 'fa-crown',
+                desc: 'Kemewahan tertinggi dengan detail eksklusif dan elegan.'
+            },
+            {
+                name: 'Kartun',
+                category: ['kartun', 'simple'],
+                tags: ['🎨 Kartun', 'Ceria'],
+                icon: 'fa-face-smile',
+                desc: 'Desain ceria dengan ilustrasi kartun yang menggemaskan.'
+            },
+            {
+                name: 'Simple',
+                category: ['simple', 'minimalis'],
+                tags: ['✨ Simple', 'Clean'],
+                icon: 'fa-circle',
+                desc: 'Desain simpel dan bersih, fokus pada informasi utama.'
+            }
+        ];
+
+        // ========== RENDER TEMPLATE ==========
+        function renderTemplates(filter = 'all') {
+            const grid = document.getElementById('templateGrid');
+            const filtered = filter === 'all' 
+                ? templates 
+                : templates.filter(t => t.category.includes(filter));
+
+            grid.innerHTML = filtered.map(t => `
+                <div class="template-card" data-aos="fade-up">
+                    <div class="preview">
+                        <i class="fas ${t.icon}"></i>
+                        <div class="overlay">
+                            <span class="btn-demo"><i class="fas fa-eye"></i> Lihat Demo</span>
+                        </div>
+                    </div>
+                    <div class="info">
+                        <h3>${t.name}</h3>
+                        <p>${t.desc}</p>
+                        <div class="tags">
+                            ${t.tags.map(tag => `<span>${tag}</span>`).join('')}
+                        </div>
+                        <button class="btn-pilih" onclick="selectTemplate('${t.name}')">
+                            <i class="fas fa-check"></i> Pilih Template
+                        </button>
+                    </div>
+                </div>
+            `).join('');
+
+            AOS.refresh();
+        }
+
+        // ========== FILTER FUNCTION ==========
+        document.querySelectorAll('.filter-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+                renderTemplates(this.dataset.filter);
+            });
+        });
+
+        // ========== SELECT TEMPLATE ==========
+        function selectTemplate(name) {
+            const select = document.getElementById('template');
+            for (let option of select.options) {
+                if (option.text === name) {
+                    select.value = option.value;
+                    break;
+                }
+            }
+            document.getElementById('orderSection').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function scrollToForm() {
+            document.getElementById('orderSection').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // ========== FORM SUBMIT ==========
+        document.getElementById('orderForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const nama = document.getElementById('nama').value;
+            const wa = document.getElementById('wa').value;
+            const jenis = document.getElementById('jenis').value;
+            const template = document.getElementById('template').value;
+            const tanggal = document.getElementById('tanggal').value;
+            const lokasi = document.getElementById('lokasi').value;
+
+            if (!nama || !wa || !tanggal || !lokasi) {
+                alert('Silakan lengkapi semua data yang diperlukan.');
+                return;
+            }
+
+            // Simulasi kirim ke Firestore
+            const response = document.getElementById('formResponse');
+            response.style.display = 'block';
+            response.textContent = `✅ Pesanan berhasil dikirim! Tim kami akan menghubungi Anda di ${wa} dalam 1x24 jam.`;
+
+            // Reset form
+            // this.reset();
+
+            // Bisa ditambahkan pengiriman ke WhatsApp
+            const message = `📋 *Pesanan Undangan Digital*\n\n` +
+                `👤 Nama: ${nama}\n` +
+                `📱 WA: ${wa}\n` +
+                `🎯 Jenis: ${jenis}\n` +
+                `📌 Template: ${template}\n` +
+                `📅 Tanggal: ${tanggal}\n` +
+                `📍 Lokasi: ${lokasi}`;
+
+            // Uncomment untuk buka WhatsApp
+            // window.open(`https://wa.me/6281234567890?text=${encodeURIComponent(message)}`, '_blank');
+
+            setTimeout(() => {
+                response.style.display = 'none';
+            }, 8000);
+        });
+
+        // ========== INIT ==========
+        renderTemplates('all');
+
+        // ========== KATEGORI CLICK ==========
+        document.querySelectorAll('.categories .cat').forEach(cat => {
+            cat.addEventListener('click', function() {
+                document.querySelectorAll('.categories .cat').forEach(c => c.classList.remove('active'));
+                this.classList.add('active');
+                // Filter template by kategori
+                const filter = this.textContent.trim();
+                if (filter === 'Semua') {
+                    renderTemplates('all');
+                } else {
+                    // Map kategori ke filter
+                    const mapping = {
+                        '💍 Pernikahan': 'modern',
+                        '👶 Aqiqah': 'islami',
+                        '✂️ Khitan': 'islami',
+                        '🎂 Ulang Tahun': 'kartun',
+                        '🎓 Wisuda': 'modern',
+                        '🤝 Tasyakuran': 'simple',
+                        '🏢 Grand Opening': 'luxury',
+                        '📚 Seminar': 'modern',
+                        '🤝 Meeting': 'simple',
+                        '🎉 Reuni': 'elegan',
+                        '✨ Custom': 'all'
+                    };
+                    const filterValue = mapping[filter] || 'all';
+                    renderTemplates(filterValue);
+                }
+            });
+        });
+    </script>
+</body>
+</html>
