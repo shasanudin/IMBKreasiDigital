@@ -1,626 +1,1139 @@
+<!-- index.html - Halaman Utama Portal -->
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Intan Mulya Berkah · Kreasi Digital</title>
-  <!-- Font Google & Font Awesome -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,600;14..32,700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Intan Mulya Berkah · Portal Kreasi Digital</title>
+    
+    <!-- Meta Tags untuk SEO -->
+    <meta name="description" content="Intan Mulya Berkah Digital Kreasi - Solusi Kreatif Digital untuk Undangan, Media, Musik, dan Konten Digital.">
+    <meta name="keywords" content="undangan digital, majalah digital, album lagu, kreasi digital, website, branding">
+    <meta name="author" content="Intan Mulya Berkah">
+    
+    <!-- Open Graph -->
+    <meta property="og:title" content="Intan Mulya Berkah · Portal Kreasi Digital">
+    <meta property="og:description" content="Solusi Kreatif Digital untuk Undangan, Media, Musik, dan Konten Digital.">
+    <meta property="og:image" content="https://raw.githubusercontent.com/shasanudin/IMBKreasiDigital/main/e2b6c152d8c04e91bb6da5dcd7de9cac~.image.jpg">
+    <meta property="og:url" content="https://shasanudin.github.io/IMBKreasiDigital">
+    
+    <!-- Fonts & Icons -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- AOS Animation -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    
+    <style>
+        /* ========== RESET & BASE ========== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-    body {
-      font-family: 'Inter', sans-serif;
-      background: #fbf9f7;
-      color: #1e1e2a;
-      line-height: 1.5;
-    }
+        :root {
+            --primary: #2b1e16;
+            --primary-light: #4d3426;
+            --secondary: #b47c5e;
+            --secondary-light: #d89b7a;
+            --bg-light: #fbf9f7;
+            --bg-card: #ffffff;
+            --text-dark: #1e130d;
+            --text-medium: #5f4d40;
+            --text-light: #8a7a6e;
+            --border-color: #f0e9e3;
+            --shadow: 0 8px 32px rgba(0,0,0,0.06);
+            --shadow-hover: 0 20px 48px -12px rgba(43,30,22,0.15);
+            --radius: 28px;
+            --radius-sm: 16px;
+            --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
 
-    .container {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 0 24px;
-    }
+        html {
+            scroll-behavior: smooth;
+        }
 
-    /* header / navbar */
-    header {
-      background: #ffffffec;
-      backdrop-filter: blur(4px);
-      box-shadow: 0 4px 20px rgba(0,0,0,0.02);
-      padding: 12px 0;
-      position: sticky;
-      top: 0;
-      z-index: 30;
-      border-bottom: 1px solid #f0ebe6;
-    }
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg-light);
+            color: var(--text-dark);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
 
-    .nav-wrap {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
+        .container {
+            max-width: 1240px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
 
-    .logo {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      font-weight: 700;
-      font-size: 1.35rem;
-      letter-spacing: -0.3px;
-      color: #2b1e16;
-      text-decoration: none;
-    }
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
 
-    .logo img {
-      height: 44px;
-      width: auto;
-      border-radius: 12px;
-      display: block;
-    }
+        img {
+            max-width: 100%;
+            display: block;
+        }
 
-    .logo span {
-      background: linear-gradient(135deg, #a65e3a, #c57e5a);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-    }
+        /* ========== SCROLLBAR ========== */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: var(--bg-light);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: var(--secondary);
+            border-radius: 40px;
+        }
 
-    .nav-links {
-      display: flex;
-      gap: 32px;
-      font-weight: 500;
-    }
+        /* ========== HEADER / NAVBAR ========== */
+        header {
+            background: rgba(255,255,255,0.92);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            box-shadow: 0 1px 20px rgba(0,0,0,0.04);
+            padding: 10px 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 1px solid var(--border-color);
+            transition: var(--transition);
+        }
 
-    .nav-links a {
-      text-decoration: none;
-      color: #3e332b;
-      transition: 0.2s;
-      font-size: 0.95rem;
-      border-bottom: 2px solid transparent;
-      padding-bottom: 4px;
-    }
+        header.scrolled {
+            box-shadow: 0 4px 30px rgba(0,0,0,0.08);
+        }
 
-    .nav-links a:hover {
-      border-bottom-color: #b47c5e;
-      color: #1f130b;
-    }
+        .nav-wrap {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 20px;
+        }
 
-    .btn-cta-header {
-      background: #2b1e16;
-      color: #f8f2ec !important;
-      padding: 8px 20px;
-      border-radius: 40px;
-      border-bottom: none !important;
-    }
-    .btn-cta-header:hover {
-      background: #4d3426;
-      color: white !important;
-    }
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-weight: 800;
+            font-size: 1.25rem;
+            letter-spacing: -0.5px;
+            flex-shrink: 0;
+        }
 
-    /* hero */
-    .hero {
-      padding: 60px 0 40px;
-      display: flex;
-      flex-wrap: wrap;
-      align-items: center;
-      justify-content: space-between;
-      gap: 30px;
-    }
+        .logo img {
+            height: 44px;
+            width: auto;
+            border-radius: 12px;
+        }
 
-    .hero-text {
-      flex: 1 1 400px;
-    }
+        .logo .brand {
+            background: linear-gradient(135deg, var(--secondary), var(--secondary-light));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
 
-    .hero-text .badge {
-      display: inline-block;
-      background: #ede6df;
-      color: #4d3426;
-      padding: 6px 18px;
-      border-radius: 40px;
-      font-size: 0.8rem;
-      font-weight: 600;
-      letter-spacing: 0.3px;
-      margin-bottom: 20px;
-    }
+        .logo .brand-short {
+            display: none;
+        }
 
-    .hero-text h1 {
-      font-size: 2.9rem;
-      font-weight: 700;
-      line-height: 1.2;
-      letter-spacing: -1px;
-      color: #1e130d;
-    }
+        /* Desktop Navigation */
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            list-style: none;
+        }
 
-    .hero-text h1 i {
-      color: #b47c5e;
-      margin-right: 6px;
-    }
+        .nav-links a {
+            padding: 8px 16px;
+            border-radius: 40px;
+            font-weight: 500;
+            font-size: 0.9rem;
+            color: var(--text-medium);
+            transition: var(--transition);
+            position: relative;
+        }
 
-    .hero-text .highlight {
-      color: #b47c5e;
-      background: linear-gradient(145deg, #b47c5e, #d89b7a);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-    }
+        .nav-links a:hover,
+        .nav-links a.active {
+            background: rgba(180, 124, 94, 0.08);
+            color: var(--primary);
+        }
 
-    .hero-text p {
-      font-size: 1.1rem;
-      color: #4f4239;
-      margin: 24px 0 32px;
-      max-width: 500px;
-    }
+        .nav-links a.btn-primary-nav {
+            background: var(--primary);
+            color: white;
+            padding: 8px 24px;
+        }
 
-    .hero-btn-group {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 14px;
-    }
+        .nav-links a.btn-primary-nav:hover {
+            background: var(--primary-light);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px -8px rgba(43,30,22,0.3);
+        }
 
-    .btn-primary {
-      background: #2b1e16;
-      color: white;
-      padding: 14px 36px;
-      border-radius: 60px;
-      font-weight: 600;
-      text-decoration: none;
-      transition: 0.25s;
-      border: 1px solid transparent;
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-    }
+        /* Mobile Menu Toggle */
+        .menu-toggle {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+            padding: 8px;
+            background: none;
+            border: none;
+        }
 
-    .btn-primary:hover {
-      background: #4d3426;
-      transform: translateY(-3px);
-      box-shadow: 0 12px 24px -12px rgba(43, 30, 22, 0.3);
-    }
+        .menu-toggle span {
+            display: block;
+            width: 28px;
+            height: 3px;
+            background: var(--primary);
+            border-radius: 4px;
+            transition: var(--transition);
+        }
 
-    .btn-outline {
-      background: transparent;
-      color: #2b1e16;
-      padding: 14px 36px;
-      border-radius: 60px;
-      font-weight: 600;
-      text-decoration: none;
-      border: 1px solid #d6c9bf;
-      transition: 0.25s;
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-    }
+        .menu-toggle.active span:nth-child(1) {
+            transform: rotate(45deg) translate(5px, 6px);
+        }
+        .menu-toggle.active span:nth-child(2) {
+            opacity: 0;
+        }
+        .menu-toggle.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(5px, -6px);
+        }
 
-    .btn-outline:hover {
-      background: #f5ede7;
-      border-color: #b47c5e;
-      transform: translateY(-3px);
-    }
+        /* ========== HERO ========== */
+        .hero {
+            padding: 60px 0 40px;
+            display: flex;
+            align-items: center;
+            gap: 50px;
+            min-height: 70vh;
+        }
 
-    .hero-image {
-      flex: 1 1 300px;
-      background: #e6dad2;
-      border-radius: 40px 40px 40px 8px;
-      padding: 30px 20px;
-      text-align: center;
-      min-height: 220px;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      color: #2b1e16;
-      box-shadow: 0 20px 35px -8px rgba(0,0,0,0.05);
-      background-image: radial-gradient(circle at 30% 40%, #f3ede8 0%, #ddd0c4 100%);
-    }
+        .hero-content {
+            flex: 1.2;
+        }
 
-    .hero-image i {
-      font-size: 3.8rem;
-      color: #4d3426;
-      opacity: 0.8;
-    }
+        .hero-content .badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(180, 124, 94, 0.12);
+            color: var(--secondary);
+            padding: 6px 18px;
+            border-radius: 40px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            letter-spacing: 0.3px;
+            margin-bottom: 20px;
+        }
 
-    .hero-image span {
-      margin-top: 14px;
-      font-weight: 600;
-      background: rgba(255,255,245,0.7);
-      padding: 8px 20px;
-      border-radius: 80px;
-      backdrop-filter: blur(4px);
-    }
+        .hero-content h1 {
+            font-size: 3.6rem;
+            font-weight: 800;
+            line-height: 1.1;
+            letter-spacing: -2px;
+            color: var(--text-dark);
+        }
 
-    /* section layanan */
-    .section-title {
-      font-size: 2rem;
-      font-weight: 700;
-      margin: 60px 0 16px;
-      letter-spacing: -0.5px;
-      color: #1e130d;
-    }
+        .hero-content h1 .highlight {
+            background: linear-gradient(135deg, var(--secondary), var(--secondary-light));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
 
-    .section-desc {
-      color: #5f4d40;
-      max-width: 650px;
-      margin-bottom: 40px;
-    }
+        .hero-content p {
+            font-size: 1.15rem;
+            color: var(--text-medium);
+            max-width: 520px;
+            margin: 24px 0 32px;
+        }
 
-    .grid-layanan {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-      gap: 30px;
-      margin: 30px 0 20px;
-    }
+        .hero-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 14px;
+        }
 
-    .card {
-      background: white;
-      border-radius: 28px;
-      padding: 32px 22px 28px;
-      box-shadow: 0 8px 28px rgba(0,0,0,0.02);
-      transition: 0.25s ease;
-      border: 1px solid #f0e9e3;
-      text-align: center;
-    }
+        .btn-primary {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: var(--primary);
+            color: white;
+            padding: 14px 36px;
+            border-radius: 60px;
+            font-weight: 700;
+            border: none;
+            cursor: pointer;
+            transition: var(--transition);
+            font-size: 1rem;
+        }
 
-    .card:hover {
-      transform: translateY(-10px);
-      box-shadow: 0 24px 48px -16px rgba(43, 30, 22, 0.12);
-      border-color: #dccfc4;
-    }
+        .btn-primary:hover {
+            background: var(--primary-light);
+            transform: translateY(-3px);
+            box-shadow: 0 16px 32px -12px rgba(43,30,22,0.3);
+        }
 
-    .card-icon {
-      font-size: 2.8rem;
-      color: #b47c5e;
-      background: #f5ede7;
-      width: 76px;
-      height: 76px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      border-radius: 30px;
-      margin: 0 auto 18px;
-    }
+        .btn-secondary {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: transparent;
+            color: var(--primary);
+            padding: 14px 36px;
+            border-radius: 60px;
+            font-weight: 600;
+            border: 2px solid var(--border-color);
+            cursor: pointer;
+            transition: var(--transition);
+            font-size: 1rem;
+        }
 
-    .card h3 {
-      font-size: 1.35rem;
-      font-weight: 600;
-      margin-bottom: 8px;
-    }
+        .btn-secondary:hover {
+            border-color: var(--secondary);
+            background: rgba(180, 124, 94, 0.05);
+            transform: translateY(-3px);
+        }
 
-    .card p {
-      color: #5f4d40;
-      font-size: 0.95rem;
-    }
+        .hero-image {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
 
-    .card .label-baru {
-      background: #2b1e16;
-      color: white;
-      font-size: 0.7rem;
-      font-weight: 600;
-      padding: 4px 12px;
-      border-radius: 30px;
-      display: inline-block;
-      margin-top: 12px;
-    }
+        .hero-image .hero-box {
+            background: linear-gradient(145deg, #f3ede8, #ddd0c4);
+            border-radius: 40px;
+            padding: 40px 30px;
+            text-align: center;
+            width: 100%;
+            max-width: 420px;
+            min-height: 320px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 30px 60px -20px rgba(0,0,0,0.1);
+        }
 
-    /* fitur tambahan / extra */
-    .extra-features {
-      background: #f5efe9;
-      border-radius: 60px 60px 40px 40px;
-      padding: 50px 40px;
-      margin: 50px 0 30px;
-    }
+        .hero-image .hero-box i {
+            font-size: 4.5rem;
+            color: var(--secondary);
+            margin-bottom: 16px;
+        }
 
-    .extra-grid {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: space-between;
-      gap: 24px;
-    }
+        .hero-image .hero-box h3 {
+            font-size: 1.3rem;
+            font-weight: 700;
+        }
 
-    .extra-item {
-      flex: 1 1 140px;
-      display: flex;
-      align-items: center;
-      gap: 18px;
-    }
+        .hero-image .hero-box p {
+            color: var(--text-medium);
+            font-size: 0.95rem;
+        }
 
-    .extra-item i {
-      font-size: 2.4rem;
-      color: #7a5e4b;
-      width: 50px;
-      text-align: center;
-    }
+        /* ========== STATS ========== */
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 24px;
+            padding: 40px 0 20px;
+            border-top: 1px solid var(--border-color);
+            margin-top: 20px;
+        }
 
-    .extra-item div {
-      font-weight: 500;
-    }
-    .extra-item small {
-      display: block;
-      font-weight: 400;
-      color: #5f4d40;
-      font-size: 0.85rem;
-    }
+        .stat-item {
+            text-align: center;
+        }
 
-    /* album & majalah preview */
-    .preview-wrap {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 30px;
-      margin: 40px 0 20px;
-    }
+        .stat-item .number {
+            font-size: 2.4rem;
+            font-weight: 800;
+            color: var(--primary);
+        }
 
-    .preview-card {
-      background: white;
-      border-radius: 32px;
-      padding: 28px 26px;
-      flex: 1 1 200px;
-      border: 1px solid #f0e9e3;
-      display: flex;
-      align-items: center;
-      gap: 20px;
-      transition: 0.2s;
-    }
-    .preview-card:hover {
-      border-color: #cbb7a8;
-      background: #fefcfb;
-    }
-    .preview-card i {
-      font-size: 2.6rem;
-      color: #a57a62;
-    }
-    .preview-card .info h4 {
-      font-weight: 600;
-      margin-bottom: 4px;
-    }
-    .preview-card .info p {
-      color: #6e5b4c;
-      font-size: 0.9rem;
-    }
+        .stat-item .label {
+            font-size: 0.9rem;
+            color: var(--text-medium);
+        }
 
-    /* footer */
-    footer {
-      margin-top: 60px;
-      padding: 40px 0 30px;
-      border-top: 1px solid #e5dad2;
-      text-align: center;
-      color: #5a473a;
-    }
+        /* ========== SECTION TITLE ========== */
+        .section-title {
+            font-size: 2.2rem;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+            margin: 50px 0 12px;
+        }
 
-    .footer-logo {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      gap: 12px;
-      margin-bottom: 6px;
-    }
+        .section-subtitle {
+            color: var(--text-medium);
+            max-width: 600px;
+            margin-bottom: 40px;
+        }
 
-    .footer-logo img {
-      height: 44px;
-      width: auto;
-      border-radius: 12px;
-    }
+        /* ========== LAYANAN GRID ========== */
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 24px;
+            margin: 30px 0 20px;
+        }
 
-    .footer-logo span {
-      font-weight: 700;
-      font-size: 1.35rem;
-      background: linear-gradient(135deg, #a65e3a, #c57e5a);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-    }
+        .service-card {
+            background: var(--bg-card);
+            border-radius: var(--radius);
+            padding: 32px 24px 28px;
+            border: 1px solid var(--border-color);
+            transition: var(--transition);
+            text-align: center;
+            cursor: pointer;
+        }
 
-    .footer-social {
-      display: flex;
-      justify-content: center;
-      gap: 28px;
-      margin: 16px 0 10px;
-      font-size: 1.4rem;
-    }
+        .service-card:hover {
+            transform: translateY(-8px);
+            border-color: var(--secondary);
+            box-shadow: var(--shadow-hover);
+        }
 
-    .footer-social a {
-      color: #4d3a2d;
-      transition: 0.2s;
-    }
-    .footer-social a:hover {
-      color: #b47c5e;
-      transform: scale(1.1);
-    }
+        .service-card .icon {
+            font-size: 2.6rem;
+            color: var(--secondary);
+            background: rgba(180, 124, 94, 0.08);
+            width: 72px;
+            height: 72px;
+            border-radius: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 16px;
+        }
 
-    @media (max-width: 700px) {
-      .nav-links {
-        gap: 16px;
-        flex-wrap: wrap;
-        justify-content: flex-end;
-      }
-      .hero-text h1 {
-        font-size: 2.2rem;
-      }
-      .extra-grid {
-        flex-direction: column;
-      }
-      .extra-item {
-        flex: 1;
-      }
-    }
-  </style>
+        .service-card h3 {
+            font-size: 1.15rem;
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+
+        .service-card p {
+            color: var(--text-medium);
+            font-size: 0.9rem;
+        }
+
+        .service-card .arrow {
+            display: inline-block;
+            margin-top: 12px;
+            color: var(--secondary);
+            font-weight: 600;
+            font-size: 0.85rem;
+        }
+
+        /* ========== PORTOFOLIO PREVIEW ========== */
+        .portfolio-preview {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 24px;
+            margin: 30px 0;
+        }
+
+        .portfolio-item {
+            background: var(--bg-card);
+            border-radius: var(--radius);
+            overflow: hidden;
+            border: 1px solid var(--border-color);
+            transition: var(--transition);
+        }
+
+        .portfolio-item:hover {
+            transform: translateY(-6px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .portfolio-item .thumb {
+            height: 200px;
+            background: linear-gradient(145deg, #f3ede8, #ddd0c4);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            color: var(--secondary);
+        }
+
+        .portfolio-item .info {
+            padding: 18px 22px 22px;
+        }
+
+        .portfolio-item .info h4 {
+            font-weight: 700;
+        }
+
+        .portfolio-item .info p {
+            color: var(--text-medium);
+            font-size: 0.9rem;
+        }
+
+        .portfolio-item .info .tag {
+            display: inline-block;
+            background: rgba(180, 124, 94, 0.1);
+            color: var(--secondary);
+            padding: 2px 14px;
+            border-radius: 40px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            margin-top: 6px;
+        }
+
+        /* ========== TESTIMONIAL ========== */
+        .testimonial-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 24px;
+            margin: 30px 0;
+        }
+
+        .testimonial-card {
+            background: var(--bg-card);
+            border-radius: var(--radius);
+            padding: 28px 26px;
+            border: 1px solid var(--border-color);
+        }
+
+        .testimonial-card .stars {
+            color: #f5b342;
+            font-size: 0.9rem;
+            margin-bottom: 10px;
+        }
+
+        .testimonial-card blockquote {
+            font-style: italic;
+            color: var(--text-medium);
+        }
+
+        .testimonial-card .author {
+            margin-top: 14px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .testimonial-card .author .avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: var(--secondary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 700;
+        }
+
+        /* ========== CTA BANNER ========== */
+        .cta-banner {
+            background: linear-gradient(135deg, var(--primary), var(--primary-light));
+            border-radius: var(--radius);
+            padding: 48px 40px;
+            margin: 40px 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 24px;
+        }
+
+        .cta-banner h2 {
+            color: white;
+            font-size: 1.8rem;
+            font-weight: 800;
+        }
+
+        .cta-banner p {
+            color: rgba(255,255,255,0.7);
+            max-width: 400px;
+        }
+
+        .cta-banner .btn-white {
+            background: white;
+            color: var(--primary);
+            padding: 14px 36px;
+            border-radius: 60px;
+            font-weight: 700;
+            transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .cta-banner .btn-white:hover {
+            transform: scale(1.04);
+            box-shadow: 0 16px 32px -8px rgba(0,0,0,0.3);
+        }
+
+        /* ========== FOOTER ========== */
+        footer {
+            background: var(--primary);
+            color: rgba(255,255,255,0.8);
+            padding: 50px 0 30px;
+            margin-top: 40px;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 40px;
+            padding-bottom: 30px;
+            border-bottom: 1px solid rgba(255,255,255,0.08);
+        }
+
+        .footer-brand .logo-footer {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-weight: 800;
+            font-size: 1.3rem;
+            color: white;
+        }
+
+        .footer-brand .logo-footer img {
+            height: 44px;
+            border-radius: 12px;
+        }
+
+        .footer-brand p {
+            margin: 16px 0 20px;
+            max-width: 300px;
+            font-size: 0.95rem;
+            opacity: 0.7;
+        }
+
+        .footer-social {
+            display: flex;
+            gap: 14px;
+        }
+
+        .footer-social a {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.06);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition);
+            color: white;
+        }
+
+        .footer-social a:hover {
+            background: var(--secondary);
+            transform: translateY(-3px);
+        }
+
+        .footer-col h4 {
+            color: white;
+            font-weight: 700;
+            margin-bottom: 16px;
+            font-size: 1rem;
+        }
+
+        .footer-col ul {
+            list-style: none;
+        }
+
+        .footer-col ul li {
+            margin-bottom: 10px;
+        }
+
+        .footer-col ul a {
+            opacity: 0.7;
+            transition: var(--transition);
+            font-size: 0.9rem;
+        }
+
+        .footer-col ul a:hover {
+            opacity: 1;
+            color: var(--secondary-light);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 24px;
+            font-size: 0.85rem;
+            opacity: 0.5;
+        }
+
+        /* ========== RESPONSIVE ========== */
+        @media (max-width: 1024px) {
+            .hero-content h1 {
+                font-size: 2.8rem;
+            }
+            .footer-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .menu-toggle {
+                display: flex;
+            }
+
+            .nav-links {
+                display: none;
+                flex-direction: column;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: white;
+                padding: 20px 24px;
+                border-bottom: 1px solid var(--border-color);
+                box-shadow: var(--shadow);
+                gap: 4px;
+                width: 100%;
+            }
+
+            .nav-links.open {
+                display: flex;
+            }
+
+            .nav-links a {
+                width: 100%;
+                padding: 12px 16px;
+                border-radius: 12px;
+            }
+
+            .hero {
+                flex-direction: column;
+                padding: 30px 0;
+                text-align: center;
+            }
+
+            .hero-content h1 {
+                font-size: 2.2rem;
+            }
+
+            .hero-content p {
+                margin: 16px auto 24px;
+            }
+
+            .hero-buttons {
+                justify-content: center;
+            }
+
+            .hero-image .hero-box {
+                min-height: 200px;
+                padding: 24px;
+            }
+
+            .stats {
+                grid-template-columns: 1fr 1fr;
+                gap: 16px;
+            }
+
+            .cta-banner {
+                flex-direction: column;
+                text-align: center;
+                padding: 32px 24px;
+            }
+
+            .footer-grid {
+                grid-template-columns: 1fr;
+                gap: 28px;
+            }
+
+            .section-title {
+                font-size: 1.8rem;
+            }
+
+            .services-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .services-grid {
+                grid-template-columns: 1fr;
+            }
+            .portfolio-preview {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
 </head>
 <body>
-  <header>
-    <div class="container nav-wrap">
-      <a href="#" class="logo">
-        <img src="https://raw.githubusercontent.com/shasanudin/IMBKreasiDigital/main/e2b6c152d8c04e91bb6da5dcd7de9cac~.image.jpg" alt="Logo Intan Mulya Berkah">
-        <span>Intan Mulya</span>
-      </a>
-      <div class="nav-links">
-        <a href="#">Beranda</a>
-        <a href="#layanan">Layanan</a>
-        <a href="#koleksi">Koleksi</a>
-        <a href="#" class="btn-cta-header">Konsultasi</a>
-      </div>
-    </div>
-  </header>
 
-  <main>
+    <!-- ========== HEADER ========== -->
+    <header id="navbar">
+        <div class="container nav-wrap">
+            <a href="index.html" class="logo">
+                <img src="https://raw.githubusercontent.com/shasanudin/IMBKreasiDigital/main/e2b6c152d8c04e91bb6da5dcd7de9cac~.image.jpg" alt="Logo Intan Mulya Berkah">
+                <span class="brand">Intan Mulya</span>
+            </a>
+
+            <ul class="nav-links" id="navLinks">
+                <li><a href="index.html" class="active">🏠 Beranda</a></li>
+                <li><a href="undangan.html">💌 Undangan</a></li>
+                <li><a href="majalah.html">📰 Majalah</a></li>
+                <li><a href="musik.html">🎵 Album</a></li>
+                <li><a href="kreasi.html">🎨 Kreasi</a></li>
+                <li><a href="portofolio.html">📁 Portofolio</a></li>
+                <li><a href="blog.html">✍️ Blog</a></li>
+                <li><a href="kontak.html" class="btn-primary-nav">📞 Kontak</a></li>
+            </ul>
+
+            <button class="menu-toggle" id="menuToggle" aria-label="Toggle menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </header>
+
+    <!-- ========== HERO ========== -->
+    <section class="hero container">
+        <div class="hero-content" data-aos="fade-up" data-aos-duration="800">
+            <div class="badge">
+                <i class="fas fa-sparkles"></i> Digital Kreasi Premium
+            </div>
+            <h1>
+                INTAN MULYA BERKAH <br>
+                <span class="highlight">DIGITAL KREASI</span>
+            </h1>
+            <p>
+                Solusi Kreatif Digital untuk Undangan, Media, Musik, dan Konten Digital. 
+                Wujudkan ide Anda menjadi karya digital berkualitas.
+            </p>
+            <div class="hero-buttons">
+                <a href="undangan.html" class="btn-primary">
+                    <i class="fas fa-calendar-check"></i> Pesan Sekarang
+                </a>
+                <a href="portofolio.html" class="btn-secondary">
+                    <i class="fas fa-eye"></i> Lihat Portofolio
+                </a>
+            </div>
+        </div>
+        <div class="hero-image" data-aos="fade-up" data-aos-delay="200">
+            <div class="hero-box">
+                <i class="fas fa-wand-magic-sparkles"></i>
+                <h3>#KreasiDigitalBerkah</h3>
+                <p>Dari ide menjadi karya digital yang bermakna</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== STATS ========== -->
     <div class="container">
-      <!-- Hero -->
-      <section class="hero">
-        <div class="hero-text">
-          <div class="badge"><i class="fas fa-sparkles" style="margin-right: 6px;"></i> Kreasi Digital Premium</div>
-          <h1>
-            <i class="fas fa-feather-pointed"></i> Intan Mulya <br>
-            <span class="highlight">Berkah Kreasi</span> Digital
-          </h1>
-          <p>
-            Wujudkan momen istimewa dengan sentuhan digital. Undangan pernikahan interaktif, 
-            album lagu nostalgia, majalah visual, dan berbagai solusi kreatif untuk kebutuhan Anda.
-          </p>
-          <div class="hero-btn-group">
-            <a href="#" class="btn-primary"><i class="fas fa-calendar-check"></i> Pesan Undangan</a>
-            <a href="#layanan" class="btn-outline"><i class="fas fa-compass"></i> Jelajahi</a>
-          </div>
+        <div class="stats" data-aos="fade-up" data-aos-delay="100">
+            <div class="stat-item">
+                <div class="number" id="statOrders">0</div>
+                <div class="label">Pesanan Selesai</div>
+            </div>
+            <div class="stat-item">
+                <div class="number" id="statClients">0</div>
+                <div class="label">Klien Puas</div>
+            </div>
+            <div class="stat-item">
+                <div class="number" id="statTemplates">0</div>
+                <div class="label">Template Undangan</div>
+            </div>
+            <div class="stat-item">
+                <div class="number" id="statProjects">0</div>
+                <div class="label">Project Digital</div>
+            </div>
         </div>
-        <div class="hero-image">
-          <i class="fas fa-wand-magic-sparkles"></i>
-          <span>#KreasiDigitalBerkah</span>
-        </div>
-      </section>
-
-      <!-- Layanan utama -->
-      <h2 class="section-title" id="layanan">✨ Layanan Kreasi Digital</h2>
-      <p class="section-desc">
-        Kami menghadirkan solusi digital yang estetik, personal, dan bermakna untuk setiap momen berharga Anda.
-      </p>
-
-      <div class="grid-layanan">
-        <div class="card">
-          <div class="card-icon"><i class="fas fa-envelope-open-text"></i></div>
-          <h3>Undangan Digital</h3>
-          <p>Pernikahan, aqiqah, ulang tahun — desain eksklusif dengan RSVP & galeri foto.</p>
-          <span class="label-baru">interaktif</span>
-          <a href="undangan-digital.html">Selengkapnya</a>
-        </div>
-        <div class="card">
-          <div class="card-icon"><i class="fas fa-headphones-simple"></i></div>
-          <h3>Album Lagu</h3>
-          <p>Koleksi lagu favorit & playlist pribadi, bisa diputar langsung di website.</p>
-          <span class="label-baru">streaming</span>
-        </div>
-        <div class="card">
-          <div class="card-icon"><i class="fas fa-book-open"></i></div>
-          <h3>Majalah Digital</h3>
-          <p>Majalah interaktif dengan flip effect, cocok untuk brand, event, atau portofolio.</p>
-          <span class="label-baru">flip page</span>
-        </div>
-        <div class="card">
-          <div class="card-icon"><i class="fas fa-pen-fancy"></i></div>
-          <h3>Kreasi Lainnya</h3>
-          <p>Konten visual, motion graphic, microsite, hingga identitas digital.</p>
-          <span class="label-baru">kustom</span>
-        </div>
-      </div>
-
-      <!-- Fitur tambahan + preview album & majalah -->
-      <div class="extra-features">
-        <div class="extra-grid">
-          <div class="extra-item">
-            <i class="fas fa-music"></i>
-            <div>Album Lagu <small>30+ koleksi</small></div>
-          </div>
-          <div class="extra-item">
-            <i class="fas fa-newspaper"></i>
-            <div>Majalah <small>edisi terbaru</small></div>
-          </div>
-          <div class="extra-item">
-            <i class="fas fa-video"></i>
-            <div>Motion Reel <small>untuk undangan</small></div>
-          </div>
-          <div class="extra-item">
-            <i class="fas fa-qrcode"></i>
-            <div>QR Menu <small>digital</small></div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Koleksi preview: album + majalah -->
-      <h2 class="section-title" id="koleksi" style="margin-top: 10px;">🎵 Koleksi Unggulan</h2>
-      <div class="preview-wrap">
-        <div class="preview-card">
-          <i class="fas fa-album"></i>
-          <div class="info">
-            <h4>Album “Kasih Abadi”</h4>
-            <p>10 lagu tema pernikahan & romansa</p>
-            <small style="color:#b47c5e;"><i class="fas fa-play-circle"></i> putar preview</small>
-          </div>
-        </div>
-        <div class="preview-card">
-          <i class="fas fa-book"></i>
-          <div class="info">
-            <h4>Majalah “Berkah” Vol.2</h4>
-            <p>Inspirasi desain & kisah kreatif</p>
-            <small style="color:#b47c5e;"><i class="fas fa-arrow-right"></i> baca flip</small>
-          </div>
-        </div>
-        <div class="preview-card">
-          <i class="fas fa-ring"></i>
-          <div class="info">
-            <h4>Undangan Digital</h4>
-            <p>Koleksi template premium</p>
-            <small style="color:#b47c5e;"><i class="fas fa-check-circle"></i> 12 varian</small>
-          </div>
-        </div>
-      </div>
-
-      <!-- fitur lain sesuai bidang kreasi digital -->
-      <div style="display: flex; flex-wrap: wrap; gap: 20px; background: #fcf8f5; border-radius: 48px; padding: 30px 28px; margin: 30px 0;">
-        <div style="flex:1; min-width: 160px;">
-          <h4 style="display: flex; gap: 8px;"><i class="fas fa-paintbrush" style="color:#b47c5e;"></i> Desain Visual</h4>
-          <ul style="list-style: none; margin-top: 8px; color: #4f3f33;">
-            <li style="margin: 6px 0;">✓ Identitas brand</li>
-            <li style="margin: 6px 0;">✓ Poster & konten medsos</li>
-            <li style="margin: 6px 0;">✓ Infografis interaktif</li>
-          </ul>
-        </div>
-        <div style="flex:1; min-width: 160px;">
-          <h4 style="display: flex; gap: 8px;"><i class="fas fa-code" style="color:#b47c5e;"></i> Pengembangan Web</h4>
-          <ul style="list-style: none; margin-top: 8px; color: #4f3f33;">
-            <li style="margin: 6px 0;">✓ Microsite undangan</li>
-            <li style="margin: 6px 0;">✓ Galeri & portfolio</li>
-            <li style="margin: 6px 0;">✓ Fitur RSVP & streaming</li>
-          </ul>
-        </div>
-        <div style="flex:1; min-width: 160px;">
-          <h4 style="display: flex; gap: 8px;"><i class="fas fa-camera" style="color:#b47c5e;"></i> Multimedia</h4>
-          <ul style="list-style: none; margin-top: 8px; color: #4f3f33;">
-            <li style="margin: 6px 0;">✓ Video pendek (reels)</li>
-            <li style="margin: 6px 0;">✓ Audio player kustom</li>
-            <li style="margin: 6px 0;">✓ Flipbook majalah</li>
-          </ul>
-        </div>
-      </div>
     </div>
-  </main>
 
-  <footer>
-    <div class="container">
-      <div class="footer-logo">
-        <img src="https://raw.githubusercontent.com/shasanudin/IMBKreasiDigital/main/e2b6c152d8c04e91bb6da5dcd7de9cac~.image.jpg" alt="Logo Intan Mulya Berkah">
-        <span>Intan Mulya Berkah</span>
-      </div>
-      <p style="font-size: 0.9rem; max-width: 400px; margin: 8px auto;">Kreasi digital untuk momen berarti · undangan · album · majalah · dan lebih banyak lagi.</p>
-      <div class="footer-social">
-        <a href="#"><i class="fab fa-instagram"></i></a>
-        <a href="#"><i class="fab fa-youtube"></i></a>
-        <a href="#"><i class="fab fa-tiktok"></i></a>
-        <a href="#"><i class="fab fa-whatsapp"></i></a>
-      </div>
-      <p style="font-size: 0.75rem; margin-top: 20px; opacity: 0.6;">&copy; 2026 Intan Mulya Berkah Kreasi Digital</p>
-    </div>
-  </footer>
+    <!-- ========== LAYANAN ========== -->
+    <section class="container">
+        <h2 class="section-title" data-aos="fade-up">✨ Layanan Kami</h2>
+        <p class="section-subtitle" data-aos="fade-up">Berbagai solusi digital untuk memenuhi kebutuhan kreatif Anda.</p>
+
+        <div class="services-grid">
+            <a href="undangan.html" class="service-card" data-aos="fade-up" data-aos-delay="0">
+                <div class="icon"><i class="fas fa-envelope-open-text"></i></div>
+                <h3>Undangan Digital</h3>
+                <p>Pernikahan, aqiqah, ulang tahun, dan berbagai acara lainnya.</p>
+                <span class="arrow">Lihat →</span>
+            </a>
+            <a href="majalah.html" class="service-card" data-aos="fade-up" data-aos-delay="50">
+                <div class="icon"><i class="fas fa-book-open"></i></div>
+                <h3>Majalah Digital</h3>
+                <p>Majalah interaktif dengan efek flip, cocok untuk brand & event.</p>
+                <span class="arrow">Lihat →</span>
+            </a>
+            <a href="musik.html" class="service-card" data-aos="fade-up" data-aos-delay="100">
+                <div class="icon"><i class="fas fa-headphones-simple"></i></div>
+                <h3>Album Lagu</h3>
+                <p>Koleksi lagu & playlist pribadi dengan pemutar audio.</p>
+                <span class="arrow">Lihat →</span>
+            </a>
+            <a href="kreasi.html" class="service-card" data-aos="fade-up" data-aos-delay="150">
+                <div class="icon"><i class="fas fa-pen-fancy"></i></div>
+                <h3>Kreasi Digital</h3>
+                <p>Logo, poster, video, website, dan berbagai desain kreatif.</p>
+                <span class="arrow">Lihat →</span>
+            </a>
+        </div>
+    </section>
+
+    <!-- ========== PORTOFOLIO PREVIEW ========== -->
+    <section class="container">
+        <h2 class="section-title" data-aos="fade-up">📁 Portofolio Terbaru</h2>
+        <p class="section-subtitle" data-aos="fade-up">Beberapa karya terbaik yang telah kami buat untuk klien.</p>
+
+        <div class="portfolio-preview" id="portfolioPreview">
+            <!-- Data akan di-load via JavaScript -->
+        </div>
+
+        <div style="text-align: center; margin: 20px 0 40px;">
+            <a href="portofolio.html" class="btn-secondary">Lihat Semua Portofolio →</a>
+        </div>
+    </section>
+
+    <!-- ========== TESTIMONIAL ========== -->
+    <section class="container">
+        <h2 class="section-title" data-aos="fade-up">💬 Testimoni Klien</h2>
+        <p class="section-subtitle" data-aos="fade-up">Apa kata mereka tentang layanan kami.</p>
+
+        <div class="testimonial-grid" id="testimonialGrid">
+            <!-- Data akan di-load via JavaScript -->
+        </div>
+    </section>
+
+    <!-- ========== CTA BANNER ========== -->
+    <section class="container">
+        <div class="cta-banner" data-aos="fade-up" data-aos-duration="800">
+            <div>
+                <h2>Siap Membuat Karya Digital?</h2>
+                <p>Konsultasikan ide Anda dengan kami. Kami siap membantu mewujudkannya.</p>
+            </div>
+            <a href="kontak.html" class="btn-white">
+                <i class="fas fa-comment-dots"></i> Konsultasi Gratis
+            </a>
+        </div>
+    </section>
+
+    <!-- ========== FOOTER ========== -->
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <div class="logo-footer">
+                        <img src="https://raw.githubusercontent.com/shasanudin/IMBKreasiDigital/main/e2b6c152d8c04e91bb6da5dcd7de9cac~.image.jpg" alt="Logo">
+                        <span>Intan Mulya Berkah</span>
+                    </div>
+                    <p>Solusi Kreatif Digital untuk Undangan, Media, Musik, dan Konten Digital.</p>
+                    <div class="footer-social">
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                        <a href="#"><i class="fab fa-tiktok"></i></a>
+                        <a href="#"><i class="fab fa-whatsapp"></i></a>
+                    </div>
+                </div>
+                <div class="footer-col">
+                    <h4>Layanan</h4>
+                    <ul>
+                        <li><a href="undangan.html">Undangan Digital</a></li>
+                        <li><a href="majalah.html">Majalah Digital</a></li>
+                        <li><a href="musik.html">Album Lagu</a></li>
+                        <li><a href="kreasi.html">Kreasi Digital</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Tentang</h4>
+                    <ul>
+                        <li><a href="#">Tentang Kami</a></li>
+                        <li><a href="portofolio.html">Portofolio</a></li>
+                        <li><a href="blog.html">Blog</a></li>
+                        <li><a href="kontak.html">Kontak</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Kontak</h4>
+                    <ul>
+                        <li><a href="https://wa.me/6281234567890"><i class="fab fa-whatsapp"></i> WhatsApp</a></li>
+                        <li><a href="mailto:info@intanmulyaberkah.com"><i class="fas fa-envelope"></i> Email</a></li>
+                        <li><a href="#"><i class="fas fa-map-marker-alt"></i> Lokasi</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                &copy; 2026 Intan Mulya Berkah Digital Kreasi. All Rights Reserved.
+            </div>
+        </div>
+    </footer>
+
+    <!-- ========== SCRIPTS ========== -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        // ========== AOS INIT ==========
+        AOS.init({
+            duration: 800,
+            once: true,
+            offset: 50
+        });
+
+        // ========== MOBILE MENU ==========
+        const menuToggle = document.getElementById('menuToggle');
+        const navLinks = document.getElementById('navLinks');
+
+        menuToggle.addEventListener('click', () => {
+            menuToggle.classList.toggle('active');
+            navLinks.classList.toggle('open');
+        });
+
+        // Close menu on link click (mobile)
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                menuToggle.classList.remove('active');
+                navLinks.classList.remove('open');
+            });
+        });
+
+        // ========== NAVBAR SCROLL EFFECT ==========
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        // ========== STATS ANIMATION ==========
+        function animateStats() {
+            const stats = [
+                { id: 'statOrders', target: 320 },
+                { id: 'statClients', target: 180 },
+                { id: 'statTemplates', target: 45 },
+                { id: 'statProjects', target: 210 }
+            ];
+
+            stats.forEach(stat => {
+                const el = document.getElementById(stat.id);
+                if (!el) return;
+                let current = 0;
+                const increment = Math.ceil(stat.target / 40);
+                const timer = setInterval(() => {
+                    current += increment;
+                    if (current >= stat.target) {
+                        current = stat.target;
+                        clearInterval(timer);
+                    }
+                    el.textContent = current + '+';
+                }, 30);
+            });
+        }
+
+        // Run stats animation when visible
+        const statsObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    animateStats();
+                    statsObserver.disconnect();
+                }
+            });
+        });
+
+        const statsSection = document.querySelector('.stats');
+        if (statsSection) {
+            statsObserver.observe(statsSection);
+        }
+
+        // ========== LOAD PORTOFOLIO PREVIEW ==========
+        function loadPortfolioPreview() {
+            const container = document.getElementById('portfolioPreview');
+            const items = [
+                { title: 'Undangan Pernikahan Sakura', category: 'Undangan Digital', icon: 'fa-heart' },
+                { title: 'Majalah Berkah Vol.2', category: 'Majalah Digital', icon: 'fa-book' },
+                { title: 'Album Kasih Abadi', category: 'Album Lagu', icon: 'fa-music' },
+                { title: 'Brand Identity - Coffee Shop', category: 'Kreasi Digital', icon: 'fa-pen-fancy' }
+            ];
+
+            container.innerHTML = items.map(item => `
+                <div class="portfolio-item" data-aos="fade-up">
+                    <div class="thumb"><i class="fas ${item.icon}"></i></div>
+                    <div class="info">
+                        <h4>${item.title}</h4>
+                        <p>${item.category}</p>
+                        <span class="tag">${item.category}</span>
+                    </div>
+                </div>
+            `).join('');
+
+            // Re-init AOS for new elements
+            AOS.refresh();
+        }
+
+        // ========== LOAD TESTIMONIALS ==========
+        function loadTestimonials() {
+            const container = document.getElementById('testimonialGrid');
+            const testimonials = [
+                { name: 'Ayu & Rizky', text: 'Undangan digitalnya sangat elegan dan mudah dibagikan ke tamu. Pelayanan cepat dan hasil memuaskan!', initial: 'AR' },
+                { name: 'Mas Dedi', text: 'Majalah digital untuk perusahaan saya sangat profesional. Fitur flip-nya membuat pembaca betah.', initial: 'MD' },
+                { name: 'Sari Project', text: 'Album lagu untuk acara pernikahan saya sangat berkesan. Kualitas audio dan desainnya luar biasa.', initial: 'SP' }
+            ];
+
+            container.innerHTML = testimonials.map(t => `
+                <div class="testimonial-card" data-aos="fade-up">
+                    <div class="stars">★★★★★</div>
+                    <blockquote>"${t.text}"</blockquote>
+                    <div class="author">
+                        <div class="avatar">${t.initial}</div>
+                        ${t.name}
+                    </div>
+                </div>
+            `).join('');
+
+            AOS.refresh();
+        }
+
+        // ========== INIT ==========
+        document.addEventListener('DOMContentLoaded', () => {
+            loadPortfolioPreview();
+            loadTestimonials();
+        });
+    </script>
+
+    <!-- Firebase Integration (akan diaktifkan) -->
+    <!--
+    <script type="module">
+        import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js';
+        import { getFirestore, collection, getDocs } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js';
+
+        const firebaseConfig = {
+            apiKey: "YOUR_API_KEY",
+            authDomain: "YOUR_AUTH_DOMAIN",
+            projectId: "YOUR_PROJECT_ID",
+            storageBucket: "YOUR_STORAGE_BUCKET",
+            messagingSenderId: "YOUR_SENDER_ID",
+            appId: "YOUR_APP_ID"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+
+        // Contoh: load data dari Firestore
+        async function loadPortfolioFromFirestore() {
+            const querySnapshot = await getDocs(collection(db, "portfolio"));
+            querySnapshot.forEach((doc) => {
+                console.log(doc.id, " => ", doc.data());
+            });
+        }
+        loadPortfolioFromFirestore();
+    </script>
+    -->
 </body>
 </html>
