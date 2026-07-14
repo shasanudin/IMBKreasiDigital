@@ -1,0 +1,1417 @@
+<!-- musik.html - Halaman Album Lagu -->
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Album Lagu · Intan Mulya Berkah</title>
+    <meta name="description" content="Dengarkan koleksi album lagu terbaik dari Intan Mulya Berkah. Nikmati musik berkualitas dengan pemutar audio modern.">
+    
+    <!-- Fonts & Icons -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    
+    <style>
+        /* ========== RESET & VARIABLES ========== */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        :root {
+            --primary: #2b1e16;
+            --primary-light: #4d3426;
+            --secondary: #b47c5e;
+            --secondary-light: #d89b7a;
+            --bg-light: #fbf9f7;
+            --bg-card: #ffffff;
+            --text-dark: #1e130d;
+            --text-medium: #5f4d40;
+            --border-color: #f0e9e3;
+            --shadow: 0 8px 32px rgba(0,0,0,0.06);
+            --shadow-hover: 0 20px 48px -12px rgba(43,30,22,0.15);
+            --radius: 28px;
+            --radius-sm: 16px;
+            --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            --player-height: 80px;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg-light);
+            color: var(--text-dark);
+            line-height: 1.6;
+            padding-bottom: var(--player-height);
+        }
+
+        .container {
+            max-width: 1240px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        a { text-decoration: none; color: inherit; }
+
+        /* ========== HEADER ========== */
+        header {
+            background: rgba(255,255,255,0.92);
+            backdrop-filter: blur(12px);
+            padding: 10px 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .nav-wrap {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-weight: 800;
+            font-size: 1.25rem;
+        }
+
+        .logo img {
+            height: 44px;
+            width: auto;
+            border-radius: 12px;
+        }
+
+        .logo .brand {
+            background: linear-gradient(135deg, var(--secondary), var(--secondary-light));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            padding: 8px 16px;
+            border-radius: 40px;
+            font-weight: 500;
+            font-size: 0.9rem;
+            color: var(--text-medium);
+            transition: var(--transition);
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            background: rgba(180, 124, 94, 0.08);
+            color: var(--primary);
+        }
+
+        .nav-links a.btn-primary-nav {
+            background: var(--primary);
+            color: white;
+            padding: 8px 24px;
+        }
+
+        .nav-links a.btn-primary-nav:hover {
+            background: var(--primary-light);
+            transform: translateY(-2px);
+        }
+
+        .menu-toggle {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+            padding: 8px;
+            background: none;
+            border: none;
+        }
+
+        .menu-toggle span {
+            display: block;
+            width: 28px;
+            height: 3px;
+            background: var(--primary);
+            border-radius: 4px;
+            transition: var(--transition);
+        }
+
+        .menu-toggle.active span:nth-child(1) {
+            transform: rotate(45deg) translate(5px, 6px);
+        }
+        .menu-toggle.active span:nth-child(2) { opacity: 0; }
+        .menu-toggle.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(5px, -6px);
+        }
+
+        /* ========== PAGE HERO ========== */
+        .page-hero {
+            padding: 40px 0 30px;
+            text-align: center;
+        }
+
+        .page-hero h1 {
+            font-size: 2.8rem;
+            font-weight: 800;
+            letter-spacing: -1px;
+        }
+
+        .page-hero h1 i {
+            color: var(--secondary);
+        }
+
+        .page-hero p {
+            color: var(--text-medium);
+            font-size: 1.1rem;
+            max-width: 600px;
+            margin: 8px auto 0;
+        }
+
+        /* ========== GENRE FILTER ========== */
+        .genre-filter {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: center;
+            margin: 20px 0 30px;
+        }
+
+        .genre-filter .genre {
+            padding: 8px 20px;
+            border-radius: 40px;
+            background: white;
+            border: 1px solid var(--border-color);
+            font-weight: 500;
+            font-size: 0.85rem;
+            transition: var(--transition);
+            cursor: pointer;
+        }
+
+        .genre-filter .genre:hover,
+        .genre-filter .genre.active {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+
+        /* ========== ALBUM GRID ========== */
+        .album-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            margin: 30px 0 40px;
+        }
+
+        .album-card {
+            background: var(--bg-card);
+            border-radius: var(--radius);
+            overflow: hidden;
+            border: 1px solid var(--border-color);
+            transition: var(--transition);
+            cursor: pointer;
+        }
+
+        .album-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-hover);
+            border-color: var(--secondary);
+        }
+
+        .album-card .cover {
+            height: 260px;
+            background: linear-gradient(145deg, #f3ede8, #ddd0c4);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+            color: var(--secondary);
+            position: relative;
+        }
+
+        .album-card .cover .play-badge {
+            position: absolute;
+            bottom: 16px;
+            right: 16px;
+            background: var(--secondary);
+            color: white;
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            transition: var(--transition);
+            box-shadow: 0 4px 16px rgba(180, 124, 94, 0.4);
+        }
+
+        .album-card:hover .cover .play-badge {
+            transform: scale(1.1);
+            background: var(--primary);
+        }
+
+        .album-card .cover .album-badge {
+            position: absolute;
+            top: 16px;
+            left: 16px;
+            background: rgba(0,0,0,0.6);
+            color: white;
+            padding: 4px 14px;
+            border-radius: 40px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            backdrop-filter: blur(4px);
+        }
+
+        .album-card .info {
+            padding: 20px 24px 24px;
+        }
+
+        .album-card .info h3 {
+            font-weight: 700;
+            font-size: 1.2rem;
+        }
+
+        .album-card .info .artist {
+            color: var(--text-medium);
+            font-size: 0.9rem;
+            margin: 2px 0 8px;
+        }
+
+        .album-card .info .meta {
+            display: flex;
+            gap: 16px;
+            color: var(--text-medium);
+            font-size: 0.8rem;
+        }
+
+        .album-card .info .meta i {
+            color: var(--secondary);
+            width: 16px;
+        }
+
+        .album-card .info .tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            margin: 10px 0 14px;
+        }
+
+        .album-card .info .tags span {
+            background: rgba(180, 124, 94, 0.08);
+            color: var(--secondary);
+            padding: 2px 14px;
+            border-radius: 40px;
+            font-size: 0.7rem;
+            font-weight: 600;
+        }
+
+        .album-card .info .btn-play {
+            background: var(--primary);
+            color: white;
+            padding: 10px 24px;
+            border-radius: 40px;
+            font-weight: 600;
+            font-size: 0.85rem;
+            border: none;
+            cursor: pointer;
+            transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            width: 100%;
+            justify-content: center;
+        }
+
+        .album-card .info .btn-play:hover {
+            background: var(--primary-light);
+            transform: scale(1.02);
+        }
+
+        /* ========== SONG LIST (di dalam album) ========== */
+        .song-list-container {
+            display: none;
+            background: white;
+            border-radius: var(--radius);
+            padding: 30px 32px;
+            margin: 20px 0 40px;
+            border: 1px solid var(--border-color);
+            box-shadow: var(--shadow);
+        }
+
+        .song-list-container.active {
+            display: block;
+        }
+
+        .song-list-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .song-list-header h2 {
+            font-weight: 800;
+            font-size: 1.5rem;
+        }
+
+        .song-list-header .close-songs {
+            background: none;
+            border: none;
+            font-size: 1.2rem;
+            color: var(--text-medium);
+            cursor: pointer;
+            transition: var(--transition);
+            padding: 8px 16px;
+            border-radius: 40px;
+            border: 1px solid var(--border-color);
+        }
+
+        .song-list-header .close-songs:hover {
+            background: #fee;
+            color: #c62828;
+            border-color: #ef9a9a;
+        }
+
+        .song-item {
+            display: flex;
+            align-items: center;
+            padding: 12px 16px;
+            border-radius: var(--radius-sm);
+            transition: var(--transition);
+            cursor: pointer;
+            gap: 16px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .song-item:last-child {
+            border-bottom: none;
+        }
+
+        .song-item:hover {
+            background: rgba(180, 124, 94, 0.04);
+        }
+
+        .song-item .number {
+            font-weight: 600;
+            color: var(--text-medium);
+            width: 32px;
+            text-align: center;
+            font-size: 0.85rem;
+        }
+
+        .song-item .info {
+            flex: 1;
+        }
+
+        .song-item .info .title {
+            font-weight: 600;
+        }
+
+        .song-item .info .duration {
+            font-size: 0.8rem;
+            color: var(--text-medium);
+        }
+
+        .song-item .play-btn {
+            background: none;
+            border: none;
+            font-size: 1.2rem;
+            color: var(--secondary);
+            cursor: pointer;
+            transition: var(--transition);
+            padding: 8px;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .song-item .play-btn:hover {
+            background: rgba(180, 124, 94, 0.1);
+            transform: scale(1.1);
+        }
+
+        .song-item .play-btn.playing {
+            color: var(--primary);
+            background: rgba(180, 124, 94, 0.15);
+        }
+
+        /* ========== AUDIO PLAYER (Sticky Footer) ========== */
+        .audio-player {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: var(--primary);
+            color: white;
+            padding: 12px 24px;
+            height: var(--player-height);
+            display: none;
+            align-items: center;
+            gap: 16px;
+            z-index: 999;
+            box-shadow: 0 -4px 30px rgba(0,0,0,0.15);
+            border-top: 2px solid var(--secondary);
+        }
+
+        .audio-player.active {
+            display: flex;
+        }
+
+        .audio-player .player-info {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            min-width: 180px;
+        }
+
+        .audio-player .player-info .thumb {
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            background: var(--secondary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            flex-shrink: 0;
+        }
+
+        .audio-player .player-info .details {
+            overflow: hidden;
+        }
+
+        .audio-player .player-info .details .song-title {
+            font-weight: 600;
+            font-size: 0.9rem;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .audio-player .player-info .details .artist-name {
+            font-size: 0.75rem;
+            opacity: 0.7;
+        }
+
+        .audio-player .player-controls {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex: 1;
+            justify-content: center;
+        }
+
+        .audio-player .player-controls button {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: var(--transition);
+            padding: 8px;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .audio-player .player-controls button:hover {
+            background: rgba(255,255,255,0.1);
+        }
+
+        .audio-player .player-controls .btn-play-pause {
+            background: var(--secondary);
+            font-size: 1.4rem;
+            width: 48px;
+            height: 48px;
+        }
+
+        .audio-player .player-controls .btn-play-pause:hover {
+            background: var(--secondary-light);
+            transform: scale(1.05);
+        }
+
+        .audio-player .player-progress {
+            flex: 2;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            min-width: 100px;
+        }
+
+        .audio-player .player-progress .time {
+            font-size: 0.75rem;
+            opacity: 0.7;
+            min-width: 40px;
+        }
+
+        .audio-player .player-progress .progress-bar {
+            flex: 1;
+            height: 4px;
+            background: rgba(255,255,255,0.2);
+            border-radius: 4px;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .audio-player .player-progress .progress-bar .progress-fill {
+            height: 100%;
+            background: var(--secondary);
+            border-radius: 4px;
+            width: 0%;
+            transition: width 0.1s linear;
+        }
+
+        .audio-player .player-progress .progress-bar .progress-dot {
+            position: absolute;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            width: 12px;
+            height: 12px;
+            background: white;
+            border-radius: 50%;
+            left: 0%;
+            display: none;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+        }
+
+        .audio-player .player-progress .progress-bar:hover .progress-dot {
+            display: block;
+        }
+
+        .audio-player .player-extra {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .audio-player .player-extra .volume {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .audio-player .player-extra .volume input[type="range"] {
+            width: 80px;
+            height: 4px;
+            -webkit-appearance: none;
+            background: rgba(255,255,255,0.2);
+            border-radius: 4px;
+            outline: none;
+        }
+
+        .audio-player .player-extra .volume input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: white;
+            cursor: pointer;
+        }
+
+        /* ========== FOOTER ========== */
+        footer {
+            background: var(--primary);
+            color: rgba(255,255,255,0.8);
+            padding: 40px 0 24px;
+            margin-top: 40px;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 40px;
+            padding-bottom: 30px;
+            border-bottom: 1px solid rgba(255,255,255,0.08);
+        }
+
+        .footer-brand .logo-footer {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-weight: 800;
+            font-size: 1.3rem;
+            color: white;
+        }
+
+        .footer-brand .logo-footer img {
+            height: 44px;
+            border-radius: 12px;
+        }
+
+        .footer-brand p {
+            margin: 16px 0 20px;
+            max-width: 300px;
+            font-size: 0.95rem;
+            opacity: 0.7;
+        }
+
+        .footer-social {
+            display: flex;
+            gap: 14px;
+        }
+
+        .footer-social a {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.06);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition);
+            color: white;
+        }
+
+        .footer-social a:hover {
+            background: var(--secondary);
+            transform: translateY(-3px);
+        }
+
+        .footer-col h4 {
+            color: white;
+            font-weight: 700;
+            margin-bottom: 16px;
+        }
+
+        .footer-col ul {
+            list-style: none;
+        }
+
+        .footer-col ul li {
+            margin-bottom: 10px;
+        }
+
+        .footer-col ul a {
+            opacity: 0.7;
+            transition: var(--transition);
+            font-size: 0.9rem;
+        }
+
+        .footer-col ul a:hover {
+            opacity: 1;
+            color: var(--secondary-light);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 24px;
+            font-size: 0.85rem;
+            opacity: 0.5;
+        }
+
+        /* ========== RESPONSIVE ========== */
+        @media (max-width: 768px) {
+            .menu-toggle {
+                display: flex;
+            }
+
+            .nav-links {
+                display: none;
+                flex-direction: column;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: white;
+                padding: 20px 24px;
+                border-bottom: 1px solid var(--border-color);
+                width: 100%;
+            }
+
+            .nav-links.open {
+                display: flex;
+            }
+
+            .nav-links a {
+                width: 100%;
+                padding: 12px 16px;
+            }
+
+            .page-hero h1 {
+                font-size: 2rem;
+            }
+
+            .footer-grid {
+                grid-template-columns: 1fr;
+                gap: 28px;
+            }
+
+            .album-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .audio-player {
+                padding: 10px 16px;
+                height: auto;
+                flex-wrap: wrap;
+                gap: 8px;
+            }
+
+            .audio-player .player-info {
+                min-width: 120px;
+                flex: 1;
+            }
+
+            .audio-player .player-controls {
+                flex: 1;
+                min-width: 120px;
+            }
+
+            .audio-player .player-progress {
+                flex: 1 1 100%;
+                order: 3;
+            }
+
+            .audio-player .player-extra {
+                display: none;
+            }
+
+            .song-list-container {
+                padding: 20px 16px;
+            }
+
+            .song-item {
+                padding: 10px 12px;
+                gap: 10px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .audio-player .player-info .thumb {
+                width: 36px;
+                height: 36px;
+                font-size: 1rem;
+            }
+
+            .audio-player .player-info .details .song-title {
+                font-size: 0.8rem;
+            }
+
+            .audio-player .player-controls button {
+                width: 32px;
+                height: 32px;
+                font-size: 1rem;
+            }
+
+            .audio-player .player-controls .btn-play-pause {
+                width: 40px;
+                height: 40px;
+                font-size: 1.2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ========== HEADER ========== -->
+    <header>
+        <div class="container nav-wrap">
+            <a href="index.html" class="logo">
+                <img src="https://raw.githubusercontent.com/shasanudin/IMBKreasiDigital/main/e2b6c152d8c04e91bb6da5dcd7de9cac~.image.jpg" alt="Logo">
+                <span class="brand">Intan Mulya</span>
+            </a>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="index.html">🏠 Beranda</a></li>
+                <li><a href="undangan.html">💌 Undangan</a></li>
+                <li><a href="majalah.html">📰 Majalah</a></li>
+                <li><a href="musik.html" class="active">🎵 Album</a></li>
+                <li><a href="kreasi.html">🎨 Kreasi</a></li>
+                <li><a href="portofolio.html">📁 Portofolio</a></li>
+                <li><a href="blog.html">✍️ Blog</a></li>
+                <li><a href="kontak.html" class="btn-primary-nav">📞 Kontak</a></li>
+            </ul>
+            <button class="menu-toggle" id="menuToggle">
+                <span></span><span></span><span></span>
+            </button>
+        </div>
+    </header>
+
+    <!-- ========== PAGE HERO ========== -->
+    <section class="page-hero container" data-aos="fade-up">
+        <h1><i class="fas fa-headphones-simple"></i> Album Lagu</h1>
+        <p>Nikmati koleksi album lagu terbaik dari berbagai genre. Dengarkan musik favorit Anda kapan saja.</p>
+    </section>
+
+    <!-- ========== GENRE FILTER ========== -->
+    <div class="container">
+        <div class="genre-filter" data-aos="fade-up">
+            <span class="genre active">Semua</span>
+            <span class="genre">🎵 Pop</span>
+            <span class="genre">🎸 Rock</span>
+            <span class="genre">🎹 Jazz</span>
+            <span class="genre">🕌 Religi</span>
+            <span class="genre">🎻 Klasik</span>
+            <span class="genre">🌿 Indie</span>
+            <span class="genre">🎤 Dangdut</span>
+        </div>
+    </div>
+
+    <!-- ========== ALBUM GRID ========== -->
+    <section class="container">
+        <div class="album-grid" id="albumGrid" data-aos="fade-up">
+            <!-- Data akan di-load via JavaScript -->
+        </div>
+    </section>
+
+    <!-- ========== SONG LIST ========== -->
+    <div class="container">
+        <div class="song-list-container" id="songListContainer">
+            <div class="song-list-header">
+                <h2 id="songListTitle">🎵 Daftar Lagu</h2>
+                <button class="close-songs" id="closeSongList">
+                    <i class="fas fa-xmark"></i> Tutup
+                </button>
+            </div>
+            <div id="songList">
+                <!-- Data akan di-load via JavaScript -->
+            </div>
+        </div>
+    </div>
+
+    <!-- ========== CTA ========== -->
+    <section class="container">
+        <div style="background: linear-gradient(135deg, var(--primary), var(--primary-light)); border-radius: var(--radius); padding: 40px 36px; margin: 20px 0 40px; text-align: center; color: white;" data-aos="fade-up">
+            <h2 style="font-size: 1.8rem; font-weight: 800;">Ingin Membuat Album Lagu?</h2>
+            <p style="opacity: 0.8; max-width: 500px; margin: 8px auto 20px;">Kami siap membantu Anda membuat album lagu digital dengan kualitas audio terbaik.</p>
+            <a href="kontak.html" style="background: white; color: var(--primary); padding: 14px 36px; border-radius: 60px; font-weight: 700; display: inline-flex; align-items: center; gap: 10px; transition: var(--transition);">
+                <i class="fas fa-comment-dots"></i> Konsultasi Sekarang
+            </a>
+        </div>
+    </section>
+
+    <!-- ========== AUDIO PLAYER (Sticky Footer) ========== -->
+    <div class="audio-player" id="audioPlayer">
+        <div class="player-info">
+            <div class="thumb" id="playerThumb">🎵</div>
+            <div class="details">
+                <div class="song-title" id="playerTitle">Pilih Lagu</div>
+                <div class="artist-name" id="playerArtist">Album</div>
+            </div>
+        </div>
+        <div class="player-controls">
+            <button id="btnPrev" title="Lagu Sebelumnya"><i class="fas fa-backward-step"></i></button>
+            <button class="btn-play-pause" id="btnPlayPause" title="Play / Pause">
+                <i class="fas fa-play" id="playIcon"></i>
+            </button>
+            <button id="btnNext" title="Lagu Selanjutnya"><i class="fas fa-forward-step"></i></button>
+        </div>
+        <div class="player-progress">
+            <span class="time" id="currentTime">0:00</span>
+            <div class="progress-bar" id="progressBar">
+                <div class="progress-fill" id="progressFill"></div>
+                <div class="progress-dot" id="progressDot"></div>
+            </div>
+            <span class="time" id="totalTime">0:00</span>
+        </div>
+        <div class="player-extra">
+            <div class="volume">
+                <i class="fas fa-volume-high" id="volumeIcon"></i>
+                <input type="range" id="volumeSlider" min="0" max="1" step="0.01" value="0.8">
+            </div>
+        </div>
+    </div>
+
+    <!-- ========== FOOTER ========== -->
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <div class="logo-footer">
+                        <img src="https://raw.githubusercontent.com/shasanudin/IMBKreasiDigital/main/e2b6c152d8c04e91bb6da5dcd7de9cac~.image.jpg" alt="Logo">
+                        <span>Intan Mulya Berkah</span>
+                    </div>
+                    <p>Solusi Kreatif Digital untuk Undangan, Media, Musik, dan Konten Digital.</p>
+                    <div class="footer-social">
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                        <a href="#"><i class="fab fa-tiktok"></i></a>
+                        <a href="#"><i class="fab fa-whatsapp"></i></a>
+                    </div>
+                </div>
+                <div class="footer-col">
+                    <h4>Layanan</h4>
+                    <ul>
+                        <li><a href="undangan.html">Undangan Digital</a></li>
+                        <li><a href="majalah.html">Majalah Digital</a></li>
+                        <li><a href="musik.html">Album Lagu</a></li>
+                        <li><a href="kreasi.html">Kreasi Digital</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Tentang</h4>
+                    <ul>
+                        <li><a href="index.html">Tentang Kami</a></li>
+                        <li><a href="portofolio.html">Portofolio</a></li>
+                        <li><a href="blog.html">Blog</a></li>
+                        <li><a href="kontak.html">Kontak</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Kontak</h4>
+                    <ul>
+                        <li><a href="https://wa.me/6281234567890"><i class="fab fa-whatsapp"></i> WhatsApp</a></li>
+                        <li><a href="mailto:info@intanmulyaberkah.com"><i class="fas fa-envelope"></i> Email</a></li>
+                        <li><a href="#"><i class="fas fa-map-marker-alt"></i> Lokasi</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                &copy; 2026 Intan Mulya Berkah Digital Kreasi. All Rights Reserved.
+            </div>
+        </div>
+    </footer>
+
+    <!-- ========== SCRIPTS ========== -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        // ========== AOS INIT ==========
+        AOS.init({ duration: 800, once: true, offset: 50 });
+
+        // ========== MOBILE MENU ==========
+        const menuToggle = document.getElementById('menuToggle');
+        const navLinks = document.getElementById('navLinks');
+
+        menuToggle.addEventListener('click', () => {
+            menuToggle.classList.toggle('active');
+            navLinks.classList.toggle('open');
+        });
+
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                menuToggle.classList.remove('active');
+                navLinks.classList.remove('open');
+            });
+        });
+
+        // ========== DATA ALBUM & LAGU ==========
+        const albums = [
+            {
+                id: 1,
+                title: 'Kasih Abadi',
+                artist: 'Intan Mulya',
+                genre: 'Religi',
+                year: '2026',
+                icon: '🕌',
+                emoji: '🎵',
+                tags: ['Religi', 'Damai', 'Inspiratif'],
+                songs: [
+                    { title: 'Bismillah Cinta', duration: '4:12' },
+                    { title: 'Kasih Abadi', duration: '3:48' },
+                    { title: 'Sujudku', duration: '5:02' },
+                    { title: 'Doa untukmu', duration: '4:30' },
+                    { title: 'Cahaya Ilahi', duration: '3:55' }
+                ]
+            },
+            {
+                id: 2,
+                title: 'Sukatani',
+                artist: 'Grup Nusantara',
+                genre: 'Pop',
+                year: '2025',
+                icon: '🎸',
+                emoji: '🎶',
+                tags: ['Pop', 'Energik', 'Modern'],
+                songs: [
+                    { title: 'Sukatani Raya', duration: '3:45' },
+                    { title: 'Kembali ke Tanah', duration: '4:10' },
+                    { title: 'Bersama Kita', duration: '3:30' },
+                    { title: 'Malam di Sukatani', duration: '4:45' },
+                    { title: 'Harapan Baru', duration: '3:58' }
+                ]
+            },
+            {
+                id: 3,
+                title: 'Religi - Jiwa Tenang',
+                artist: 'Hafiz & Friends',
+                genre: 'Religi',
+                year: '2026',
+                icon: '🕌',
+                emoji: '🎵',
+                tags: ['Religi', 'Tenang', 'Meditasi'],
+                songs: [
+                    { title: 'Subhanallah', duration: '5:20' },
+                    { title: 'Rahmat Allah', duration: '4:45' },
+                    { title: 'Ya Rabbana', duration: '6:00' },
+                    { title: 'Nur Muhammad', duration: '4:30' },
+                    { title: 'Syukur', duration: '3:50' }
+                ]
+            },
+            {
+                id: 4,
+                title: 'Jazz Malam',
+                artist: 'Soul Jazz Project',
+                genre: 'Jazz',
+                year: '2025',
+                icon: '🎷',
+                emoji: '🎷',
+                tags: ['Jazz', 'Santai', 'Malam'],
+                songs: [
+                    { title: 'Midnight Blues', duration: '5:30' },
+                    { title: 'Smooth Ride', duration: '4:20' },
+                    { title: 'Jazz in the City', duration: '4:50' },
+                    { title: 'Velvet Night', duration: '5:10' },
+                    { title: 'Soulful Echo', duration: '4:35' }
+                ]
+            },
+            {
+                id: 5,
+                title: 'Pop Indonesia Vol.1',
+                artist: 'Various Artists',
+                genre: 'Pop',
+                year: '2026',
+                icon: '🎤',
+                emoji: '🎤',
+                tags: ['Pop', 'Indonesia', 'Hits'],
+                songs: [
+                    { title: 'Cinta Pertama', duration: '3:55' },
+                    { title: 'Rindu', duration: '4:20' },
+                    { title: 'Bersamamu', duration: '3:45' },
+                    { title: 'Terbang Tinggi', duration: '4:00' },
+                    { title: 'Untukmu', duration: '4:30' }
+                ]
+            },
+            {
+                id: 6,
+                title: 'Dangdut Koplo',
+                artist: 'Mania Group',
+                genre: 'Dangdut',
+                year: '2025',
+                icon: '🪘',
+                emoji: '🪇',
+                tags: ['Dangdut', 'Koplo', 'Energik'],
+                songs: [
+                    { title: 'Koplo Dangdut', duration: '4:15' },
+                    { title: 'Pesta Rakyat', duration: '3:50' },
+                    { title: 'Goyang Nusantara', duration: '4:30' },
+                    { title: 'Malam Minggu', duration: '4:00' },
+                    { title: 'Dangdut Forever', duration: '4:45' }
+                ]
+            },
+            {
+                id: 7,
+                title: 'Instrumental Classic',
+                artist: 'Orchestra Nusantara',
+                genre: 'Klasik',
+                year: '2024',
+                icon: '🎻',
+                emoji: '🎻',
+                tags: ['Klasik', 'Instrumental', 'Tenang'],
+                songs: [
+                    { title: 'Serenada', duration: '5:30' },
+                    { title: 'Danau Tenang', duration: '6:10' },
+                    { title: 'Hujan di Sore Hari', duration: '4:50' },
+                    { title: 'Mimpi Indah', duration: '5:20' },
+                    { title: 'Melodi Cinta', duration: '4:40' }
+                ]
+            },
+            {
+                id: 8,
+                title: 'Indie Journey',
+                artist: 'Indie Collective',
+                genre: 'Indie',
+                year: '2026',
+                icon: '🎧',
+                emoji: '🎧',
+                tags: ['Indie', 'Alternatif', 'Kreatif'],
+                songs: [
+                    { title: 'Wanderlust', duration: '4:20' },
+                    { title: 'City Lights', duration: '3:55' },
+                    { title: 'Sunset Drive', duration: '4:10' },
+                    { title: 'Neon Dreams', duration: '4:45' },
+                    { title: 'Echoes', duration: '5:00' }
+                ]
+            }
+        ];
+
+        // ========== RENDER ALBUM ==========
+        function renderAlbums(filter = 'Semua') {
+            const grid = document.getElementById('albumGrid');
+            const filtered = filter === 'Semua' 
+                ? albums 
+                : albums.filter(a => a.genre === filter);
+
+            if (filtered.length === 0) {
+                grid.innerHTML = `
+                    <div style="grid-column: 1 / -1; text-align: center; padding: 60px 20px; background: white; border-radius: var(--radius); border: 1px solid var(--border-color);">
+                        <i class="fas fa-search" style="font-size: 3rem; color: var(--secondary); opacity: 0.5;"></i>
+                        <h3 style="margin-top: 12px;">Belum ada album di genre ini</h3>
+                        <p style="color: var(--text-medium);">Nantikan album terbaru dari kami.</p>
+                    </div>
+                `;
+                return;
+            }
+
+            grid.innerHTML = filtered.map(album => `
+                <div class="album-card" data-aos="fade-up" onclick="showSongs('${album.id}')">
+                    <div class="cover">
+                        <span style="font-size: 4rem;">${album.emoji}</span>
+                        <span class="album-badge">${album.genre}</span>
+                        <div class="play-badge">
+                            <i class="fas fa-play"></i>
+                        </div>
+                    </div>
+                    <div class="info">
+                        <h3>${album.title}</h3>
+                        <div class="artist">${album.artist}</div>
+                        <div class="meta">
+                            <span><i class="far fa-calendar"></i> ${album.year}</span>
+                            <span><i class="fas fa-music"></i> ${album.songs.length} lagu</span>
+                        </div>
+                        <div class="tags">
+                            ${album.tags.map(tag => `<span>#${tag}</span>`).join('')}
+                        </div>
+                        <button class="btn-play" onclick="event.stopPropagation(); showSongs('${album.id}')">
+                            <i class="fas fa-play"></i> Putar Album
+                        </button>
+                    </div>
+                </div>
+            `).join('');
+
+            AOS.refresh();
+        }
+
+        // ========== SHOW SONGS ==========
+        let currentAlbum = null;
+        let currentSongIndex = 0;
+        let isPlaying = false;
+        let audio = new Audio();
+
+        function showSongs(albumId) {
+            const album = albums.find(a => a.id == albumId);
+            if (!album) return;
+
+            currentAlbum = album;
+            currentSongIndex = 0;
+
+            const container = document.getElementById('songListContainer');
+            const title = document.getElementById('songListTitle');
+            const list = document.getElementById('songList');
+
+            title.textContent = `🎵 ${album.title} - ${album.artist}`;
+            
+            list.innerHTML = album.songs.map((song, index) => `
+                <div class="song-item" onclick="playSong('${album.id}', ${index})">
+                    <span class="number">${String(index + 1).padStart(2, '0')}</span>
+                    <div class="info">
+                        <div class="title">${song.title}</div>
+                        <div class="duration">${song.duration}</div>
+                    </div>
+                    <button class="play-btn" onclick="event.stopPropagation(); playSong('${album.id}', ${index})">
+                        <i class="fas fa-play"></i>
+                    </button>
+                </div>
+            `).join('');
+
+            container.classList.add('active');
+            container.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+
+        // ========== PLAY SONG ==========
+        function playSong(albumId, index) {
+            const album = albums.find(a => a.id == albumId);
+            if (!album) return;
+
+            currentAlbum = album;
+            currentSongIndex = index;
+
+            const song = album.songs[index];
+            
+            // Update player UI
+            document.getElementById('playerTitle').textContent = song.title;
+            document.getElementById('playerArtist').textContent = `${album.artist} · ${album.title}`;
+            document.getElementById('playerThumb').textContent = album.emoji;
+            document.getElementById('audioPlayer').classList.add('active');
+
+            // Simulasi audio (karena tidak ada file MP3)
+            // Dalam implementasi nyata, gunakan URL MP3 dari Firebase Storage
+            // audio.src = `https://storage.firebase.com/music/${album.id}/${song.title}.mp3`;
+            
+            // Simulasi play
+            isPlaying = true;
+            document.getElementById('playIcon').className = 'fas fa-pause';
+            document.getElementById('totalTime').textContent = song.duration;
+            
+            // Simulasi progress
+            simulateProgress(song.duration);
+
+            // Highlight song in list
+            document.querySelectorAll('.song-item').forEach((item, i) => {
+                const btn = item.querySelector('.play-btn i');
+                if (i === index) {
+                    item.style.background = 'rgba(180, 124, 94, 0.1)';
+                    btn.className = 'fas fa-pause';
+                } else {
+                    item.style.background = '';
+                    btn.className = 'fas fa-play';
+                }
+            });
+
+            // Update album card play badge
+            document.querySelectorAll('.album-card').forEach(card => {
+                const badge = card.querySelector('.play-badge i');
+                if (card.querySelector('.btn-play')?.textContent.includes(album.title)) {
+                    badge.className = 'fas fa-pause';
+                }
+            });
+        }
+
+        // ========== SIMULATE PROGRESS ==========
+        function simulateProgress(duration) {
+            const [min, sec] = duration.split(':').map(Number);
+            const totalSec = min * 60 + sec;
+            let currentSec = 0;
+
+            if (window.progressInterval) {
+                clearInterval(window.progressInterval);
+            }
+
+            window.progressInterval = setInterval(() => {
+                currentSec++;
+                if (currentSec > totalSec) {
+                    clearInterval(window.progressInterval);
+                    // Next song
+                    nextSong();
+                    return;
+                }
+
+                const progress = (currentSec / totalSec) * 100;
+                document.getElementById('progressFill').style.width = progress + '%';
+                document.getElementById('progressDot').style.left = progress + '%';
+                
+                const mins = Math.floor(currentSec / 60);
+                const secs = Math.floor(currentSec % 60);
+                document.getElementById('currentTime').textContent = `${mins}:${String(secs).padStart(2, '0')}`;
+            }, 1000);
+        }
+
+        // ========== PLAY/PAUSE TOGGLE ==========
+        document.getElementById('btnPlayPause').addEventListener('click', function() {
+            if (!currentAlbum) {
+                // Play first album jika belum ada yang dipilih
+                if (albums.length > 0) {
+                    showSongs(albums[0].id);
+                    setTimeout(() => playSong(albums[0].id, 0), 300);
+                }
+                return;
+            }
+
+            isPlaying = !isPlaying;
+            const icon = document.getElementById('playIcon');
+            if (isPlaying) {
+                icon.className = 'fas fa-pause';
+                // Resume progress
+                simulateProgress(document.getElementById('totalTime').textContent);
+            } else {
+                icon.className = 'fas fa-play';
+                if (window.progressInterval) {
+                    clearInterval(window.progressInterval);
+                }
+            }
+        });
+
+        // ========== NEXT/PREV SONG ==========
+        function nextSong() {
+            if (!currentAlbum) return;
+            const nextIndex = (currentSongIndex + 1) % currentAlbum.songs.length;
+            playSong(currentAlbum.id, nextIndex);
+        }
+
+        function prevSong() {
+            if (!currentAlbum) return;
+            const prevIndex = (currentSongIndex - 1 + currentAlbum.songs.length) % currentAlbum.songs.length;
+            playSong(currentAlbum.id, prevIndex);
+        }
+
+        document.getElementById('btnNext').addEventListener('click', nextSong);
+        document.getElementById('btnPrev').addEventListener('click', prevSong);
+
+        // ========== VOLUME CONTROL ==========
+        document.getElementById('volumeSlider').addEventListener('input', function() {
+            audio.volume = this.value;
+            const icon = document.getElementById('volumeIcon');
+            if (this.value == 0) {
+                icon.className = 'fas fa-volume-xmark';
+            } else if (this.value < 0.5) {
+                icon.className = 'fas fa-volume-low';
+            } else {
+                icon.className = 'fas fa-volume-high';
+            }
+        });
+
+        // ========== PROGRESS BAR CLICK ==========
+        document.getElementById('progressBar').addEventListener('click', function(e) {
+            const rect = this.getBoundingClientRect();
+            const x = (e.clientX - rect.left) / rect.width;
+            // Simulasi seek
+            const duration = document.getElementById('totalTime').textContent;
+            const [min, sec] = duration.split(':').map(Number);
+            const totalSec = min * 60 + sec;
+            const seekSec = Math.floor(x * totalSec);
+            const mins = Math.floor(seekSec / 60);
+            const secs = Math.floor(seekSec % 60);
+            document.getElementById('currentTime').textContent = `${mins}:${String(secs).padStart(2, '0')}`;
+            document.getElementById('progressFill').style.width = (x * 100) + '%';
+            document.getElementById('progressDot').style.left = (x * 100) + '%';
+        });
+
+        // ========== CLOSE SONG LIST ==========
+        document.getElementById('closeSongList').addEventListener('click', function() {
+            document.getElementById('songListContainer').classList.remove('active');
+        });
+
+        // ========== GENRE FILTER ==========
+        document.querySelectorAll('.genre-filter .genre').forEach(genre => {
+            genre.addEventListener('click', function() {
+                document.querySelectorAll('.genre-filter .genre').forEach(g => g.classList.remove('active'));
+                this.classList.add('active');
+                renderAlbums(this.textContent.trim());
+            });
+        });
+
+        // ========== KEYBOARD SHORTCUTS ==========
+        document.addEventListener('keydown', function(e) {
+            if (e.target.tagName === 'INPUT') return;
+            
+            if (e.key === ' ') {
+                e.preventDefault();
+                document.getElementById('btnPlayPause').click();
+            }
+            if (e.key === 'ArrowRight') {
+                e.preventDefault();
+                nextSong();
+            }
+            if (e.key === 'ArrowLeft') {
+                e.preventDefault();
+                prevSong();
+            }
+            if (e.key === 'Escape') {
+                document.getElementById('songListContainer').classList.remove('active');
+            }
+        });
+
+        // ========== INIT ==========
+        renderAlbums('Semua');
+
+        // Inisialisasi audio
+        audio.volume = 0.8;
+        document.getElementById('volumeSlider').value = 0.8;
+    </script>
+</body>
+</html>
