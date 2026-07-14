@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Intan Mulya Berkah · Kreasi Digital</title>
+  <!-- Font Google & Font Awesome -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,600;14..32,700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #fbf9f7;
+      color: #1e1e2a;
+      line-height: 1.5;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    /* header / navbar */
+    header {
+      background: #ffffffec;
+      backdrop-filter: blur(4px);
+      box-shadow: 0 4px 20px rgba(0,0,0,0.02);
+      padding: 18px 0;
+      position: sticky;
+      top: 0;
+      z-index: 30;
+      border-bottom: 1px solid #f0ebe6;
+    }
+
+    .nav-wrap {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-weight: 700;
+      font-size: 1.35rem;
+      letter-spacing: -0.3px;
+      color: #2b1e16;
+    }
+
+    .logo i {
+      color: #b47c5e;
+      font-size: 1.6rem;
+    }
+
+    .logo span {
+      background: linear-gradient(135deg, #a65e3a, #c57e5a);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 32px;
+      font-weight: 500;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      color: #3e332b;
+      transition: 0.2s;
+      font-size: 0.95rem;
+      border-bottom: 2px solid transparent;
+      padding-bottom: 4px;
+    }
+
+    .nav-links a:hover {
+      border-bottom-color: #b47c5e;
+      color: #1f130b;
+    }
+
+    .btn-cta-header {
+      background: #2b1e16;
+      color: #f8f2ec !important;
+      padding: 8px 20px;
+      border-radius: 40px;
+      border-bottom: none !important;
+    }
+    .btn-cta-header:hover {
+      background: #4d3426;
+      color: white !important;
+    }
+
+    /* hero */
+    .hero {
+      padding: 60px 0 40px;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 30px;
+    }
+
+    .hero-text {
+      flex: 1 1 400px;
+    }
+
+    .hero-text .badge {
+      display: inline-block;
+      background: #ede6df;
+      color: #4d3426;
+      padding: 6px 18px;
+      border-radius: 40px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 0.3px;
+      margin-bottom: 20px;
+    }
+
+    .hero-text h1 {
+      font-size: 2.9rem;
+      font-weight: 700;
+      line-height: 1.2;
+      letter-spacing: -1px;
+      color: #1e130d;
+    }
+
+    .hero-text h1 i {
+      color: #b47c5e;
+      margin-right: 6px;
+    }
+
+    .hero-text .highlight {
+      color: #b47c5e;
+      background: linear-gradient(145deg, #b47c5e, #d89b7a);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .hero-text p {
+      font-size: 1.1rem;
+      color: #4f4239;
+      margin: 24px 0 32px;
+      max-width: 500px;
+    }
+
+    .hero-btn-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+    }
+
+    .btn-primary {
+      background: #2b1e16;
+      color: white;
+      padding: 14px 36px;
+      border-radius: 60px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: 0.25s;
+      border: 1px solid transparent;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .btn-primary:hover {
+      background: #4d3426;
+      transform: translateY(-3px);
+      box-shadow: 0 12px 24px -12px rgba(43, 30, 22, 0.3);
+    }
+
+    .btn-outline {
+      background: transparent;
+      color: #2b1e16;
+      padding: 14px 36px;
+      border-radius: 60px;
+      font-weight: 600;
+      text-decoration: none;
+      border: 1px solid #d6c9bf;
+      transition: 0.25s;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .btn-outline:hover {
+      background: #f5ede7;
+      border-color: #b47c5e;
+      transform: translateY(-3px);
+    }
+
+    .hero-image {
+      flex: 1 1 300px;
+      background: #e6dad2;
+      border-radius: 40px 40px 40px 8px;
+      padding: 30px 20px;
+      text-align: center;
+      min-height: 220px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      color: #2b1e16;
+      box-shadow: 0 20px 35px -8px rgba(0,0,0,0.05);
+      background-image: radial-gradient(circle at 30% 40%, #f3ede8 0%, #ddd0c4 100%);
+    }
+
+    .hero-image i {
+      font-size: 3.8rem;
+      color: #4d3426;
+      opacity: 0.8;
+    }
+
+    .hero-image span {
+      margin-top: 14px;
+      font-weight: 600;
+      background: rgba(255,255,245,0.7);
+      padding: 8px 20px;
+      border-radius: 80px;
+      backdrop-filter: blur(4px);
+    }
+
+    /* section layanan */
+    .section-title {
+      font-size: 2rem;
+      font-weight: 700;
+      margin: 60px 0 16px;
+      letter-spacing: -0.5px;
+      color: #1e130d;
+    }
+
+    .section-desc {
+      color: #5f4d40;
+      max-width: 650px;
+      margin-bottom: 40px;
+    }
+
+    .grid-layanan {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 30px;
+      margin: 30px 0 20px;
+    }
+
+    .card {
+      background: white;
+      border-radius: 28px;
+      padding: 32px 22px 28px;
+      box-shadow: 0 8px 28px rgba(0,0,0,0.02);
+      transition: 0.25s ease;
+      border: 1px solid #f0e9e3;
+      text-align: center;
+    }
+
+    .card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 24px 48px -16px rgba(43, 30, 22, 0.12);
+      border-color: #dccfc4;
+    }
+
+    .card-icon {
+      font-size: 2.8rem;
+      color: #b47c5e;
+      background: #f5ede7;
+      width: 76px;
+      height: 76px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 30px;
+      margin: 0 auto 18px;
+    }
+
+    .card h3 {
+      font-size: 1.35rem;
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+
+    .card p {
+      color: #5f4d40;
+      font-size: 0.95rem;
+    }
+
+    .card .label-baru {
+      background: #2b1e16;
+      color: white;
+      font-size: 0.7rem;
+      font-weight: 600;
+      padding: 4px 12px;
+      border-radius: 30px;
+      display: inline-block;
+      margin-top: 12px;
+    }
+
+    /* fitur tambahan / extra */
+    .extra-features {
+      background: #f5efe9;
+      border-radius: 60px 60px 40px 40px;
+      padding: 50px 40px;
+      margin: 50px 0 30px;
+    }
+
+    .extra-grid {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: 24px;
+    }
+
+    .extra-item {
+      flex: 1 1 140px;
+      display: flex;
+      align-items: center;
+      gap: 18px;
+    }
+
+    .extra-item i {
+      font-size: 2.4rem;
+      color: #7a5e4b;
+      width: 50px;
+      text-align: center;
+    }
+
+    .extra-item div {
+      font-weight: 500;
+    }
+    .extra-item small {
+      display: block;
+      font-weight: 400;
+      color: #5f4d40;
+      font-size: 0.85rem;
+    }
+
+    /* album & majalah preview */
+    .preview-wrap {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 30px;
+      margin: 40px 0 20px;
+    }
+
+    .preview-card {
+      background: white;
+      border-radius: 32px;
+      padding: 28px 26px;
+      flex: 1 1 200px;
+      border: 1px solid #f0e9e3;
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      transition: 0.2s;
+    }
+    .preview-card:hover {
+      border-color: #cbb7a8;
+      background: #fefcfb;
+    }
+    .preview-card i {
+      font-size: 2.6rem;
+      color: #a57a62;
+    }
+    .preview-card .info h4 {
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+    .preview-card .info p {
+      color: #6e5b4c;
+      font-size: 0.9rem;
+    }
+
+    /* footer */
+    footer {
+      margin-top: 60px;
+      padding: 40px 0 30px;
+      border-top: 1px solid #e5dad2;
+      text-align: center;
+      color: #5a473a;
+    }
+
+    .footer-social {
+      display: flex;
+      justify-content: center;
+      gap: 28px;
+      margin: 16px 0 10px;
+      font-size: 1.4rem;
+    }
+
+    .footer-social a {
+      color: #4d3a2d;
+      transition: 0.2s;
+    }
+    .footer-social a:hover {
+      color: #b47c5e;
+      transform: scale(1.1);
+    }
+
+    @media (max-width: 700px) {
+      .nav-links {
+        gap: 16px;
+        flex-wrap: wrap;
+        justify-content: flex-end;
+      }
+      .hero-text h1 {
+        font-size: 2.2rem;
+      }
+      .extra-grid {
+        flex-direction: column;
+      }
+      .extra-item {
+        flex: 1;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container nav-wrap">
+      <div class="logo">
+        <i class="fas fa-crown"></i>
+        <span>Intan Mulya</span>
+      </div>
+      <div class="nav-links">
+        <a href="#">Beranda</a>
+        <a href="#layanan">Layanan</a>
+        <a href="#koleksi">Koleksi</a>
+        <a href="#" class="btn-cta-header">Konsultasi</a>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <div class="container">
+      <!-- Hero -->
+      <section class="hero">
+        <div class="hero-text">
+          <div class="badge"><i class="fas fa-sparkles" style="margin-right: 6px;"></i> Kreasi Digital Premium</div>
+          <h1>
+            <i class="fas fa-feather-pointed"></i> Intan Mulya <br>
+            <span class="highlight">Berkah Kreasi</span> Digital
+          </h1>
+          <p>
+            Wujudkan momen istimewa dengan sentuhan digital. Undangan pernikahan interaktif, 
+            album lagu nostalgia, majalah visual, dan berbagai solusi kreatif untuk kebutuhan Anda.
+          </p>
+          <div class="hero-btn-group">
+            <a href="#" class="btn-primary"><i class="fas fa-calendar-check"></i> Pesan Undangan</a>
+            <a href="#layanan" class="btn-outline"><i class="fas fa-compass"></i> Jelajahi</a>
+          </div>
+        </div>
+        <div class="hero-image">
+          <i class="fas fa-wand-magic-sparkles"></i>
+          <span>#KreasiDigitalBerkah</span>
+        </div>
+      </section>
+
+      <!-- Layanan utama -->
+      <h2 class="section-title" id="layanan">✨ Layanan Kreasi Digital</h2>
+      <p class="section-desc">
+        Kami menghadirkan solusi digital yang estetik, personal, dan bermakna untuk setiap momen berharga Anda.
+      </p>
+
+      <div class="grid-layanan">
+        <div class="card">
+          <div class="card-icon"><i class="fas fa-envelope-open-text"></i></div>
+          <h3>Undangan Digital</h3>
+          <p>Pernikahan, aqiqah, ulang tahun — desain eksklusif dengan RSVP & galeri foto.</p>
+          <span class="label-baru">interaktif</span>
+        </div>
+        <div class="card">
+          <div class="card-icon"><i class="fas fa-headphones-simple"></i></div>
+          <h3>Album Lagu</h3>
+          <p>Koleksi lagu favorit & playlist pribadi, bisa diputar langsung di website.</p>
+          <span class="label-baru">streaming</span>
+        </div>
+        <div class="card">
+          <div class="card-icon"><i class="fas fa-book-open"></i></div>
+          <h3>Majalah Digital</h3>
+          <p>Majalah interaktif dengan flip effect, cocok untuk brand, event, atau portofolio.</p>
+          <span class="label-baru">flip page</span>
+        </div>
+        <div class="card">
+          <div class="card-icon"><i class="fas fa-pen-fancy"></i></div>
+          <h3>Kreasi Lainnya</h3>
+          <p>Konten visual, motion graphic, microsite, hingga identitas digital.</p>
+          <span class="label-baru">kustom</span>
+        </div>
+      </div>
+
+      <!-- Fitur tambahan + preview album & majalah -->
+      <div class="extra-features">
+        <div class="extra-grid">
+          <div class="extra-item">
+            <i class="fas fa-music"></i>
+            <div>Album Lagu <small>30+ koleksi</small></div>
+          </div>
+          <div class="extra-item">
+            <i class="fas fa-newspaper"></i>
+            <div>Majalah <small>edisi terbaru</small></div>
+          </div>
+          <div class="extra-item">
+            <i class="fas fa-video"></i>
+            <div>Motion Reel <small>untuk undangan</small></div>
+          </div>
+          <div class="extra-item">
+            <i class="fas fa-qrcode"></i>
+            <div>QR Menu <small>digital</small></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Koleksi preview: album + majalah -->
+      <h2 class="section-title" id="koleksi" style="margin-top: 10px;">🎵 Koleksi Unggulan</h2>
+      <div class="preview-wrap">
+        <div class="preview-card">
+          <i class="fas fa-album"></i>
+          <div class="info">
+            <h4>Album “Kasih Abadi”</h4>
+            <p>10 lagu tema pernikahan & romansa</p>
+            <small style="color:#b47c5e;"><i class="fas fa-play-circle"></i> putar preview</small>
+          </div>
+        </div>
+        <div class="preview-card">
+          <i class="fas fa-book"></i>
+          <div class="info">
+            <h4>Majalah “Berkah” Vol.2</h4>
+            <p>Inspirasi desain & kisah kreatif</p>
+            <small style="color:#b47c5e;"><i class="fas fa-arrow-right"></i> baca flip</small>
+          </div>
+        </div>
+        <div class="preview-card">
+          <i class="fas fa-ring"></i>
+          <div class="info">
+            <h4>Undangan Digital</h4>
+            <p>Koleksi template premium</p>
+            <small style="color:#b47c5e;"><i class="fas fa-check-circle"></i> 12 varian</small>
+          </div>
+        </div>
+      </div>
+
+      <!-- fitur lain sesuai bidang kreasi digital -->
+      <div style="display: flex; flex-wrap: wrap; gap: 20px; background: #fcf8f5; border-radius: 48px; padding: 30px 28px; margin: 30px 0;">
+        <div style="flex:1; min-width: 160px;">
+          <h4 style="display: flex; gap: 8px;"><i class="fas fa-paintbrush" style="color:#b47c5e;"></i> Desain Visual</h4>
+          <ul style="list-style: none; margin-top: 8px; color: #4f3f33;">
+            <li style="margin: 6px 0;">✓ Identitas brand</li>
+            <li style="margin: 6px 0;">✓ Poster & konten medsos</li>
+            <li style="margin: 6px 0;">✓ Infografis interaktif</li>
+          </ul>
+        </div>
+        <div style="flex:1; min-width: 160px;">
+          <h4 style="display: flex; gap: 8px;"><i class="fas fa-code" style="color:#b47c5e;"></i> Pengembangan Web</h4>
+          <ul style="list-style: none; margin-top: 8px; color: #4f3f33;">
+            <li style="margin: 6px 0;">✓ Microsite undangan</li>
+            <li style="margin: 6px 0;">✓ Galeri & portfolio</li>
+            <li style="margin: 6px 0;">✓ Fitur RSVP & streaming</li>
+          </ul>
+        </div>
+        <div style="flex:1; min-width: 160px;">
+          <h4 style="display: flex; gap: 8px;"><i class="fas fa-camera" style="color:#b47c5e;"></i> Multimedia</h4>
+          <ul style="list-style: none; margin-top: 8px; color: #4f3f33;">
+            <li style="margin: 6px 0;">✓ Video pendek (reels)</li>
+            <li style="margin: 6px 0;">✓ Audio player kustom</li>
+            <li style="margin: 6px 0;">✓ Flipbook majalah</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    <div class="container">
+      <div class="logo" style="justify-content: center; margin-bottom: 6px;">
+        <i class="fas fa-crown"></i>
+        <span>Intan Mulya Berkah</span>
+      </div>
+      <p style="font-size: 0.9rem; max-width: 400px; margin: 8px auto;">Kreasi digital untuk momen berarti · undangan · album · majalah · dan lebih banyak lagi.</p>
+      <div class="footer-social">
+        <a href="#"><i class="fab fa-instagram"></i></a>
+        <a href="#"><i class="fab fa-youtube"></i></a>
+        <a href="#"><i class="fab fa-tiktok"></i></a>
+        <a href="#"><i class="fab fa-whatsapp"></i></a>
+      </div>
+      <p style="font-size: 0.75rem; margin-top: 20px; opacity: 0.6;">&copy; 2026 Intan Mulya Berkah Kreasi Digital</p>
+    </div>
+  </footer>
+</body>
+</html>
