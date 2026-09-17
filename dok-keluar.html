@@ -139,20 +139,15 @@
         }
 
         /* =========================================
-           HEADER: Logo & KANCAB & QR
+           HEADER: Hanya Logo
            ========================================= */
         .header {
             display: flex;
-            justify-content: space-between;
+            justify-content: flex-start;
             align-items: flex-start;
             border-bottom: 2px solid #000;
             padding-bottom: 8px;
             margin-bottom: 8px;
-        }
-
-        .header-left {
-            display: flex;
-            flex-direction: column;
         }
 
         .logo-img {
@@ -160,7 +155,16 @@
             height: 1.3cm;
             object-fit: contain;
             object-position: left center;
-            margin-bottom: 5px;
+        }
+
+        /* =========================================
+           BARIS DI BAWAH GARIS: KANCAB (kiri) + BARCODE (kanan)
+           ========================================= */
+        .sub-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 20px;
         }
 
         .branch-info {
@@ -170,7 +174,7 @@
             padding-top: 2px;
         }
 
-        /* QR Code ukuran 1cm x 1cm */
+        /* QR Code ukuran 1.3cm x 1.3cm */
         .qr-box {
             width: 1.3cm;
             height: 1.3cm;
@@ -188,7 +192,7 @@
         /* =========================================
            JUDUL
            ========================================= */
-        .title-section { text-align: center; margin-bottom: 25px; margin-top: 15px; }
+        .title-section { text-align: center; margin-bottom: 25px; }
 
         .title-section h1 {
             font-size: 16pt;
@@ -545,17 +549,19 @@ Locations/Customers</textarea>
          ========================================= -->
     <div class="document-area">
         <div class="page" id="dokumen">
-            <!-- Header -->
+            <!-- Header: Logo saja -->
             <div class="header">
-                <div class="header-left">
-                    <img 
-                        src="https://raw.githubusercontent.com/shasanudin/IMBKreasiDigital/main/image/bulog%20logo.png" 
-                        alt="Logo Bulog" 
-                        class="logo-img"
-                        onerror="this.onerror=null; this.src='https://upload.wikimedia.org/wikipedia/commons/thumb/1/1e/Bulog_logo.svg/320px-Bulog_logo.svg.png';"
-                    >
-                    <div class="branch-info" contenteditable="true" id="d-cabang">10030 - KANCAB CIREBON</div>
-                </div>
+                <img 
+                    src="https://raw.githubusercontent.com/shasanudin/IMBKreasiDigital/main/image/bulog%20logo.png" 
+                    alt="Logo Bulog" 
+                    class="logo-img"
+                    onerror="this.onerror=null; this.src='https://upload.wikimedia.org/wikipedia/commons/thumb/1/1e/Bulog_logo.svg/320px-Bulog_logo.svg.png';"
+                >
+            </div>
+
+            <!-- ✅ Baris di bawah garis: KANCAB (kiri) + Barcode (kanan) -->
+            <div class="sub-header">
+                <div class="branch-info" contenteditable="true" id="d-cabang">10030 - KANCAB CIREBON</div>
                 <div class="qr-box">
                     <img id="qr-img" src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=OUT/04857/08/2026/10030.063" alt="QR Code">
                 </div>
