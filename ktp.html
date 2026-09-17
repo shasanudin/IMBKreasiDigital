@@ -57,6 +57,46 @@
         .btn-danger:hover { background-color: #c82333; }
 
         /* =========================================
+           PANEL KONTROL FOTO
+           ========================================= */
+        .foto-controls {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            justify-content: center;
+            background-color: #fff;
+            padding: 12px 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            align-items: center;
+            max-width: 700px;
+        }
+
+        .foto-controls .ctrl-group {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 3px;
+        }
+
+        .foto-controls label {
+            font-size: 11px;
+            font-weight: bold;
+            color: #555;
+        }
+
+        .foto-controls input[type="range"] {
+            width: 110px;
+            cursor: pointer;
+        }
+
+        .foto-controls .value-display {
+            font-size: 10px;
+            color: #888;
+            font-family: monospace;
+        }
+
+        /* =========================================
            KTP CARD
            ========================================= */
         .ktp-card {
@@ -124,36 +164,38 @@
 
         /* =========================================
            BODY: 2 KOLOM
+           ✅ Kolom kiri diperlebar, kolom kanan digeser ke kanan
            ========================================= */
         .ktp-body {
             display: flex;
             flex: 1;
-            gap: 2mm;
+            gap: 1mm;
         }
 
         .kolom-kiri {
-            width: 62%;
+            width: 68%;              /* ✅ Diperlebar dari 62% */
             display: flex;
             flex-direction: column;
             line-height: 1;
         }
 
         .kolom-kanan {
-            width: 38%;
+            width: 31%;              /* ✅ Lebih sempit */
             display: flex;
             flex-direction: column;
-            align-items: center;
+            align-items: flex-end;   /* ✅ Geser ke kanan */
             line-height: 1;
+            padding-right: 1mm;
         }
 
         /* =========================================
-           DATA ROW - JARAK DITAMBAH (revisi)
+           DATA ROW
            ========================================= */
         .data-row {
             display: flex;
             align-items: flex-start;
-            line-height: 1.4;          /* ✅ Diperlebar (dari 1.15) */
-            margin-bottom: 0.4mm;      /* ✅ Tambah jarak antar baris */
+            line-height: 1.4;
+            margin-bottom: 0.4mm;
             padding: 0;
         }
 
@@ -180,7 +222,6 @@
             font-weight: bold;
         }
 
-        /* Indentasi */
         .data-row-indent {
             display: flex;
             align-items: flex-start;
@@ -199,6 +240,7 @@
 
         /* =========================================
            GOL DARAH (sejajar dengan Jenis Kelamin)
+           ✅ Diposisikan lebih ke kiri sedikit agar tidak tertutup foto
            ========================================= */
         .data-row-with-goldar {
             display: flex;
@@ -211,7 +253,7 @@
 
         .goldar-inline {
             position: absolute;
-            left: 42mm;
+            left: 40mm;              /* ✅ Digeser sedikit ke kiri */
             top: 0;
             display: flex;
             align-items: flex-start;
@@ -226,11 +268,11 @@
             line-height: 1.4;
         }
 
-        .goldar-colon { margin: 0 1.5mm; }
+        .goldar-colon { margin: 0 1mm; }
         .goldar-value { font-weight: bold; }
 
         /* =========================================
-           FOTO - BISA DIGESER & DI-RESIZE
+           FOTO
            ========================================= */
         .foto-box {
             width: 21mm;
@@ -271,27 +313,6 @@
             padding: 1px;
             line-height: 1.2;
             pointer-events: none;
-        }
-
-        /* Hint overlay saat hover */
-        .foto-box::after {
-            content: '🖱️ Drag & Scroll';
-            position: absolute;
-            bottom: 1px;
-            left: 50%;
-            transform: translateX(-50%);
-            font-size: 3.5pt;
-            color: #555;
-            background-color: rgba(255,255,255,0.7);
-            padding: 0.3mm 1mm;
-            border-radius: 1mm;
-            opacity: 0;
-            transition: opacity 0.2s;
-            pointer-events: none;
-        }
-
-        .foto-box:hover::after {
-            opacity: 1;
         }
 
         /* =========================================
@@ -397,9 +418,9 @@
                 margin: 0;
                 display: block;
             }
-            .action-buttons { display: none !important; }
+            .action-buttons,
+            .foto-controls { display: none !important; }
             .modal-ttd { display: none !important; }
-            .foto-box::after { display: none !important; }
             .ktp-card {
                 box-shadow: none;
                 margin: 0;
@@ -426,6 +447,26 @@
         <button class="btn btn-png" onclick="simpanPNG()">🖼️ Simpan PNG</button>
         <button class="btn btn-print" onclick="window.print()">🖨️ Cetak</button>
         <button class="btn btn-danger" onclick="resetData()">🔄 Reset</button>
+    </div>
+
+    <!-- ✅ Panel Kontrol Foto -->
+    <div class="foto-controls">
+        <div class="ctrl-group">
+            <label>⬅️➡️ Geser X</label>
+            <input type="range" id="foto-x" min="-100" max="100" value="0" oninput="updateFromSlider()">
+            <div class="value-display" id="val-x">0</div>
+        </div>
+        <div class="ctrl-group">
+            <label>⬆️⬇️ Geser Y</label>
+            <input type="range" id="foto-y" min="-100" max="100" value="0" oninput="updateFromSlider()">
+            <div class="value-display" id="val-y">0</div>
+        </div>
+        <div class="ctrl-group">
+            <label>🔍 Zoom</label>
+            <input type="range" id="foto-scale" min="50" max="300" value="100" oninput="updateFromSlider()">
+            <div class="value-display" id="val-scale">100%</div>
+        </div>
+        <button class="btn btn-save" onclick="resetFotoTransform()" style="padding:6px 12px;font-size:11px;">Reset Foto</button>
     </div>
 
     <input type="file" id="fileFoto" accept="image/*">
@@ -550,11 +591,10 @@
         let fotoDataURL = '';
         let ttdDataURL = '';
 
-        // ✅ Data foto: posisi & zoom
         let fotoTransform = {
-            x: 0,        // offset X (px)
-            y: 0,        // offset Y (px)
-            scale: 1     // zoom
+            x: 0,
+            y: 0,
+            scale: 1
         };
 
         const fields = [
@@ -583,29 +623,58 @@
                 img.style.display = 'block';
                 placeholder.style.display = 'none';
 
-                // Reset transform
                 fotoTransform = { x: 0, y: 0, scale: 1 };
-                updateFotoTransform();
-
+                updateFromSlider();
                 simpanKeStorage();
-                tampilkanNotif('📷 Foto berhasil diupload! Drag untuk geser.');
+                tampilkanNotif('📷 Foto berhasil diupload!');
             };
             reader.readAsDataURL(file);
         });
 
         // =========================================
-        // DRAG FOTO (Mouse + Touch)
+        // UPDATE DARI SLIDER
+        // =========================================
+        function updateFromSlider() {
+            const x = parseInt(document.getElementById('foto-x').value);
+            const y = parseInt(document.getElementById('foto-y').value);
+            const scale = parseInt(document.getElementById('foto-scale').value) / 100;
+
+            fotoTransform.x = x;
+            fotoTransform.y = y;
+            fotoTransform.scale = scale;
+
+            document.getElementById('val-x').textContent = x;
+            document.getElementById('val-y').textContent = y;
+            document.getElementById('val-scale').textContent = Math.round(scale * 100) + '%';
+
+            updateFotoTransform();
+            simpanKeStorage();
+        }
+
+        function updateFotoTransform() {
+            const img = document.getElementById('foto-img');
+            img.style.transform = 
+                `translate(${fotoTransform.x}px, ${fotoTransform.y}px) scale(${fotoTransform.scale})`;
+        }
+
+        function resetFotoTransform() {
+            document.getElementById('foto-x').value = 0;
+            document.getElementById('foto-y').value = 0;
+            document.getElementById('foto-scale').value = 100;
+            updateFromSlider();
+            tampilkanNotif('🔄 Posisi foto direset.');
+        }
+
+        // =========================================
+        // DRAG FOTO
         // =========================================
         const fotoBox = document.getElementById('foto-box');
-        const fotoImg = document.getElementById('foto-img');
         let isDraggingFoto = false;
         let dragStart = { x: 0, y: 0 };
         let transformStart = { x: 0, y: 0 };
 
-        // Mouse drag
         fotoBox.addEventListener('mousedown', (e) => {
             if (!fotoDataURL) {
-                // Belum ada foto → buka file picker
                 document.getElementById('fileFoto').click();
                 return;
             }
@@ -621,6 +690,13 @@
             const dy = e.clientY - dragStart.y;
             fotoTransform.x = transformStart.x + dx;
             fotoTransform.y = transformStart.y + dy;
+            
+            // Sync ke slider
+            document.getElementById('foto-x').value = fotoTransform.x;
+            document.getElementById('foto-y').value = fotoTransform.y;
+            document.getElementById('val-x').textContent = Math.round(fotoTransform.x);
+            document.getElementById('val-y').textContent = Math.round(fotoTransform.y);
+            
             updateFotoTransform();
         });
 
@@ -631,7 +707,7 @@
             }
         });
 
-        // Touch drag (mobile)
+        // Touch
         fotoBox.addEventListener('touchstart', (e) => {
             if (!fotoDataURL) {
                 document.getElementById('fileFoto').click();
@@ -650,6 +726,12 @@
             const dy = touch.clientY - dragStart.y;
             fotoTransform.x = transformStart.x + dx;
             fotoTransform.y = transformStart.y + dy;
+            
+            document.getElementById('foto-x').value = fotoTransform.x;
+            document.getElementById('foto-y').value = fotoTransform.y;
+            document.getElementById('val-x').textContent = Math.round(fotoTransform.x);
+            document.getElementById('val-y').textContent = Math.round(fotoTransform.y);
+            
             updateFotoTransform();
         }, { passive: true });
 
@@ -660,25 +742,16 @@
             }
         });
 
-        // =========================================
-        // ZOOM FOTO (Mouse Wheel)
-        // =========================================
+        // Zoom via wheel
         fotoBox.addEventListener('wheel', (e) => {
             if (!fotoDataURL) return;
             e.preventDefault();
-            const delta = e.deltaY > 0 ? -0.1 : 0.1;
-            fotoTransform.scale = Math.max(0.5, Math.min(5, fotoTransform.scale + delta));
-            updateFotoTransform();
-            simpanKeStorage();
+            const delta = e.deltaY > 0 ? -5 : 5;
+            let newScale = parseInt(document.getElementById('foto-scale').value) + delta;
+            newScale = Math.max(50, Math.min(300, newScale));
+            document.getElementById('foto-scale').value = newScale;
+            updateFromSlider();
         }, { passive: false });
-
-        // =========================================
-        // UPDATE TRANSFORM FOTO
-        // =========================================
-        function updateFotoTransform() {
-            fotoImg.style.transform = 
-                `translate(${fotoTransform.x}px, ${fotoTransform.y}px) scale(${fotoTransform.scale})`;
-        }
 
         // =========================================
         // CANVAS TTD
@@ -859,6 +932,12 @@
 
                     if (data.fotoTransform) {
                         fotoTransform = data.fotoTransform;
+                        document.getElementById('foto-x').value = fotoTransform.x;
+                        document.getElementById('foto-y').value = fotoTransform.y;
+                        document.getElementById('foto-scale').value = fotoTransform.scale * 100;
+                        document.getElementById('val-x').textContent = Math.round(fotoTransform.x);
+                        document.getElementById('val-y').textContent = Math.round(fotoTransform.y);
+                        document.getElementById('val-scale').textContent = Math.round(fotoTransform.scale * 100) + '%';
                         updateFotoTransform();
                     }
                 }
@@ -883,79 +962,4 @@
             if (!confirm('Yakin ingin mereset semua data (termasuk foto & TTD)?')) return;
 
             const defaultData = {
-                'provinsi': 'PROVINSI JAWA BARAT',
-                'kabupaten': 'KABUPATEN CIREBON',
-                'nik': '3209151007000008',
-                'nama': 'SHIDIQ HASANUDIN',
-                'ttl': 'CIREBON, 10-07-2000',
-                'jenis-kelamin': 'LAKI-LAKI',
-                'alamat': 'LINGK MANIS',
-                'rt-rw': '004/009',
-                'kel-desa': 'SUMBER',
-                'kecamatan': 'SUMBER',
-                'agama': 'ISLAM',
-                'status': 'BELUM KAWIN',
-                'pekerjaan': 'PELAJAR/MAHASISWA',
-                'kewarganegaraan': 'WNI',
-                'berlaku': 'SEUMUR HIDUP',
-                'gol-darah': '-',
-                'ttd-kota': 'CIREBON',
-                'ttd-tanggal': '21-12-2017'
-            };
-
-            Object.keys(defaultData).forEach(id => {
-                const el = document.getElementById(id);
-                if (el) el.textContent = defaultData[id];
-            });
-
-            fotoDataURL = '';
-            fotoTransform = { x: 0, y: 0, scale: 1 };
-            document.getElementById('foto-img').style.display = 'none';
-            document.getElementById('foto-img').src = '';
-            document.getElementById('foto-img').style.transform = '';
-            document.getElementById('foto-placeholder').style.display = 'block';
-
-            ttdDataURL = '';
-            ttdPreviewCtx.clearRect(0, 0, ttdPreview.width, ttdPreview.height);
-
-            localStorage.removeItem('ktpData');
-            tampilkanNotif('🔄 Data direset.');
-        }
-
-        // =========================================
-        // NOTIFIKASI
-        // =========================================
-        function tampilkanNotif(pesan, tipe = 'success') {
-            const notif = document.createElement('div');
-            notif.textContent = pesan;
-            notif.style.cssText = `
-                position: fixed;
-                top: 20px;
-                right: 20px;
-                padding: 12px 20px;
-                background-color: ${tipe === 'success' ? '#28a745' : '#dc3545'};
-                color: #fff;
-                border-radius: 5px;
-                font-weight: bold;
-                z-index: 99999;
-                box-shadow: 0 4px 12px rgba(0,0,0,0.3);
-                transition: opacity 0.3s;
-            `;
-            document.body.appendChild(notif);
-            setTimeout(() => {
-                notif.style.opacity = '0';
-                setTimeout(() => notif.remove(), 300);
-            }, 2000);
-        }
-
-        document.addEventListener('DOMContentLoaded', () => {
-            muatData();
-            fields.forEach(id => {
-                const el = document.getElementById(id);
-                if (el) el.addEventListener('blur', simpanKeStorage);
-            });
-        });
-    </script>
-
-</body>
-</html>
+                'provinsi': 'PROV
