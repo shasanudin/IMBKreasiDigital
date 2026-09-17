@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Surat Jalan - Multi Dokumen</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background-color: #dcdcdc;
+            padding: 20px;
+            display: flex;
+            gap: 20px;
+            align-items: flex-start;
+            font-size: 14px;
+            color: #000;
+        }
+
+        /* =========================================
+           PANEL INPUT (Kiri)
+           ========================================= */
+        .input-panel {
+            width: 320px;
+            background-color: #fff;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+            position: sticky;
+            top: 20px;
+            max-height: calc(100vh - 40px);
+            overflow-y: auto;
+        }
+
+        .input-panel h2 {
+            font-size: 16px;
+            margin-bottom: 10px;
+            border-bottom: 2px solid #007bff;
+            padding-bottom: 5px;
+        }
+
+        .input-panel h3 {
+            font-size: 13px;
+            margin-top: 15px;
+            margin-bottom: 8px;
+            color: #555;
+            text-transform: uppercase;
+        }
+
+        .form-group {
+            margin-bottom: 8px;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 11px;
+            font-weight: bold;
+            margin-bottom: 3px;
+            color: #333;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 6px 8px;
+            font-size: 12px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-family: inherit;
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 60px;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #007bff;
+            box-shadow: 0 0 3px rgba(0,123,255,0.4);
+        }
+
+        .btn-group {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            margin-top: 15px;
+        }
+
+        .btn {
+            padding: 8px 12px;
+            font-size: 13px;
+            font-weight: bold;
+            color: #fff;
+            background-color: #007bff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        .btn:hover { background-color: #0056b3; }
+        .btn-print { background-color: #28a745; }
+        .btn-print:hover { background-color: #218838; }
+        .btn-save { background-color: #ffc107; color: #000; }
+        .btn-save:hover { background-color: #e0a800; }
+        .btn-load { background-color: #17a2b8; }
+        .btn-load:hover { background-color: #138496; }
+        .btn-reset { background-color: #dc3545; }
+        .btn-reset:hover { background-color: #c82333; }
+
+        .notification {
+            font-size: 12px;
+            padding: 6px;
+            border-radius: 4px;
+            margin-top: 8px;
+            text-align: center;
+            display: none;
+        }
+
+        .notification.success { background-color: #d4edda; color: #155724; display: block; }
+        .notification.error { background-color: #f8d7da; color: #721c24; display: block; }
+
+        /* =========================================
+           AREA DOKUMEN (Kanan)
+           ========================================= */
+        .document-area {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+        }
+
+        .page {
+            background-color: #fff;
+            width: 210mm;
+            min-height: 297mm;
+            padding: 20mm;
+            box-shadow: 0 0 10px rgba(0,0,0,0.2);
+            position: relative;
+        }
+
+        /* Header Dokumen */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            border-bottom: 2px solid #000;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+
+        .logo-area { display: flex; flex-direction: column; align-items: flex-start; }
+        .logo-text { font-size: 32px; font-weight: bold; font-family: 'Times New Roman', serif; line-height: 1; }
+        .logo-sub { font-size: 10px; font-style: italic; margin-top: -2px; }
+        .branch-info { font-size: 12px; text-decoration: underline; margin-top: 5px; }
+
+        .qr-area {
+            width: 80px; height: 80px;
+            border: 1px solid #000;
+            display: flex; align-items: center; justify-content: center;
+        }
+
+        /* Judul */
+        .title-section { text-align: center; margin-bottom: 30px; }
+        .title-section h1 { font-size: 24px; font-weight: bold; text-transform: uppercase; margin-bottom: 5px; }
+        .title-section .nomor { font-size: 16px; }
+
+        /* Info */
+        .info-section { display: flex; justify-content: space-between; margin-bottom: 30px; }
+        .info-left { width: 60%; }
+        .info-right { width: 35%; }
+        .info-label { font-weight: bold; display: block; margin-bottom: 5px; }
+        .info-text { line-height: 1.4; margin-bottom: 15px; }
+
+        /* Tabel */
+        .table-container { margin-bottom: 20px; }
+        table { width: 100%; border-collapse: collapse; }
+        th { text-align: left; border-bottom: 1px solid #000; padding: 8px 0; font-weight: bold; }
+        td { padding: 8px 0; vertical-align: top; }
+
+        /* Footer */
+        .footer-note { margin-top: 20px; margin-bottom: 40px; font-weight: bold; }
+
+        .signature-section { float: right; text-align: center; width: 300px; margin-bottom: 40px; }
+        .signature-date { margin-bottom: 5px; }
+        .signature-title { font-weight: bold; margin-bottom: 80px; }
+        .signature-line { border-top: 1px solid #000; width: 100%; margin-top: 10px; }
+
+        .tracking-section { clear: both; border-top: 1px solid #000; padding-top: 10px; margin-top: 20px; }
+        .tracking-title { font-size: 20px; font-weight: normal; margin-bottom: 15px; }
+        .tracking-info { font-size: 12px; line-height: 1.5; }
+
+        /* Edit Mode */
+        [contenteditable="true"]:hover { background-color: #f9f9f9; outline: 1px dashed #ccc; cursor: text; }
+        [contenteditable="true"]:focus { background-color: #fff; outline: 2px solid #007bff; }
+
+        /* =========================================
+           PRINT STYLES
+           ========================================= */
+        @media print {
+            body { background-color: #fff; padding: 0; margin: 0; display: block; }
+            .input-panel { display: none !important; }
+            .document-area { display: block; }
+            .page { box-shadow: none; margin: 0; width: 100%; min-height: auto; padding: 10mm; }
+            [contenteditable="true"]:hover,
+            [contenteditable="true"]:focus { background-color: transparent; outline: none; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- =========================================
+         PANEL INPUT DATA (KIRI)
+         ========================================= -->
+    <div class="input-panel">
+        <h2>📝 Input Data Dokumen</h2>
+
+        <h3>Header</h3>
+        <div class="form-group">
+            <label>Kantor Cabang</label>
+            <input type="text" id="inp-cabang" value="10030 - KANCAB CIREBON">
+        </div>
+
+        <h3>Judul Surat</h3>
+        <div class="form-group">
+            <label>Nomor Surat Jalan</label>
+            <input type="text" id="inp-nomor" value="OUT/00839/08/2026/10030.112">
+        </div>
+
+        <h3>Penerima</h3>
+        <div class="form-group">
+            <label>Nama & Alamat Penerima</label>
+            <textarea id="inp-penerima">Badan Pangan Nasional
+Kantor Badan Pangan Nasional
+Jalan Harsono RM Nomor 3
+Ragunan, Pasar Minggu, Jakarta
+Selatan
+09, DKI Jakarta (ID), Indonesia
+(021)7804476 7807377
+NPWP: 62.416.790.4-017.000</textarea>
+        </div>
+
+        <h3>Info Gudang</h3>
+        <div class="form-group">
+            <label>Gudang Asal</label>
+            <input type="text" id="inp-gudang" value="KOMPLEKS PERGUDANGAN GINTUNG">
+        </div>
+        <div class="form-group">
+            <label>Referensi</label>
+            <input type="text" id="inp-referensi" value="SO/7110/08/2026/10030">
+        </div>
+
+        <h3>Detail Dokumen</h3>
+        <div class="form-group">
+            <label>Dokumen Sumber</label>
+            <input type="text" id="inp-doksum" value="SO/7110/08/2026/10030">
+        </div>
+        <div class="form-group">
+            <label>Tanggal</label>
+            <input type="text" id="inp-tanggal" value="21/08/2026 19:32:23">
+        </div>
+
+        <h3>Produk</h3>
+        <div class="form-group">
+            <label>Nama Produk</label>
+            <textarea id="inp-produk">[B0010152Z] BERAS MEDIUM HASIL REPROSES LOGO BANTUAN PANGAN 10 KG PSO DN</textarea>
+        </div>
+        <div class="form-group">
+            <label>Kuantitas</label>
+            <input type="text" id="inp-kuantitas" value="1.002,00 Pack 10 KG">
+        </div>
+        <div class="form-group">
+            <label>Kuantum</label>
+            <input type="text" id="inp-kuantum" value="10.020,00 Kg">
+        </div>
+
+        <h3>Catatan & Tanda Tangan</h3>
+        <div class="form-group">
+            <label>Catatan/Nopol/No Kontainer</label>
+            <input type="text" id="inp-catatan" value="Catatan/Nopol/No Kontainer : JPL/E8152BD - Z8835NP-TAMBELANG">
+        </div>
+        <div class="form-group">
+            <label>Kota & Tanggal TTD</label>
+            <input type="text" id="inp-ttd-date" value="Cirebon , 24-08-2026 15:08">
+        </div>
+        <div class="form-group">
+            <label>Jabatan Penyerah</label>
+            <input type="text" id="inp-ttd-jabatan" value="Yang Menyerahkan, KOMPLEKS PERGUDANGAN GINTUNG">
+        </div>
+
+        <h3>Delivery Tracking</h3>
+        <div class="form-group">
+            <label>Dicetak Oleh</label>
+            <input type="text" id="inp-cetak-oleh" value="Kepala Gudang GUDANG GINTUNG">
+        </div>
+        <div class="form-group">
+            <label>Waktu Cetak</label>
+            <input type="text" id="inp-cetak-waktu" value="24-08-2026 | 15:34">
+        </div>
+
+        <!-- Tombol Aksi -->
+        <div class="btn-group">
+            <button class="btn" onclick="terapkanData()">✅ Terapkan ke Dokumen</button>
+            <button class="btn btn-save" onclick="simpanData()">💾 Simpan ke Browser</button>
+            <button class="btn btn-load" onclick="muatData()">📂 Muat dari Browser</button>
+            <button class="btn btn-reset" onclick="resetData()">🔄 Reset ke Contoh</button>
+            <button class="btn btn-print" onclick="window.print()">🖨️ Cetak / Simpan PDF</button>
+        </div>
+
+        <div class="notification" id="notif"></div>
+    </div>
+
+    <!-- =========================================
+         AREA DOKUMEN (KANAN)
+         ========================================= -->
+    <div class="document-area">
+        <div class="page" id="dokumen">
+            <!-- Header -->
+            <div class="header">
+                <div class="logo-area">
+                    <div class="logo-text">bulog</div>
+                    <div class="logo-sub">mengantarkan kebaikan</div>
+                    <div class="branch-info" contenteditable="true" id="d-cabang">10030 - KANCAB CIREBON</div>
+                </div>
+                <div class="qr-area">
+                    <img id="qr-img" src="https://api.qrserver.com/v1/create-qr-code/?size=80x80&data=OUT/00839/08/2026/10030.112" alt="QR Code" style="width:100%; height:100%;">
+                </div>
+            </div>
+
+            <!-- Judul -->
+            <div class="title-section">
+                <h1 contenteditable="true">SURAT JALAN</h1>
+                <div class="nomor" contenteditable="true" id="d-nomor">OUT/00839/08/2026/10030.112</div>
+            </div>
+
+            <!-- Info Penerima & Gudang -->
+            <div class="info-section">
+                <div class="info-left">
+                    <span class="info-label">Penerima:</span>
+                    <div class="info-text" contenteditable="true" id="d-penerima">Badan Pangan Nasional<br>
+Kantor Badan Pangan Nasional<br>
+Jalan Harsono RM Nomor 3<br>
+Ragunan, Pasar Minggu, Jakarta<br>
+Selatan<br>
+09, DKI Jakarta (ID), Indonesia<br>
+(021)7804476 7807377<br>
+NPWP: 62.416.790.4-017.000</div>
+                </div>
+                <div class="info-right">
+                    <div style="margin-bottom: 15px;">
+                        <span class="info-label">Gudang Asal :</span>
+                        <span contenteditable="true" id="d-gudang">KOMPLEKS PERGUDANGAN GINTUNG</span>
+                    </div>
+                    <div>
+                        <span class="info-label">Referensi :</span>
+                        <span contenteditable="true" id="d-referensi">SO/7110/08/2026/10030</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Info Tanggal & Dokumen -->
+            <div class="info-section" style="margin-bottom: 20px;">
+                <div class="info-left">
+                    <span class="info-label">Dokumen Sumber</span>
+                    <div contenteditable="true" id="d-doksum">SO/7110/08/2026/10030</div>
+                </div>
+                <div class="info-right">
+                    <span class="info-label">Tanggal</span>
+                    <div contenteditable="true" id="d-tanggal">21/08/2026 19:32:23</div>
+                </div>
+            </div>
+
+            <!-- Tabel Produk -->
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th style="width: 50%;">Produk</th>
+                            <th style="width: 25%;">Kuantitas</th>
+                            <th style="width: 25%;">Kuantum</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td contenteditable="true" id="d-produk">[B0010152Z] BERAS MEDIUM HASIL REPROSES LOGO BANTUAN PANGAN 10 KG PSO DN</td>
+                            <td contenteditable="true" id="d-kuantitas">1.002,00 Pack 10<br>KG</td>
+                            <td contenteditable="true" id="d-kuantum">10.020,00<br>Kg</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Catatan -->
+            <div class="footer-note" contenteditable="true" id="d-catatan">
+                Catatan/Nopol/No Kontainer : JPL/E8152BD - Z8835NP-TAMBELANG
+            </div>
+
+            <!-- Tanda Tangan -->
+            <div class="signature-section">
+                <div class="signature-date" contenteditable="true" id="d-ttd-date">Cirebon , 24-08-2026 15:08</div>
+                <div class="signature-title" contenteditable="true" id="d-ttd-jabatan">Yang Menyerahkan,<br>KOMPLEKS PERGUDANGAN GINTUNG</div>
+                <div style="height: 80px;"></div>
+                <div class="signature-line"></div>
+            </div>
+
+            <!-- Delivery Tracking -->
+            <div class="tracking-section">
+                <div class="tracking-title" contenteditable="true">Delivery Tracking</div>
+                <div class="tracking-info" contenteditable="true" id="d-tracking">
+                    Dicetak oleh &nbsp;: <span id="d-cetak-oleh">Kepala Gudang GUDANG GINTUNG</span><br>
+                    Pada waktu &nbsp;&nbsp;: <span id="d-cetak-waktu">24-08-2026 | 15:34</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- =========================================
+         JAVASCRIPT LOGIC
+         ========================================= -->
+    <script>
+        // ===== FUNGSI NOTIFIKASI =====
+        function tampilkanNotif(pesan, tipe = 'success') {
+            const notif = document.getElementById('notif');
+            notif.textContent = pesan;
+            notif.className = 'notification ' + tipe;
+            setTimeout(() => {
+                notif.className = 'notification';
+            }, 2500);
+        }
+
+        // ===== FUNGSI TERAPKAN DATA DARI FORM KE DOKUMEN =====
+        function terapkanData() {
+            const fields = [
+                ['inp-cabang', 'd-cabang'],
+                ['inp-nomor', 'd-nomor'],
+                ['inp-penerima', 'd-penerima'],
+                ['inp-gudang', 'd-gudang'],
+                ['inp-referensi', 'd-referensi'],
+                ['inp-doksum', 'd-doksum'],
+                ['inp-tanggal', 'd-tanggal'],
+                ['inp-produk', 'd-produk'],
+                ['inp-kuantitas', 'd-kuantitas'],
+                ['inp-kuantum', 'd-kuantum'],
+                ['inp-catatan', 'd-catatan'],
+                ['inp-ttd-date', 'd-ttd-date'],
+                ['inp-ttd-jabatan', 'd-ttd-jabatan'],
+                ['inp-cetak-oleh', 'd-cetak-oleh'],
+                ['inp-cetak-waktu', 'd-cetak-waktu']
+            ];
+
+            fields.forEach(([inputId, docId]) => {
+                const inputVal = document.getElementById(inputId).value;
+                const docEl = document.getElementById(docId);
+
+                // Konversi newline (\n) menjadi <br> untuk tampilan HTML
+                if (inputId === 'inp-penerima') {
+                    docEl.innerHTML = inputVal.replace(/\n/g, '<br>');
+                } else if (inputId === 'inp-ttd-jabatan') {
+                    // Pisahkan dengan koma menjadi 2 baris
+                    const parts = inputVal.split(',').map(s => s.trim());
+                    docEl.innerHTML = parts.join(',<br>');
+                } else if (inputId === 'inp-kuantitas' || inputId === 'inp-kuantum') {
+                    docEl.innerHTML = inputVal.replace(/ /g, '<br>');
+                } else {
+                    docEl.textContent = inputVal;
+                }
+            });
+
+            // Update QR Code dengan nomor surat baru
+            const nomorBaru = document.getElementById('inp-nomor').value;
+            document.getElementById('qr-img').src = 
+                'https://api.qrserver.com/v1/create-qr-code/?size=80x80&data=' + encodeURIComponent(nomorBaru);
+
+            tampilkanNotif('✅ Data berhasil diterapkan ke dokumen!');
+        }
+
+        // ===== FUNGSI AMBIL DATA DARI DOKUMEN KE FORM =====
+        function ambilDataDariDokumen() {
+            const fields = [
+                ['d-cabang', 'inp-cabang'],
+                ['d-nomor', 'inp-nomor'],
+                ['d-penerima', 'inp-penerima'],
+                ['d-gudang', 'inp-gudang'],
+                ['d-referensi', 'inp-referensi'],
+                ['d-doksum', 'inp-doksum'],
+                ['d-tanggal', 'inp-tanggal'],
+                ['d-produk', 'inp-produk'],
+                ['d-kuantitas', 'inp-kuantitas'],
+                ['d-kuantum', 'inp-kuantum'],
+                ['d-catatan', 'inp-catatan'],
+                ['d-ttd-date', 'inp-ttd-date'],
+                ['d-ttd-jabatan', 'inp-ttd-jabatan'],
+                ['d-cetak-oleh', 'inp-cetak-oleh'],
+                ['d-cetak-waktu', 'inp-cetak-waktu']
+            ];
+
+            fields.forEach(([docId, inputId]) => {
+                const docEl = document.getElementById(docId);
+                const inputEl = document.getElementById(inputId);
+                
+                // Ambil textContent, ganti <br> dengan \n
+                let text = docEl.innerHTML
+                    .replace(/<br\s*\/?>/gi, '\n')
+                    .replace(/&nbsp;/g, ' ')
+                    .replace(/<[^>]*>/g, '');
+                inputEl.value = text;
+            });
+        }
+
+        // ===== FUNGSI SIMPAN KE LOCAL STORAGE =====
+        function simpanData() {
+            ambilDataDariDokumen(); // Sinkronkan dulu dari dokumen ke form
+            
+            const data = {};
+            document.querySelectorAll('.input-panel input, .input-panel textarea').forEach(el => {
+                data[el.id] = el.value;
+            });
+            
+            try {
+                localStorage.setItem('suratJalanData', JSON.stringify(data));
+                tampilkanNotif('💾 Data berhasil disimpan di browser!');
+            } catch (e) {
+                tampilkanNotif('❌ Gagal menyimpan data.', 'error');
+            }
+        }
+
+        // ===== FUNGSI MUAT DARI LOCAL STORAGE =====
+        function muatData() {
+            try {
+                const saved = localStorage.getItem('suratJalanData');
+                if (!saved) {
+                    tampilkanNotif('⚠️ Tidak ada data tersimpan.', 'error');
+                    return;
+                }
+                const data = JSON.parse(saved);
+                Object.keys(data).forEach(id => {
+                    const el = document.getElementById(id);
+                    if (el) el.value = data[id];
+                });
+                terapkanData();
+                tampilkanNotif('📂 Data berhasil dimuat!');
+            } catch (e) {
+                tampilkanNotif('❌ Gagal memuat data.', 'error');
+            }
+        }
+
+        // ===== FUNGSI RESET KE CONTOH AWAL =====
+        function resetData() {
+            if (!confirm('Yakin ingin mereset ke data contoh awal?')) return;
+
+            const defaultData = {
+                'inp-cabang': '10030 - KANCAB CIREBON',
+                'inp-nomor': 'OUT/00839/08/2026/10030.112',
+                'inp-penerima': 'Badan Pangan Nasional\nKantor Badan Pangan Nasional\nJalan Harsono RM Nomor 3\nRagunan, Pasar Minggu, Jakarta\nSelatan\n09, DKI Jakarta (ID), Indonesia\n(021)7804476 7807377\nNPWP: 62.416.790.4-017.000',
+                'inp-gudang': 'KOMPLEKS PERGUDANGAN GINTUNG',
+                'inp-referensi': 'SO/7110/08/2026/10030',
+                'inp-doksum': 'SO/7110/08/2026/10030',
+                'inp-tanggal': '21/08/2026 19:32:23',
+                'inp-produk': '[B0010152Z] BERAS MEDIUM HASIL REPROSES LOGO BANTUAN PANGAN 10 KG PSO DN',
+                'inp-kuantitas': '1.002,00 Pack 10 KG',
+                'inp-kuantum': '10.020,00 Kg',
+                'inp-catatan': 'Catatan/Nopol/No Kontainer : JPL/E8152BD - Z8835NP-TAMBELANG',
+                'inp-ttd-date': 'Cirebon , 24-08-2026 15:08',
+                'inp-ttd-jabatan': 'Yang Menyerahkan, KOMPLEKS PERGUDANGAN GINTUNG',
+                'inp-cetak-oleh': 'Kepala Gudang GUDANG GINTUNG',
+                'inp-cetak-waktu': '24-08-2026 | 15:34'
+            };
+
+            Object.keys(defaultData).forEach(id => {
+                document.getElementById(id).value = defaultData[id];
+            });
+            terapkanData();
+            tampilkanNotif('🔄 Data direset ke contoh awal.');
+        }
+
+        // ===== INISIALISASI: Muat data tersimpan saat halaman dibuka =====
+        window.addEventListener('DOMContentLoaded', () => {
+            const saved = localStorage.getItem('suratJalanData');
+            if (saved) {
+                try {
+                    const data = JSON.parse(saved);
+                    Object.keys(data).forEach(id => {
+                        const el = document.getElementById(id);
+                        if (el) el.value = data[id];
+                    });
+                    terapkanData();
+                } catch (e) {
+                    console.warn('Gagal memuat data tersimpan.');
+                }
+            }
+        });
+    </script>
+
+</body>
+</html>
