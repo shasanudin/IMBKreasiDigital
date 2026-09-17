@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KTP - Kartu Tanda Penduduk</title>
+    <style>
+        /* =========================================
+           FONT NIK - OCR A EXTENDED
+           ========================================= */
+        @import url('https://fonts.cdnfonts.com/css/ocr-a-extended');
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background-color: #dcdcdc;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 15px;
+            font-size: 12px;
+            color: #000;
+        }
+
+        /* =========================================
+           TOMBOL AKSI
+           ========================================= */
+        .action-buttons {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-bottom: 10px;
+        }
+
+        .btn {
+            padding: 10px 20px;
+            font-size: 14px;
+            font-weight: bold;
+            color: #fff;
+            background-color: #007bff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+            transition: background-color 0.2s;
+        }
+
+        .btn:hover { background-color: #0056b3; }
+        .btn-print { background-color: #28a745; }
+        .btn-print:hover { background-color: #218838; }
+        .btn-save { background-color: #ffc107; color: #000; }
+        .btn-save:hover { background-color: #e0a800; }
+
+        /* =========================================
+           KTP CARD - UKURAN STANDAR (85.6mm x 54mm)
+           ========================================= */
+        .ktp-card {
+            width: 85.6mm;
+            height: 54mm;
+            background-image: url('https://raw.githubusercontent.com/shasanudin/IMBKreasiDigital/main/image/img4%20(1).jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            border-radius: 3mm;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+            position: relative;
+            overflow: hidden;
+            font-family: Arial, Helvetica, sans-serif;
+            color: #000;
+        }
+
+        /* Overlay gelap tipis agar teks lebih mudah dibaca */
+        .ktp-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background-color: rgba(255, 255, 255, 0.15);
+            pointer-events: none;
+        }
+
+        /* =========================================
+           LAYOUT KTP
+           ========================================= */
+        .ktp-content {
+            position: relative;
+            padding: 2mm 3mm;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            z-index: 2;
+        }
+
+        /* Baris NIK */
+        .nik-row {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1mm;
+            padding-top: 5mm;
+        }
+
+        .nik-label {
+            font-family: 'OCR A Extended', 'OCR-A', monospace;
+            font-size: 7pt;
+            font-weight: bold;
+            letter-spacing: 1px;
+            width: 30mm;
+        }
+
+        .nik-colon {
+            font-family: 'OCR A Extended', 'OCR-A', monospace;
+            font-size: 7pt;
+            font-weight: bold;
+            margin-right: 2mm;
+        }
+
+        .nik-value {
+            font-family: 'OCR A Extended', 'OCR-A', monospace;
+            font-size: 7pt;
+            font-weight: bold;
+            letter-spacing: 1px;
+        }
+
+        /* =========================================
+           BODY: 2 KOLOM (Kiri & Kanan)
+           ========================================= */
+        .ktp-body {
+            display: flex;
+            flex: 1;
+        }
+
+        /* Kolom Kiri */
+        .kolom-kiri {
+            width: 60%;
+            padding-right: 2mm;
+        }
+
+        /* Kolom Kanan */
+        .kolom-kanan {
+            width: 40%;
+            padding-left: 2mm;
+        }
+
+        /* Baris data KTP */
+        .data-row {
+            display: flex;
+            margin-bottom: 0.3mm;
+            align-items: flex-start;
+        }
+
+        .data-label {
+            font-size: 5.5pt;
+            width: 22mm;
+            flex-shrink: 0;
+            line-height: 1.2;
+        }
+
+        .data-colon {
+            font-size: 5.5pt;
+            width: 2mm;
+            flex-shrink: 0;
+            text-align: center;
+        }
+
+        .data-value {
+            font-size: 5.5pt;
+            flex: 1;
+            line-height: 1.2;
+            word-break: break-word;
+        }
+
+        /* Data row untuk kolom kanan (Gol Darah) */
+        .data-row-kanan {
+            display: flex;
+            margin-bottom: 0.3mm;
+            align-items: flex-start;
+            margin-top: 8mm;
+        }
+
+        .data-label-kanan {
+            font-size: 5.5pt;
+            width: 18mm;
+            flex-shrink: 0;
+            line-height: 1.2;
+        }
+
+        .data-colon-kanan {
+            font-size: 5.5pt;
+            width: 2mm;
+            flex-shrink: 0;
+            text-align: center;
+        }
+
+        .data-value-kanan {
+            font-size: 5.5pt;
+            flex: 1;
+            line-height: 1.2;
+        }
+
+        /* Data Alamat (sub-indentasi) */
+        .data-row-indent {
+            display: flex;
+            margin-bottom: 0.3mm;
+            align-items: flex-start;
+        }
+
+        .data-label-indent {
+            font-size: 5.5pt;
+            width: 22mm;
+            flex-shrink: 0;
+            line-height: 1.2;
+            padding-left: 6mm;
+        }
+
+        /* Edit Mode */
+        [contenteditable="true"]:hover {
+            background-color: rgba(255, 255, 255, 0.3);
+            outline: 1px dashed #999;
+            cursor: text;
+            border-radius: 2px;
+        }
+
+        [contenteditable="true"]:focus {
+            background-color: rgba(255, 255, 255, 0.6);
+            outline: 2px solid #007bff;
+            border-radius: 2px;
+        }
+
+        /* =========================================
+           PRINT STYLES
+           ========================================= */
+        @media print {
+            body {
+                background-color: #fff;
+                padding: 0;
+                margin: 0;
+                display: block;
+            }
+
+            .action-buttons {
+                display: none !important;
+            }
+
+            .ktp-card {
+                box-shadow: none;
+                margin: 0;
+                width: 85.6mm;
+                height: 54mm;
+                page-break-inside: avoid;
+            }
+
+            [contenteditable="true"]:hover,
+            [contenteditable="true"]:focus {
+                background-color: transparent;
+                outline: none;
+            }
+        }
+
+        /* =========================================
+           RESPONSIVE
+           ========================================= */
+        @media (max-width: 500px) {
+            .ktp-card {
+                width: 95vw;
+                height: 60vw;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Tombol Aksi -->
+    <div class="action-buttons">
+        <button class="btn btn-save" onclick="simpanData()">💾 Simpan Data</button>
+        <button class="btn btn-print" onclick="window.print()">🖨️ Cetak / Simpan PDF</button>
+        <button class="btn" onclick="resetData()">🔄 Reset</button>
+    </div>
+
+    <!-- =========================================
+         KTP CARD
+         ========================================= -->
+    <div class="ktp-card" id="ktp-card">
+        <div class="ktp-content">
+
+            <!-- Baris NIK -->
+            <div class="nik-row">
+                <div class="nik-label">NIK</div>
+                <div class="nik-colon">:</div>
+                <div class="nik-value" contenteditable="true" id="nik">3201234567890001</div>
+            </div>
+
+            <!-- Body KTP -->
+            <div class="ktp-body">
+
+                <!-- Kolom Kiri -->
+                <div class="kolom-kiri">
+                    <div class="data-row">
+                        <div class="data-label">Nama</div>
+                        <div class="data-colon">:</div>
+                        <div class="data-value" contenteditable="true" id="nama">AHMAD FAUZI</div>
+                    </div>
+
+                    <div class="data-row">
+                        <div class="data-label">Tempat/Tgl Lahir</div>
+                        <div class="data-colon">:</div>
+                        <div class="data-value" contenteditable="true" id="ttl">CIREBON, 15-08-1990</div>
+                    </div>
+
+                    <div class="data-row">
+                        <div class="data-label">Jenis Kelamin</div>
+                        <div class="data-colon">:</div>
+                        <div class="data-value" contenteditable="true" id="jenis-kelamin">LAKI-LAKI</div>
+                    </div>
+
+                    <div class="data-row">
+                        <div class="data-label">Alamat</div>
+                        <div class="data-colon">:</div>
+                        <div class="data-value" contenteditable="true" id="alamat">JL. MERDEKA NO. 123</div>
+                    </div>
+
+                    <div class="data-row-indent">
+                        <div class="data-label-indent">RT/RW</div>
+                        <div class="data-colon">:</div>
+                        <div class="data-value" contenteditable="true" id="rt-rw">001/002</div>
+                    </div>
+
+                    <div class="data-row-indent">
+                        <div class="data-label-indent">Kel/Desa</div>
+                        <div class="data-colon">:</div>
+                        <div class="data-value" contenteditable="true" id="kel-desa">KARYAMULYA</div>
+                    </div>
+
+                    <div class="data-row-indent">
+                        <div class="data-label-indent">Kecamatan</div>
+                        <div class="data-colon">:</div>
+                        <div class="data-value" contenteditable="true" id="kecamatan">KESAMBI</div>
+                    </div>
+
+                    <div class="data-row">
+                        <div class="data-label">Agama</div>
+                        <div class="data-colon">:</div>
+                        <div class="data-value" contenteditable="true" id="agama">ISLAM</div>
+                    </div>
+
+                    <div class="data-row">
+                        <div class="data-label">Status Perkawinan</div>
+                        <div class="data-colon">:</div>
+                        <div class="data-value" contenteditable="true" id="status">KAWIN</div>
+                    </div>
+
+                    <div class="data-row">
+                        <div class="data-label">Pekerjaan</div>
+                        <div class="data-colon">:</div>
+                        <div class="data-value" contenteditable="true" id="pekerjaan">KARYAWAN SWASTA</div>
+                    </div>
+
+                    <div class="data-row">
+                        <div class="data-label">Kewarganegaraan</div>
+                        <div class="data-colon">:</div>
+                        <div class="data-value" contenteditable="true" id="kewarganegaraan">WNI</div>
+                    </div>
+
+                    <div class="data-row">
+                        <div class="data-label">Berlaku Hingga</div>
+                        <div class="data-colon">:</div>
+                        <div class="data-value" contenteditable="true" id="berlaku">SEUMUR HIDUP</div>
+                    </div>
+                </div>
+
+                <!-- Kolom Kanan -->
+                <div class="kolom-kanan">
+                    <div class="data-row-kanan">
+                        <div class="data-label-kanan">Gol. Darah</div>
+                        <div class="data-colon-kanan">:</div>
+                        <div class="data-value-kanan" contenteditable="true" id="gol-darah">O</div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- =========================================
+         JAVASCRIPT LOGIC
+         ========================================= -->
+    <script>
+        // Daftar field yang bisa disimpan
+        const fields = [
+            'nik', 'nama', 'ttl', 'jenis-kelamin', 'alamat',
+            'rt-rw', 'kel-desa', 'kecamatan', 'agama', 'status',
+            'pekerjaan', 'kewarganegaraan', 'berlaku', 'gol-darah'
+        ];
+
+        // ===== SIMPAN DATA KE LOCAL STORAGE =====
+        function simpanData() {
+            const data = {};
+            fields.forEach(id => {
+                const el = document.getElementById(id);
+                if (el) data[id] = el.textContent.trim();
+            });
+            try {
+                localStorage.setItem('ktpData', JSON.stringify(data));
+                tampilkanNotif('💾 Data berhasil disimpan!');
+            } catch (e) {
+                tampilkanNotif('❌ Gagal menyimpan data.', 'error');
+            }
+        }
+
+        // ===== MUAT DATA DARI LOCAL STORAGE =====
+        function muatData() {
+            try {
+                const saved = localStorage.getItem('ktpData');
+                if (!saved) return;
+                const data = JSON.parse(saved);
+                Object.keys(data).forEach(id => {
+                    const el = document.getElementById(id);
+                    if (el) el.textContent = data[id];
+                });
+            } catch (e) {
+                console.warn('Gagal memuat data tersimpan.');
+            }
+        }
+
+        // ===== RESET KE DATA CONTOH =====
+        function resetData() {
+            if (!confirm('Yakin ingin mereset ke data contoh awal?')) return;
+
+            const defaultData = {
+                'nik': '3201234567890001',
+                'nama': 'AHMAD FAUZI',
+                'ttl': 'CIREBON, 15-08-1990',
+                'jenis-kelamin': 'LAKI-LAKI',
+                'alamat': 'JL. MERDEKA NO. 123',
+                'rt-rw': '001/002',
+                'kel-desa': 'KARYAMULYA',
+                'kecamatan': 'KESAMBI',
+                'agama': 'ISLAM',
+                'status': 'KAWIN',
+                'pekerjaan': 'KARYAWAN SWASTA',
+                'kewarganegaraan': 'WNI',
+                'berlaku': 'SEUMUR HIDUP',
+                'gol-darah': 'O'
+            };
+
+            Object.keys(defaultData).forEach(id => {
+                const el = document.getElementById(id);
+                if (el) el.textContent = defaultData[id];
+            });
+            localStorage.removeItem('ktpData');
+            tampilkanNotif('🔄 Data direset ke contoh awal.');
+        }
+
+        // ===== NOTIFIKASI SEDERHANA =====
+        function tampilkanNotif(pesan, tipe = 'success') {
+            const notif = document.createElement('div');
+            notif.textContent = pesan;
+            notif.style.cssText = `
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                padding: 12px 20px;
+                background-color: ${tipe === 'success' ? '#28a745' : '#dc3545'};
+                color: #fff;
+                border-radius: 5px;
+                font-weight: bold;
+                z-index: 9999;
+                box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+                transition: opacity 0.3s;
+            `;
+            document.body.appendChild(notif);
+            setTimeout(() => {
+                notif.style.opacity = '0';
+                setTimeout(() => notif.remove(), 300);
+            }, 2000);
+        }
+
+        // ===== AUTO-SAVE SAAT EDIT =====
+        document.addEventListener('DOMContentLoaded', () => {
+            // Muat data tersimpan saat halaman dibuka
+            muatData();
+
+            // Auto-save setiap kali ada perubahan pada contenteditable
+            fields.forEach(id => {
+                const el = document.getElementById(id);
+                if (el) {
+                    el.addEventListener('blur', () => {
+                        // Simpan otomatis saat elemen kehilangan fokus
+                        const data = {};
+                        fields.forEach(fid => {
+                            const fel = document.getElementById(fid);
+                            if (fel) data[fid] = fel.textContent.trim();
+                        });
+                        try {
+                            localStorage.setItem('ktpData', JSON.stringify(data));
+                        } catch (e) {}
+                    });
+                }
+            });
+        });
+    </script>
+
+</body>
+</html>
