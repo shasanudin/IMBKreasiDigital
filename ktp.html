@@ -22,6 +22,7 @@
             gap: 15px;
             font-size: 12px;
             color: #000;
+            min-height: 100vh;
         }
 
         /* =========================================
@@ -56,29 +57,64 @@
 
         /* =========================================
            KTP CARD - UKURAN STANDAR (85.6mm x 54mm)
+           Background dibuat dengan CSS (bukan gambar)
            ========================================= */
         .ktp-card {
             width: 85.6mm;
             height: 54mm;
-            background-image: url('https://raw.githubusercontent.com/shasanudin/IMBKreasiDigital/main/image/img4%20(1).jpg');
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
             border-radius: 3mm;
             box-shadow: 0 4px 12px rgba(0,0,0,0.3);
             position: relative;
             overflow: hidden;
             font-family: Arial, Helvetica, sans-serif;
             color: #000;
+            background-color: #e8f4f8;
+
+            /* Pola gelombang & gradasi biru seperti KTP asli */
+            background-image: 
+                /* Peta Indonesia samar di tengah */
+                radial-gradient(ellipse 30mm 20mm at 50% 45%, rgba(135, 206, 235, 0.3) 0%, transparent 70%),
+                /* Pola gelombang horizontal */
+                repeating-linear-gradient(
+                    0deg,
+                    transparent 0px,
+                    transparent 2mm,
+                    rgba(173, 216, 230, 0.15) 2mm,
+                    rgba(173, 216, 230, 0.15) 2.5mm
+                ),
+                /* Gradasi warna dasar */
+                linear-gradient(135deg, #d4ecf7 0%, #e8f4f8 30%, #d1e8f5 60%, #c5e3f2 100%);
         }
 
-        /* Overlay gelap tipis agar teks lebih mudah dibaca */
+        /* Ornamen gelombang dekoratif di background */
         .ktp-card::before {
             content: '';
             position: absolute;
             top: 0; left: 0; right: 0; bottom: 0;
-            background-color: rgba(255, 255, 255, 0.15);
+            background-image: 
+                /* Gelombang atas */
+                radial-gradient(ellipse 60mm 8mm at 30% 5%, rgba(100, 180, 220, 0.2) 0%, transparent 100%),
+                radial-gradient(ellipse 50mm 6mm at 70% 90%, rgba(100, 180, 220, 0.15) 0%, transparent 100%);
             pointer-events: none;
+            z-index: 0;
+        }
+
+        /* Peta Indonesia sederhana dengan CSS */
+        .ktp-card::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 50mm;
+            height: 25mm;
+            background: 
+                radial-gradient(ellipse 8mm 3mm at 20% 50%, rgba(100, 150, 200, 0.12) 0%, transparent 100%),
+                radial-gradient(ellipse 12mm 4mm at 45% 40%, rgba(100, 150, 200, 0.12) 0%, transparent 100%),
+                radial-gradient(ellipse 10mm 3mm at 70% 60%, rgba(100, 150, 200, 0.12) 0%, transparent 100%),
+                radial-gradient(ellipse 6mm 2mm at 85% 45%, rgba(100, 150, 200, 0.12) 0%, transparent 100%);
+            pointer-events: none;
+            z-index: 0;
         }
 
         /* =========================================
@@ -86,7 +122,7 @@
            ========================================= */
         .ktp-content {
             position: relative;
-            padding: 2mm 3mm;
+            padding: 3mm 4mm;
             height: 100%;
             display: flex;
             flex-direction: column;
@@ -97,8 +133,8 @@
         .nik-row {
             display: flex;
             align-items: center;
-            margin-bottom: 1mm;
-            padding-top: 5mm;
+            margin-bottom: 1.5mm;
+            padding-top: 1mm;
         }
 
         .nik-label {
@@ -106,7 +142,7 @@
             font-size: 7pt;
             font-weight: bold;
             letter-spacing: 1px;
-            width: 30mm;
+            width: 12mm;
         }
 
         .nik-colon {
@@ -120,7 +156,7 @@
             font-family: 'OCR A Extended', 'OCR-A', monospace;
             font-size: 7pt;
             font-weight: bold;
-            letter-spacing: 1px;
+            letter-spacing: 1.5px;
         }
 
         /* =========================================
@@ -129,32 +165,36 @@
         .ktp-body {
             display: flex;
             flex: 1;
+            gap: 2mm;
         }
 
         /* Kolom Kiri */
         .kolom-kiri {
-            width: 60%;
-            padding-right: 2mm;
+            width: 62%;
+            display: flex;
+            flex-direction: column;
         }
 
         /* Kolom Kanan */
         .kolom-kanan {
-            width: 40%;
-            padding-left: 2mm;
+            width: 38%;
+            display: flex;
+            flex-direction: column;
+            padding-top: 8mm;
         }
 
         /* Baris data KTP */
         .data-row {
             display: flex;
-            margin-bottom: 0.3mm;
+            margin-bottom: 0.2mm;
             align-items: flex-start;
         }
 
         .data-label {
             font-size: 5.5pt;
-            width: 22mm;
+            width: 21mm;
             flex-shrink: 0;
-            line-height: 1.2;
+            line-height: 1.3;
         }
 
         .data-colon {
@@ -167,23 +207,38 @@
         .data-value {
             font-size: 5.5pt;
             flex: 1;
-            line-height: 1.2;
+            line-height: 1.3;
             word-break: break-word;
+            font-weight: 500;
         }
 
-        /* Data row untuk kolom kanan (Gol Darah) */
+        /* Data row indentasi (RT/RW, Kel/Desa, Kecamatan) */
+        .data-row-indent {
+            display: flex;
+            margin-bottom: 0.2mm;
+            align-items: flex-start;
+        }
+
+        .data-label-indent {
+            font-size: 5.5pt;
+            width: 21mm;
+            flex-shrink: 0;
+            line-height: 1.3;
+            padding-left: 5mm;
+        }
+
+        /* Kolom Kanan - Gol Darah */
         .data-row-kanan {
             display: flex;
-            margin-bottom: 0.3mm;
+            margin-bottom: 0.2mm;
             align-items: flex-start;
-            margin-top: 8mm;
         }
 
         .data-label-kanan {
             font-size: 5.5pt;
-            width: 18mm;
+            width: 15mm;
             flex-shrink: 0;
-            line-height: 1.2;
+            line-height: 1.3;
         }
 
         .data-colon-kanan {
@@ -196,34 +251,20 @@
         .data-value-kanan {
             font-size: 5.5pt;
             flex: 1;
-            line-height: 1.2;
-        }
-
-        /* Data Alamat (sub-indentasi) */
-        .data-row-indent {
-            display: flex;
-            margin-bottom: 0.3mm;
-            align-items: flex-start;
-        }
-
-        .data-label-indent {
-            font-size: 5.5pt;
-            width: 22mm;
-            flex-shrink: 0;
-            line-height: 1.2;
-            padding-left: 6mm;
+            line-height: 1.3;
+            font-weight: 500;
         }
 
         /* Edit Mode */
         [contenteditable="true"]:hover {
-            background-color: rgba(255, 255, 255, 0.3);
-            outline: 1px dashed #999;
+            background-color: rgba(255, 255, 255, 0.5);
+            outline: 1px dashed #666;
             cursor: text;
             border-radius: 2px;
         }
 
         [contenteditable="true"]:focus {
-            background-color: rgba(255, 255, 255, 0.6);
+            background-color: rgba(255, 255, 255, 0.85);
             outline: 2px solid #007bff;
             border-radius: 2px;
         }
@@ -249,6 +290,8 @@
                 width: 85.6mm;
                 height: 54mm;
                 page-break-inside: avoid;
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
             }
 
             [contenteditable="true"]:hover,
@@ -369,7 +412,7 @@
                     </div>
                 </div>
 
-                <!-- Kolom Kanan -->
+                <!-- Kolom Kanan - Gol Darah -->
                 <div class="kolom-kanan">
                     <div class="data-row-kanan">
                         <div class="data-label-kanan">Gol. Darah</div>
@@ -386,7 +429,6 @@
          JAVASCRIPT LOGIC
          ========================================= -->
     <script>
-        // Daftar field yang bisa disimpan
         const fields = [
             'nik', 'nama', 'ttl', 'jenis-kelamin', 'alamat',
             'rt-rw', 'kel-desa', 'kecamatan', 'agama', 'status',
@@ -478,15 +520,12 @@
 
         // ===== AUTO-SAVE SAAT EDIT =====
         document.addEventListener('DOMContentLoaded', () => {
-            // Muat data tersimpan saat halaman dibuka
             muatData();
 
-            // Auto-save setiap kali ada perubahan pada contenteditable
             fields.forEach(id => {
                 const el = document.getElementById(id);
                 if (el) {
                     el.addEventListener('blur', () => {
-                        // Simpan otomatis saat elemen kehilangan fokus
                         const data = {};
                         fields.forEach(fid => {
                             const fel = document.getElementById(fid);
