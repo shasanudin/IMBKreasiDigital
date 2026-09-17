@@ -148,7 +148,7 @@
             margin-bottom: 8px;
         }
 
-        /* ✅ LOGO BULOG UKURAN 3cm x 1cm */
+        /* LOGO BULOG UKURAN 3cm x 1cm */
         .logo-img {
             width: 3cm;
             height: 1cm;
@@ -166,7 +166,6 @@
             margin-bottom: 20px;
         }
 
-        /* ✅ KANCAB di bawah garis */
         .branch-info {
             font-size: 12px;
             text-decoration: underline;
@@ -174,7 +173,7 @@
             padding-top: 2px;
         }
 
-        /* ✅ BARCODE UKURAN 1cm x 1cm */
+        /* BARCODE UKURAN 1cm x 1cm */
         .qr-box {
             width: 1cm;
             height: 1cm;
@@ -190,10 +189,22 @@
             object-fit: contain;
         }
 
-        /* Judul */
+        /* =========================================
+           JUDUL SURAT JALAN - FONT 14pt
+           ========================================= */
         .title-section { text-align: center; margin-bottom: 30px; }
-        .title-section h1 { font-size: 24px; font-weight: bold; text-transform: uppercase; margin-bottom: 5px; }
-        .title-section .nomor { font-size: 16px; }
+
+        .title-section h1 {
+            font-size: 14pt;         /* ✅ Ukuran 14 */
+            font-weight: bold;
+            text-transform: uppercase;
+            margin-bottom: 5px;
+            letter-spacing: 1px;
+        }
+
+        .title-section .nomor {
+            font-size: 14pt;         /* ✅ Ukuran 14 */
+        }
 
         /* Info */
         .info-section { display: flex; justify-content: space-between; margin-bottom: 30px; }
@@ -213,14 +224,42 @@
         /* Footer */
         .footer-note { margin-top: 20px; margin-bottom: 40px; font-weight: bold; }
 
-        .signature-section { float: right; text-align: center; width: 300px; margin-bottom: 40px; }
+        /* Tanda Tangan */
+        .signature-section { float: right; text-align: center; width: 300px; margin-bottom: 20px; }
         .signature-date { margin-bottom: 5px; }
-        .signature-title { font-weight: bold; margin-bottom: 80px; }
+        .signature-title { font-weight: bold; }
+
+        /* ✅ 3 ENTER (3 baris kosong) jarak dari teks jabatan ke garis tanda tangan */
+        .signature-space {
+            height: 60px;    /* 3 baris × ~20px per baris ≈ 60px */
+        }
+
         .signature-line { border-top: 1px solid #000; width: 100%; margin-top: 10px; }
 
-        .tracking-section { clear: both; border-top: 1px solid #000; padding-top: 10px; margin-top: 20px; }
-        .tracking-title { font-size: 20px; font-weight: normal; margin-bottom: 15px; }
-        .tracking-info { font-size: 12px; line-height: 1.5; }
+        /* =========================================
+           DELIVERY TRACKING - DI ATAS GARIS BAWAH
+           ========================================= */
+        .tracking-section {
+            clear: both;
+            padding-top: 15px;
+            margin-top: 10px;
+        }
+
+        /* ✅ Font Delivery Tracking ukuran 14pt */
+        .tracking-title {
+            font-size: 14pt;         /* ✅ Ukuran 14 */
+            font-weight: normal;
+            margin-bottom: 10px;
+        }
+
+        .tracking-info { font-size: 12px; line-height: 1.5; margin-bottom: 15px; }
+
+        /* ✅ GARIS BAWAH - di bawah Delivery Tracking */
+        .bottom-line {
+            border-top: 1px solid #000;
+            margin-top: 15px;
+            padding-top: 5px;
+        }
 
         /* Edit Mode */
         [contenteditable="true"]:hover { background-color: #f9f9f9; outline: 1px dashed #ccc; cursor: text; }
@@ -375,7 +414,7 @@ Selatan
                 </div>
             </div>
 
-            <!-- Judul -->
+            <!-- Judul - Font 14pt -->
             <div class="title-section">
                 <h1 contenteditable="true">SURAT JALAN</h1>
                 <div class="nomor" contenteditable="true" id="d-nomor">OUT/00839/08/2026/10030.112</div>
@@ -444,17 +483,20 @@ Selatan<br>
             <div class="signature-section">
                 <div class="signature-date" contenteditable="true" id="d-ttd-date">Cirebon , 24-08-2026 15:08</div>
                 <div class="signature-title" contenteditable="true" id="d-ttd-jabatan">Yang Menyerahkan,<br>KOMPLEKS PERGUDANGAN GINTUNG</div>
-                <div style="height: 80px;"></div>
+                <!-- ✅ 3 enter (3 baris kosong) jarak ke garis tanda tangan -->
+                <div class="signature-space"></div>
                 <div class="signature-line"></div>
             </div>
 
-            <!-- Delivery Tracking -->
+            <!-- ✅ DELIVERY TRACKING - Di atas garis bawah -->
             <div class="tracking-section">
                 <div class="tracking-title" contenteditable="true">Delivery Tracking</div>
                 <div class="tracking-info" contenteditable="true" id="d-tracking">
                     Dicetak oleh &nbsp;: <span id="d-cetak-oleh">Kepala Gudang GUDANG GINTUNG</span><br>
                     Pada waktu &nbsp;&nbsp;: <span id="d-cetak-waktu">24-08-2026 | 15:34</span>
                 </div>
+                <!-- ✅ Garis bawah setelah Delivery Tracking -->
+                <div class="bottom-line"></div>
             </div>
         </div>
     </div>
