@@ -136,14 +136,14 @@
             position: relative;
         }
 
-        /* Header Dokumen */
+        /* Header Dokumen (hanya logo & cabang) */
         .header {
             display: flex;
             justify-content: space-between;
             align-items: flex-start;
             border-bottom: 2px solid #000;
             padding-bottom: 10px;
-            margin-bottom: 20px;
+            margin-bottom: 10px;
         }
 
         .logo-area {
@@ -168,11 +168,20 @@
             font-weight: bold;
         }
 
-        .qr-area {
-            width: 80px; height: 80px;
+        /* ✅ AREA BARCODE/QR DI BAWAH GARIS */
+        .barcode-area {
+            display: flex;
+            justify-content: flex-end;
+            margin-bottom: 15px;
+        }
+
+        .qr-box {
+            width: 80px;
+            height: 80px;
             border: 1px solid #000;
-            display: flex; align-items: center; justify-content: center;
-            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
         /* Judul */
@@ -182,10 +191,15 @@
 
         /* Info */
         .info-section { display: flex; justify-content: space-between; margin-bottom: 30px; }
-        .info-left { width: 60%; }
-        .info-right { width: 35%; }
+        .info-left { width: 65%; }
+        .info-right { width: 30%; }
         .info-label { font-weight: bold; display: block; margin-bottom: 5px; }
         .info-text { line-height: 1.4; margin-bottom: 15px; }
+
+        /* Jarak antar baris info (1 enter) */
+        .info-spacer {
+            height: 15px;
+        }
 
         /* Tabel */
         .table-container { margin-bottom: 20px; }
@@ -210,7 +224,7 @@
         [contenteditable="true"]:focus { background-color: #fff; outline: 2px solid #007bff; }
 
         /* =========================================
-           RESPONSIVE - Untuk layar kecil
+           RESPONSIVE
            ========================================= */
         @media (max-width: 1200px) {
             body { flex-direction: column; align-items: center; }
@@ -260,11 +274,12 @@ Jalan Harsono RM Nomor 3
 Ragunan, Pasar Minggu, Jakarta
 Selatan
 09, DKI Jakarta (ID), Indonesia
-(021)7804476 7807377
-NPWP: 62.416.790.4-017.000</textarea>
+(021)7804476 7807377</textarea>
         </div>
-
-        <h3>Info Gudang</h3>
+        <div class="form-group">
+            <label>NPWP</label>
+            <input type="text" id="inp-npwp" value="NPWP: 62.416.790.4-017.000">
+        </div>
         <div class="form-group">
             <label>Gudang Asal</label>
             <input type="text" id="inp-gudang" value="KOMPLEKS PERGUDANGAN GINTUNG">
@@ -339,10 +354,9 @@ NPWP: 62.416.790.4-017.000</textarea>
          ========================================= -->
     <div class="document-area">
         <div class="page" id="dokumen">
-            <!-- Header -->
+            <!-- Header: Logo & Cabang saja -->
             <div class="header">
                 <div class="logo-area">
-                    <!-- ✅ LOGO BULOG dari GitHub (raw URL) -->
                     <img 
                         src="https://raw.githubusercontent.com/shasanudin/IMBKreasiDigital/main/image/bulog%20logo.png" 
                         alt="Logo Bulog" 
@@ -351,7 +365,11 @@ NPWP: 62.416.790.4-017.000</textarea>
                     >
                     <div class="branch-info" contenteditable="true" id="d-cabang">10030 - KANCAB CIREBON</div>
                 </div>
-                <div class="qr-area">
+            </div>
+
+            <!-- ✅ Barcode/QR di bawah garis header -->
+            <div class="barcode-area">
+                <div class="qr-box">
                     <img id="qr-img" src="https://api.qrserver.com/v1/create-qr-code/?size=80x80&data=OUT/00839/08/2026/10030.112" alt="QR Code" style="width:100%; height:100%;">
                 </div>
             </div>
@@ -362,7 +380,7 @@ NPWP: 62.416.790.4-017.000</textarea>
                 <div class="nomor" contenteditable="true" id="d-nomor">OUT/00839/08/2026/10030.112</div>
             </div>
 
-            <!-- Info Penerima & Gudang -->
+            <!-- Info Penerima -->
             <div class="info-section">
                 <div class="info-left">
                     <span class="info-label">Penerima:</span>
@@ -372,18 +390,16 @@ Jalan Harsono RM Nomor 3<br>
 Ragunan, Pasar Minggu, Jakarta<br>
 Selatan<br>
 09, DKI Jakarta (ID), Indonesia<br>
-(021)7804476 7807377<br>
-NPWP: 62.416.790.4-017.000</div>
-                </div>
-                <div class="info-right">
-                    <div style="margin-bottom: 15px;">
-                        <span class="info-label">Gudang Asal :</span>
-                        <span contenteditable="true" id="d-gudang">KOMPLEKS PERGUDANGAN GINTUNG</span>
-                    </div>
-                    <div>
-                        <span class="info-label">Referensi :</span>
-                        <span contenteditable="true" id="d-referensi">SO/7110/08/2026/10030</span>
-                    </div>
+(021)7804476 7807377</div>
+
+                    <!-- ✅ NPWP, Gudang Asal, Referensi dengan 1 enter jarak -->
+                    <div class="info-text" contenteditable="true" id="d-npwp">NPWP: 62.416.790.4-017.000</div>
+                    <div class="info-spacer"></div>
+
+                    <div class="info-text" contenteditable="true" id="d-gudang"><strong>Gudang Asal :</strong> KOMPLEKS PERGUDANGAN GINTUNG</div>
+                    <div class="info-spacer"></div>
+
+                    <div class="info-text" contenteditable="true" id="d-referensi"><strong>Referensi :</strong> SO/7110/08/2026/10030</div>
                 </div>
             </div>
 
@@ -447,7 +463,6 @@ NPWP: 62.416.790.4-017.000</div>
          JAVASCRIPT LOGIC
          ========================================= -->
     <script>
-        // ===== FUNGSI NOTIFIKASI =====
         function tampilkanNotif(pesan, tipe = 'success') {
             const notif = document.getElementById('notif');
             notif.textContent = pesan;
@@ -457,12 +472,12 @@ NPWP: 62.416.790.4-017.000</div>
             }, 2500);
         }
 
-        // ===== FUNGSI TERAPKAN DATA DARI FORM KE DOKUMEN =====
         function terapkanData() {
             const fields = [
                 ['inp-cabang', 'd-cabang'],
                 ['inp-nomor', 'd-nomor'],
                 ['inp-penerima', 'd-penerima'],
+                ['inp-npwp', 'd-npwp'],
                 ['inp-gudang', 'd-gudang'],
                 ['inp-referensi', 'd-referensi'],
                 ['inp-doksum', 'd-doksum'],
@@ -493,7 +508,6 @@ NPWP: 62.416.790.4-017.000</div>
                 }
             });
 
-            // Update QR Code dengan nomor surat baru
             const nomorBaru = document.getElementById('inp-nomor').value;
             document.getElementById('qr-img').src = 
                 'https://api.qrserver.com/v1/create-qr-code/?size=80x80&data=' + encodeURIComponent(nomorBaru);
@@ -501,12 +515,12 @@ NPWP: 62.416.790.4-017.000</div>
             tampilkanNotif('✅ Data berhasil diterapkan ke dokumen!');
         }
 
-        // ===== FUNGSI AMBIL DATA DARI DOKUMEN KE FORM =====
         function ambilDataDariDokumen() {
             const fields = [
                 ['d-cabang', 'inp-cabang'],
                 ['d-nomor', 'inp-nomor'],
                 ['d-penerima', 'inp-penerima'],
+                ['d-npwp', 'inp-npwp'],
                 ['d-gudang', 'inp-gudang'],
                 ['d-referensi', 'inp-referensi'],
                 ['d-doksum', 'inp-doksum'],
@@ -533,15 +547,12 @@ NPWP: 62.416.790.4-017.000</div>
             });
         }
 
-        // ===== FUNGSI SIMPAN KE LOCAL STORAGE =====
         function simpanData() {
             ambilDataDariDokumen();
-            
             const data = {};
             document.querySelectorAll('.input-panel input, .input-panel textarea').forEach(el => {
                 data[el.id] = el.value;
             });
-            
             try {
                 localStorage.setItem('suratJalanData', JSON.stringify(data));
                 tampilkanNotif('💾 Data berhasil disimpan di browser!');
@@ -550,7 +561,6 @@ NPWP: 62.416.790.4-017.000</div>
             }
         }
 
-        // ===== FUNGSI MUAT DARI LOCAL STORAGE =====
         function muatData() {
             try {
                 const saved = localStorage.getItem('suratJalanData');
@@ -570,14 +580,14 @@ NPWP: 62.416.790.4-017.000</div>
             }
         }
 
-        // ===== FUNGSI RESET KE CONTOH AWAL =====
         function resetData() {
             if (!confirm('Yakin ingin mereset ke data contoh awal?')) return;
 
             const defaultData = {
                 'inp-cabang': '10030 - KANCAB CIREBON',
                 'inp-nomor': 'OUT/00839/08/2026/10030.112',
-                'inp-penerima': 'Badan Pangan Nasional\nKantor Badan Pangan Nasional\nJalan Harsono RM Nomor 3\nRagunan, Pasar Minggu, Jakarta\nSelatan\n09, DKI Jakarta (ID), Indonesia\n(021)7804476 7807377\nNPWP: 62.416.790.4-017.000',
+                'inp-penerima': 'Badan Pangan Nasional\nKantor Badan Pangan Nasional\nJalan Harsono RM Nomor 3\nRagunan, Pasar Minggu, Jakarta\nSelatan\n09, DKI Jakarta (ID), Indonesia\n(021)7804476 7807377',
+                'inp-npwp': 'NPWP: 62.416.790.4-017.000',
                 'inp-gudang': 'KOMPLEKS PERGUDANGAN GINTUNG',
                 'inp-referensi': 'SO/7110/08/2026/10030',
                 'inp-doksum': 'SO/7110/08/2026/10030',
@@ -599,7 +609,6 @@ NPWP: 62.416.790.4-017.000</div>
             tampilkanNotif('🔄 Data direset ke contoh awal.');
         }
 
-        // ===== INISIALISASI =====
         window.addEventListener('DOMContentLoaded', () => {
             const saved = localStorage.getItem('suratJalanData');
             if (saved) {
