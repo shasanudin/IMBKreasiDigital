@@ -22,9 +22,6 @@
             min-height: 100vh;
         }
 
-        /* =========================================
-           TOMBOL AKSI
-           ========================================= */
         .action-buttons {
             display: flex;
             gap: 8px;
@@ -56,9 +53,7 @@
         .btn-danger { background-color: #dc3545; }
         .btn-danger:hover { background-color: #c82333; }
 
-        /* =========================================
-           PANEL KONTROL FOTO
-           ========================================= */
+        /* Panel Kontrol Foto */
         .foto-controls {
             display: flex;
             gap: 15px;
@@ -96,9 +91,7 @@
             font-family: monospace;
         }
 
-        /* =========================================
-           KTP CARD
-           ========================================= */
+        /* KTP Card */
         .ktp-card {
             width: 85.6mm;
             height: 54mm;
@@ -123,9 +116,6 @@
             z-index: 2;
         }
 
-        /* =========================================
-           HEADER PROVINSI
-           ========================================= */
         .provinsi-header {
             text-align: center;
             line-height: 1;
@@ -140,9 +130,6 @@
             line-height: 1.1;
         }
 
-        /* =========================================
-           NIK
-           ========================================= */
         .nik-row {
             display: flex;
             align-items: center;
@@ -162,10 +149,6 @@
         .nik-label { width: 13mm; }
         .nik-colon { margin-right: 1.5mm; }
 
-        /* =========================================
-           BODY: 2 KOLOM
-           ✅ Kolom kiri diperlebar, kolom kanan digeser ke kanan
-           ========================================= */
         .ktp-body {
             display: flex;
             flex: 1;
@@ -173,24 +156,21 @@
         }
 
         .kolom-kiri {
-            width: 68%;              /* ✅ Diperlebar dari 62% */
+            width: 68%;
             display: flex;
             flex-direction: column;
             line-height: 1;
         }
 
         .kolom-kanan {
-            width: 31%;              /* ✅ Lebih sempit */
+            width: 31%;
             display: flex;
             flex-direction: column;
-            align-items: flex-end;   /* ✅ Geser ke kanan */
+            align-items: flex-end;
             line-height: 1;
             padding-right: 1mm;
         }
 
-        /* =========================================
-           DATA ROW
-           ========================================= */
         .data-row {
             display: flex;
             align-items: flex-start;
@@ -238,10 +218,6 @@
             padding-left: 4mm;
         }
 
-        /* =========================================
-           GOL DARAH (sejajar dengan Jenis Kelamin)
-           ✅ Diposisikan lebih ke kiri sedikit agar tidak tertutup foto
-           ========================================= */
         .data-row-with-goldar {
             display: flex;
             align-items: flex-start;
@@ -253,7 +229,7 @@
 
         .goldar-inline {
             position: absolute;
-            left: 40mm;              /* ✅ Digeser sedikit ke kiri */
+            left: 40mm;
             top: 0;
             display: flex;
             align-items: flex-start;
@@ -271,9 +247,7 @@
         .goldar-colon { margin: 0 1mm; }
         .goldar-value { font-weight: bold; }
 
-        /* =========================================
-           FOTO
-           ========================================= */
+        /* Foto */
         .foto-box {
             width: 21mm;
             height: 27mm;
@@ -285,9 +259,7 @@
             user-select: none;
         }
 
-        .foto-box:active {
-            cursor: grabbing;
-        }
+        .foto-box:active { cursor: grabbing; }
 
         .foto-box img {
             position: absolute;
@@ -315,9 +287,7 @@
             pointer-events: none;
         }
 
-        /* =========================================
-           TTD & Tanggal
-           ========================================= */
+        /* TTD */
         .ttd-area {
             margin-top: 1mm;
             width: 21mm;
@@ -343,6 +313,7 @@
             height: 9mm;
             position: relative;
             cursor: pointer;
+            background-color: rgba(255,255,255,0.3);
         }
 
         .ttd-box canvas {
@@ -351,7 +322,6 @@
             display: block;
         }
 
-        /* Edit mode */
         [contenteditable="true"]:hover {
             background-color: rgba(255,255,255,0.4);
             outline: 1px dashed #666;
@@ -363,9 +333,7 @@
             border-radius: 1px;
         }
 
-        /* =========================================
-           MODAL TTD
-           ========================================= */
+        /* Modal TTD */
         .modal-ttd {
             display: none;
             position: fixed;
@@ -408,9 +376,6 @@
 
         #fileFoto { display: none; }
 
-        /* =========================================
-           PRINT
-           ========================================= */
         @media print {
             body {
                 background-color: #fff;
@@ -449,7 +414,6 @@
         <button class="btn btn-danger" onclick="resetData()">🔄 Reset</button>
     </div>
 
-    <!-- ✅ Panel Kontrol Foto -->
     <div class="foto-controls">
         <div class="ctrl-group">
             <label>⬅️➡️ Geser X</label>
@@ -590,12 +554,7 @@
     <script>
         let fotoDataURL = '';
         let ttdDataURL = '';
-
-        let fotoTransform = {
-            x: 0,
-            y: 0,
-            scale: 1
-        };
+        let fotoTransform = { x: 0, y: 0, scale: 1 };
 
         const fields = [
             'provinsi', 'kabupaten', 'nik', 'nama', 'ttl', 'jenis-kelamin', 'alamat',
@@ -604,9 +563,7 @@
             'ttd-kota', 'ttd-tanggal'
         ];
 
-        // =========================================
-        // UPLOAD FOTO
-        // =========================================
+        // ===== UPLOAD FOTO =====
         document.getElementById('fileFoto').addEventListener('change', function(e) {
             const file = e.target.files[0];
             if (!file) return;
@@ -624,6 +581,9 @@
                 placeholder.style.display = 'none';
 
                 fotoTransform = { x: 0, y: 0, scale: 1 };
+                document.getElementById('foto-x').value = 0;
+                document.getElementById('foto-y').value = 0;
+                document.getElementById('foto-scale').value = 100;
                 updateFromSlider();
                 simpanKeStorage();
                 tampilkanNotif('📷 Foto berhasil diupload!');
@@ -631,9 +591,7 @@
             reader.readAsDataURL(file);
         });
 
-        // =========================================
-        // UPDATE DARI SLIDER
-        // =========================================
+        // ===== UPDATE DARI SLIDER =====
         function updateFromSlider() {
             const x = parseInt(document.getElementById('foto-x').value);
             const y = parseInt(document.getElementById('foto-y').value);
@@ -665,9 +623,7 @@
             tampilkanNotif('🔄 Posisi foto direset.');
         }
 
-        // =========================================
-        // DRAG FOTO
-        // =========================================
+        // ===== DRAG FOTO =====
         const fotoBox = document.getElementById('foto-box');
         let isDraggingFoto = false;
         let dragStart = { x: 0, y: 0 };
@@ -691,7 +647,6 @@
             fotoTransform.x = transformStart.x + dx;
             fotoTransform.y = transformStart.y + dy;
             
-            // Sync ke slider
             document.getElementById('foto-x').value = fotoTransform.x;
             document.getElementById('foto-y').value = fotoTransform.y;
             document.getElementById('val-x').textContent = Math.round(fotoTransform.x);
@@ -753,9 +708,7 @@
             updateFromSlider();
         }, { passive: false });
 
-        // =========================================
-        // CANVAS TTD
-        // =========================================
+        // ===== CANVAS TTD =====
         let isDrawing = false;
         let lastX = 0, lastY = 0;
         const ttdCanvas = document.getElementById('ttd-canvas');
@@ -861,9 +814,7 @@
             tampilkanNotif('✍️ TTD berhasil disimpan!');
         }
 
-        // =========================================
-        // SIMPAN PNG
-        // =========================================
+        // ===== SIMPAN PNG =====
         function simpanPNG() {
             const ktpCard = document.getElementById('ktp-card');
             document.querySelectorAll('[contenteditable="true"]').forEach(el => el.blur());
@@ -887,9 +838,7 @@
             });
         }
 
-        // =========================================
-        // SIMPAN / MUAT
-        // =========================================
+        // ===== SIMPAN / MUAT =====
         function simpanData() {
             simpanKeStorage();
             tampilkanNotif('💾 Data berhasil disimpan!');
@@ -955,11 +904,89 @@
             }
         }
 
-        // =========================================
-        // RESET
-        // =========================================
+        // ===== RESET =====
         function resetData() {
             if (!confirm('Yakin ingin mereset semua data (termasuk foto & TTD)?')) return;
 
             const defaultData = {
-                'provinsi': 'PROV
+                'provinsi': 'PROVINSI JAWA BARAT',
+                'kabupaten': 'KABUPATEN CIREBON',
+                'nik': '3209151007000008',
+                'nama': 'SHIDIQ HASANUDIN',
+                'ttl': 'CIREBON, 10-07-2000',
+                'jenis-kelamin': 'LAKI-LAKI',
+                'alamat': 'LINGK MANIS',
+                'rt-rw': '004/009',
+                'kel-desa': 'SUMBER',
+                'kecamatan': 'SUMBER',
+                'agama': 'ISLAM',
+                'status': 'BELUM KAWIN',
+                'pekerjaan': 'PELAJAR/MAHASISWA',
+                'kewarganegaraan': 'WNI',
+                'berlaku': 'SEUMUR HIDUP',
+                'gol-darah': '-',
+                'ttd-kota': 'CIREBON',
+                'ttd-tanggal': '21-12-2017'
+            };
+
+            Object.keys(defaultData).forEach(id => {
+                const el = document.getElementById(id);
+                if (el) el.textContent = defaultData[id];
+            });
+
+            fotoDataURL = '';
+            fotoTransform = { x: 0, y: 0, scale: 1 };
+            document.getElementById('foto-img').style.display = 'none';
+            document.getElementById('foto-img').src = '';
+            document.getElementById('foto-img').style.transform = '';
+            document.getElementById('foto-placeholder').style.display = 'block';
+            document.getElementById('foto-x').value = 0;
+            document.getElementById('foto-y').value = 0;
+            document.getElementById('foto-scale').value = 100;
+            document.getElementById('val-x').textContent = '0';
+            document.getElementById('val-y').textContent = '0';
+            document.getElementById('val-scale').textContent = '100%';
+
+            ttdDataURL = '';
+            ttdPreviewCtx.clearRect(0, 0, ttdPreview.width, ttdPreview.height);
+
+            localStorage.removeItem('ktpData');
+            tampilkanNotif('🔄 Data direset.');
+        }
+
+        // ===== NOTIFIKASI =====
+        function tampilkanNotif(pesan, tipe = 'success') {
+            const notif = document.createElement('div');
+            notif.textContent = pesan;
+            notif.style.cssText = `
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                padding: 12px 20px;
+                background-color: ${tipe === 'success' ? '#28a745' : '#dc3545'};
+                color: #fff;
+                border-radius: 5px;
+                font-weight: bold;
+                z-index: 99999;
+                box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+                transition: opacity 0.3s;
+            `;
+            document.body.appendChild(notif);
+            setTimeout(() => {
+                notif.style.opacity = '0';
+                setTimeout(() => notif.remove(), 300);
+            }, 2000);
+        }
+
+        // ===== INIT =====
+        document.addEventListener('DOMContentLoaded', () => {
+            muatData();
+            fields.forEach(id => {
+                const el = document.getElementById(id);
+                if (el) el.addEventListener('blur', simpanKeStorage);
+            });
+        });
+    </script>
+
+</body>
+</html>
