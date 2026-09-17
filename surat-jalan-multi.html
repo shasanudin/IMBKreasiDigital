@@ -190,12 +190,12 @@
         }
 
         /* =========================================
-           JUDUL SURAT JALAN - FONT 14pt
+           JUDUL SURAT JALAN - FONT 16pt
            ========================================= */
         .title-section { text-align: center; margin-bottom: 30px; }
 
         .title-section h1 {
-            font-size: 14pt;         /* ✅ Ukuran 14 */
+            font-size: 16pt;         /* ✅ Ukuran 16 */
             font-weight: bold;
             text-transform: uppercase;
             margin-bottom: 5px;
@@ -203,7 +203,7 @@
         }
 
         .title-section .nomor {
-            font-size: 14pt;         /* ✅ Ukuran 14 */
+            font-size: 16pt;         /* ✅ Ukuran 16 */
         }
 
         /* Info */
@@ -229,15 +229,15 @@
         .signature-date { margin-bottom: 5px; }
         .signature-title { font-weight: bold; }
 
-        /* ✅ 3 ENTER (3 baris kosong) jarak dari teks jabatan ke garis tanda tangan */
+        /* 3 enter jarak dari teks jabatan ke garis tanda tangan */
         .signature-space {
-            height: 60px;    /* 3 baris × ~20px per baris ≈ 60px */
+            height: 60px;
         }
 
         .signature-line { border-top: 1px solid #000; width: 100%; margin-top: 10px; }
 
         /* =========================================
-           DELIVERY TRACKING - DI ATAS GARIS BAWAH
+           DELIVERY TRACKING - Di atas garis bawah
            ========================================= */
         .tracking-section {
             clear: both;
@@ -245,20 +245,25 @@
             margin-top: 10px;
         }
 
-        /* ✅ Font Delivery Tracking ukuran 14pt */
+        /* Font Delivery Tracking ukuran 14pt */
         .tracking-title {
-            font-size: 14pt;         /* ✅ Ukuran 14 */
+            font-size: 14pt;
             font-weight: normal;
             margin-bottom: 10px;
         }
 
-        .tracking-info { font-size: 12px; line-height: 1.5; margin-bottom: 15px; }
-
-        /* ✅ GARIS BAWAH - di bawah Delivery Tracking */
+        /* ✅ GARIS BAWAH - di bawah Delivery Tracking judul */
         .bottom-line {
             border-top: 1px solid #000;
             margin-top: 15px;
-            padding-top: 5px;
+        }
+
+        /* ✅ INFO CETAK - Di BAWAH garis bawah */
+        .print-info {
+            font-size: 12px;
+            line-height: 1.5;
+            padding-top: 10px;
+            margin-top: 5px;
         }
 
         /* Edit Mode */
@@ -414,7 +419,7 @@ Selatan
                 </div>
             </div>
 
-            <!-- Judul - Font 14pt -->
+            <!-- Judul - Font 16pt -->
             <div class="title-section">
                 <h1 contenteditable="true">SURAT JALAN</h1>
                 <div class="nomor" contenteditable="true" id="d-nomor">OUT/00839/08/2026/10030.112</div>
@@ -483,20 +488,21 @@ Selatan<br>
             <div class="signature-section">
                 <div class="signature-date" contenteditable="true" id="d-ttd-date">Cirebon , 24-08-2026 15:08</div>
                 <div class="signature-title" contenteditable="true" id="d-ttd-jabatan">Yang Menyerahkan,<br>KOMPLEKS PERGUDANGAN GINTUNG</div>
-                <!-- ✅ 3 enter (3 baris kosong) jarak ke garis tanda tangan -->
                 <div class="signature-space"></div>
                 <div class="signature-line"></div>
             </div>
 
-            <!-- ✅ DELIVERY TRACKING - Di atas garis bawah -->
+            <!-- Delivery Tracking (judul saja di atas garis) -->
             <div class="tracking-section">
                 <div class="tracking-title" contenteditable="true">Delivery Tracking</div>
-                <div class="tracking-info" contenteditable="true" id="d-tracking">
+                <!-- ✅ Garis bawah setelah judul Delivery Tracking -->
+                <div class="bottom-line"></div>
+                
+                <!-- ✅ Info cetak DI BAWAH garis bawah -->
+                <div class="print-info" contenteditable="true" id="d-tracking">
                     Dicetak oleh &nbsp;: <span id="d-cetak-oleh">Kepala Gudang GUDANG GINTUNG</span><br>
                     Pada waktu &nbsp;&nbsp;: <span id="d-cetak-waktu">24-08-2026 | 15:34</span>
                 </div>
-                <!-- ✅ Garis bawah setelah Delivery Tracking -->
-                <div class="bottom-line"></div>
             </div>
         </div>
     </div>
