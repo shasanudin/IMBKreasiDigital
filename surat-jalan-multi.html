@@ -226,13 +226,12 @@
 
         /* =========================================
            TANDA TANGAN
-           ✅ Garis TTD mengikuti lebar teks "Yang Menyerahkan"
+           ✅ Garis TTD width 70% dari lebar teks jabatan
            ========================================= */
         .signature-section {
             float: right;
             text-align: center;
             margin-bottom: 20px;
-            /* Tidak pakai width fixed, biarkan menyesuaikan konten */
             display: inline-block;
         }
 
@@ -240,7 +239,6 @@
 
         .signature-title {
             font-weight: bold;
-            /* display: inline-block agar lebar mengikuti teks terpanjang */
             display: inline-block;
             text-align: center;
         }
@@ -250,11 +248,11 @@
             height: 60px;
         }
 
-        /* ✅ Garis TTD mengikuti lebar parent (.signature-title) */
+        /* ✅ Garis TTD width 70%, centered */
         .signature-line {
             border-top: 1px solid #000;
-            width: 70%;
-            margin-top: 30px;
+            width: 70%;                /* ✅ 70% dari lebar parent */
+            margin: 10px auto 0 auto;  /* ✅ auto = centered */
         }
 
         /* =========================================
@@ -266,9 +264,9 @@
             margin-top: 10px;
         }
 
-        /* ✅ Font Delivery Tracking ukuran 16pt */
+        /* Font Delivery Tracking ukuran 16pt */
         .tracking-title {
-            font-size: 18pt;
+            font-size: 16pt;
             font-weight: normal;
             margin-bottom: 10px;
         }
@@ -505,7 +503,7 @@ Selatan<br>
                 Catatan/Nopol/No Kontainer : JPL/E8152BD - Z8835NP-TAMBELANG
             </div>
 
-            <!-- ✅ Tanda Tangan - garis mengikuti lebar teks -->
+            <!-- Tanda Tangan -->
             <div class="signature-section">
                 <div class="signature-date" contenteditable="true" id="d-ttd-date">Cirebon , 24-08-2026 15:08</div>
                 <div class="signature-title" contenteditable="true" id="d-ttd-jabatan">Yang Menyerahkan,<br>KOMPLEKS PERGUDANGAN GINTUNG</div>
