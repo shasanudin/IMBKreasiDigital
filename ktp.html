@@ -57,64 +57,31 @@
 
         /* =========================================
            KTP CARD - UKURAN STANDAR (85.6mm x 54mm)
-           Background dibuat dengan CSS (bukan gambar)
+           Background dari GitHub (raw URL)
            ========================================= */
         .ktp-card {
             width: 85.6mm;
             height: 54mm;
+            background-image: url('https://raw.githubusercontent.com/shasanudin/IMBKreasiDigital/main/image/ktp%20format.png');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
             border-radius: 3mm;
             box-shadow: 0 4px 12px rgba(0,0,0,0.3);
             position: relative;
             overflow: hidden;
             font-family: Arial, Helvetica, sans-serif;
             color: #000;
-            background-color: #e8f4f8;
-
-            /* Pola gelombang & gradasi biru seperti KTP asli */
-            background-image: 
-                /* Peta Indonesia samar di tengah */
-                radial-gradient(ellipse 30mm 20mm at 50% 45%, rgba(135, 206, 235, 0.3) 0%, transparent 70%),
-                /* Pola gelombang horizontal */
-                repeating-linear-gradient(
-                    0deg,
-                    transparent 0px,
-                    transparent 2mm,
-                    rgba(173, 216, 230, 0.15) 2mm,
-                    rgba(173, 216, 230, 0.15) 2.5mm
-                ),
-                /* Gradasi warna dasar */
-                linear-gradient(135deg, #d4ecf7 0%, #e8f4f8 30%, #d1e8f5 60%, #c5e3f2 100%);
         }
 
-        /* Ornamen gelombang dekoratif di background */
+        /* Overlay tipis untuk membantu keterbacaan teks */
         .ktp-card::before {
             content: '';
             position: absolute;
             top: 0; left: 0; right: 0; bottom: 0;
-            background-image: 
-                /* Gelombang atas */
-                radial-gradient(ellipse 60mm 8mm at 30% 5%, rgba(100, 180, 220, 0.2) 0%, transparent 100%),
-                radial-gradient(ellipse 50mm 6mm at 70% 90%, rgba(100, 180, 220, 0.15) 0%, transparent 100%);
+            background-color: rgba(255, 255, 255, 0.05);
             pointer-events: none;
-            z-index: 0;
-        }
-
-        /* Peta Indonesia sederhana dengan CSS */
-        .ktp-card::after {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 50mm;
-            height: 25mm;
-            background: 
-                radial-gradient(ellipse 8mm 3mm at 20% 50%, rgba(100, 150, 200, 0.12) 0%, transparent 100%),
-                radial-gradient(ellipse 12mm 4mm at 45% 40%, rgba(100, 150, 200, 0.12) 0%, transparent 100%),
-                radial-gradient(ellipse 10mm 3mm at 70% 60%, rgba(100, 150, 200, 0.12) 0%, transparent 100%),
-                radial-gradient(ellipse 6mm 2mm at 85% 45%, rgba(100, 150, 200, 0.12) 0%, transparent 100%);
-            pointer-events: none;
-            z-index: 0;
+            z-index: 1;
         }
 
         /* =========================================
@@ -122,19 +89,42 @@
            ========================================= */
         .ktp-content {
             position: relative;
-            padding: 3mm 4mm;
+            padding: 2.5mm 4mm;
             height: 100%;
             display: flex;
             flex-direction: column;
             z-index: 2;
         }
 
-        /* Baris NIK */
+        /* =========================================
+           HEADER PROVINSI & KABUPATEN
+           ========================================= */
+        .provinsi-header {
+            text-align: center;
+            margin-bottom: 1.5mm;
+        }
+
+        .provinsi-header .provinsi {
+            font-size: 7pt;
+            font-weight: bold;
+            letter-spacing: 0.5px;
+            line-height: 1.2;
+        }
+
+        .provinsi-header .kabupaten {
+            font-size: 7pt;
+            font-weight: bold;
+            letter-spacing: 0.5px;
+            line-height: 1.2;
+        }
+
+        /* =========================================
+           BARIS NIK
+           ========================================= */
         .nik-row {
             display: flex;
             align-items: center;
             margin-bottom: 1.5mm;
-            padding-top: 1mm;
         }
 
         .nik-label {
@@ -168,19 +158,17 @@
             gap: 2mm;
         }
 
-        /* Kolom Kiri */
         .kolom-kiri {
             width: 62%;
             display: flex;
             flex-direction: column;
         }
 
-        /* Kolom Kanan */
         .kolom-kanan {
             width: 38%;
             display: flex;
             flex-direction: column;
-            padding-top: 8mm;
+            padding-top: 1mm;
         }
 
         /* Baris data KTP */
@@ -257,14 +245,14 @@
 
         /* Edit Mode */
         [contenteditable="true"]:hover {
-            background-color: rgba(255, 255, 255, 0.5);
+            background-color: rgba(255, 255, 255, 0.4);
             outline: 1px dashed #666;
             cursor: text;
             border-radius: 2px;
         }
 
         [contenteditable="true"]:focus {
-            background-color: rgba(255, 255, 255, 0.85);
+            background-color: rgba(255, 255, 255, 0.8);
             outline: 2px solid #007bff;
             border-radius: 2px;
         }
@@ -326,6 +314,12 @@
          ========================================= -->
     <div class="ktp-card" id="ktp-card">
         <div class="ktp-content">
+
+            <!-- ✅ Header Provinsi & Kabupaten -->
+            <div class="provinsi-header">
+                <div class="provinsi" contenteditable="true" id="provinsi">PROVINSI JAWA BARAT</div>
+                <div class="kabupaten" contenteditable="true" id="kabupaten">KABUPATEN CIREBON</div>
+            </div>
 
             <!-- Baris NIK -->
             <div class="nik-row">
@@ -430,12 +424,11 @@
          ========================================= -->
     <script>
         const fields = [
-            'nik', 'nama', 'ttl', 'jenis-kelamin', 'alamat',
+            'provinsi', 'kabupaten', 'nik', 'nama', 'ttl', 'jenis-kelamin', 'alamat',
             'rt-rw', 'kel-desa', 'kecamatan', 'agama', 'status',
             'pekerjaan', 'kewarganegaraan', 'berlaku', 'gol-darah'
         ];
 
-        // ===== SIMPAN DATA KE LOCAL STORAGE =====
         function simpanData() {
             const data = {};
             fields.forEach(id => {
@@ -450,7 +443,6 @@
             }
         }
 
-        // ===== MUAT DATA DARI LOCAL STORAGE =====
         function muatData() {
             try {
                 const saved = localStorage.getItem('ktpData');
@@ -465,11 +457,12 @@
             }
         }
 
-        // ===== RESET KE DATA CONTOH =====
         function resetData() {
             if (!confirm('Yakin ingin mereset ke data contoh awal?')) return;
 
             const defaultData = {
+                'provinsi': 'PROVINSI JAWA BARAT',
+                'kabupaten': 'KABUPATEN CIREBON',
                 'nik': '3201234567890001',
                 'nama': 'AHMAD FAUZI',
                 'ttl': 'CIREBON, 15-08-1990',
@@ -494,7 +487,6 @@
             tampilkanNotif('🔄 Data direset ke contoh awal.');
         }
 
-        // ===== NOTIFIKASI SEDERHANA =====
         function tampilkanNotif(pesan, tipe = 'success') {
             const notif = document.createElement('div');
             notif.textContent = pesan;
@@ -518,7 +510,6 @@
             }, 2000);
         }
 
-        // ===== AUTO-SAVE SAAT EDIT =====
         document.addEventListener('DOMContentLoaded', () => {
             muatData();
 
