@@ -136,52 +136,58 @@
             position: relative;
         }
 
-        /* Header Dokumen (hanya logo & cabang) */
+        /* =========================================
+           HEADER: Hanya Logo
+           ========================================= */
         .header {
+            display: flex;
+            justify-content: flex-start;
+            align-items: flex-start;
+            border-bottom: 2px solid #000;
+            padding-bottom: 8px;
+            margin-bottom: 8px;
+        }
+
+        /* ✅ LOGO BULOG UKURAN 5cm x 2cm */
+        .logo-img {
+            width: 5cm;
+            height: 2cm;
+            object-fit: contain;
+            object-position: left center;
+        }
+
+        /* =========================================
+           BARIS DI BAWAH GARIS: KANCAB (kiri) + BARCODE (kanan)
+           ========================================= */
+        .sub-header {
             display: flex;
             justify-content: space-between;
             align-items: flex-start;
-            border-bottom: 2px solid #000;
-            padding-bottom: 10px;
-            margin-bottom: 10px;
+            margin-bottom: 20px;
         }
 
-        .logo-area {
-            display: flex;
-            flex-direction: column;
-            align-items: flex-start;
-            flex: 1;
-        }
-
-        /* ✅ LOGO BULOG dari GitHub */
-        .logo-img {
-            height: 55px;
-            width: auto;
-            object-fit: contain;
-            margin-bottom: 3px;
-        }
-
+        /* ✅ KANCAB di bawah garis */
         .branch-info {
             font-size: 12px;
             text-decoration: underline;
-            margin-top: 5px;
             font-weight: bold;
+            padding-top: 2px;
         }
 
-        /* ✅ AREA BARCODE/QR DI BAWAH GARIS */
-        .barcode-area {
-            display: flex;
-            justify-content: flex-end;
-            margin-bottom: 15px;
-        }
-
+        /* ✅ BARCODE UKURAN 2cm x 2cm */
         .qr-box {
-            width: 80px;
-            height: 80px;
+            width: 2cm;
+            height: 2cm;
             border: 1px solid #000;
             display: flex;
             align-items: center;
             justify-content: center;
+        }
+
+        .qr-box img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
         }
 
         /* Judul */
@@ -196,10 +202,7 @@
         .info-label { font-weight: bold; display: block; margin-bottom: 5px; }
         .info-text { line-height: 1.4; margin-bottom: 15px; }
 
-        /* Jarak antar baris info (1 enter) */
-        .info-spacer {
-            height: 15px;
-        }
+        .info-spacer { height: 15px; }
 
         /* Tabel */
         .table-container { margin-bottom: 20px; }
@@ -354,23 +357,21 @@ Selatan
          ========================================= -->
     <div class="document-area">
         <div class="page" id="dokumen">
-            <!-- Header: Logo & Cabang saja -->
+            <!-- Header: Logo saja -->
             <div class="header">
-                <div class="logo-area">
-                    <img 
-                        src="https://raw.githubusercontent.com/shasanudin/IMBKreasiDigital/main/image/bulog%20logo.png" 
-                        alt="Logo Bulog" 
-                        class="logo-img"
-                        onerror="this.onerror=null; this.src='https://upload.wikimedia.org/wikipedia/commons/thumb/1/1e/Bulog_logo.svg/320px-Bulog_logo.svg.png';"
-                    >
-                    <div class="branch-info" contenteditable="true" id="d-cabang">10030 - KANCAB CIREBON</div>
-                </div>
+                <img 
+                    src="https://raw.githubusercontent.com/shasanudin/IMBKreasiDigital/main/image/bulog%20logo.png" 
+                    alt="Logo Bulog" 
+                    class="logo-img"
+                    onerror="this.onerror=null; this.src='https://upload.wikimedia.org/wikipedia/commons/thumb/1/1e/Bulog_logo.svg/320px-Bulog_logo.svg.png';"
+                >
             </div>
 
-            <!-- ✅ Barcode/QR di bawah garis header -->
-            <div class="barcode-area">
+            <!-- ✅ Baris di bawah garis: KANCAB (kiri) + Barcode (kanan) -->
+            <div class="sub-header">
+                <div class="branch-info" contenteditable="true" id="d-cabang">10030 - KANCAB CIREBON</div>
                 <div class="qr-box">
-                    <img id="qr-img" src="https://api.qrserver.com/v1/create-qr-code/?size=80x80&data=OUT/00839/08/2026/10030.112" alt="QR Code" style="width:100%; height:100%;">
+                    <img id="qr-img" src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=OUT/00839/08/2026/10030.112" alt="QR Code">
                 </div>
             </div>
 
@@ -392,7 +393,6 @@ Selatan<br>
 09, DKI Jakarta (ID), Indonesia<br>
 (021)7804476 7807377</div>
 
-                    <!-- ✅ NPWP, Gudang Asal, Referensi dengan 1 enter jarak -->
                     <div class="info-text" contenteditable="true" id="d-npwp">NPWP: 62.416.790.4-017.000</div>
                     <div class="info-spacer"></div>
 
@@ -503,6 +503,10 @@ Selatan<br>
                     docEl.innerHTML = parts.join(',<br>');
                 } else if (inputId === 'inp-kuantitas' || inputId === 'inp-kuantum') {
                     docEl.innerHTML = inputVal.replace(/ /g, '<br>');
+                } else if (inputId === 'inp-gudang') {
+                    docEl.innerHTML = '<strong>Gudang Asal :</strong> ' + inputVal;
+                } else if (inputId === 'inp-referensi') {
+                    docEl.innerHTML = '<strong>Referensi :</strong> ' + inputVal;
                 } else {
                     docEl.textContent = inputVal;
                 }
@@ -510,7 +514,7 @@ Selatan<br>
 
             const nomorBaru = document.getElementById('inp-nomor').value;
             document.getElementById('qr-img').src = 
-                'https://api.qrserver.com/v1/create-qr-code/?size=80x80&data=' + encodeURIComponent(nomorBaru);
+                'https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=' + encodeURIComponent(nomorBaru);
 
             tampilkanNotif('✅ Data berhasil diterapkan ke dokumen!');
         }
