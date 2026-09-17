@@ -48,9 +48,7 @@
             text-transform: uppercase;
         }
 
-        .form-group {
-            margin-bottom: 8px;
-        }
+        .form-group { margin-bottom: 8px; }
 
         .form-group label {
             display: block;
@@ -70,10 +68,7 @@
             font-family: inherit;
         }
 
-        .form-group textarea {
-            resize: vertical;
-            min-height: 60px;
-        }
+        .form-group textarea { resize: vertical; min-height: 60px; }
 
         .form-group input:focus,
         .form-group textarea:focus {
@@ -151,15 +146,33 @@
             margin-bottom: 20px;
         }
 
-        .logo-area { display: flex; flex-direction: column; align-items: flex-start; }
-        .logo-text { font-size: 32px; font-weight: bold; font-family: 'Times New Roman', serif; line-height: 1; }
-        .logo-sub { font-size: 10px; font-style: italic; margin-top: -2px; }
-        .branch-info { font-size: 12px; text-decoration: underline; margin-top: 5px; }
+        .logo-area {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            flex: 1;
+        }
+
+        /* ✅ LOGO BULOG dari GitHub */
+        .logo-img {
+            height: 55px;
+            width: auto;
+            object-fit: contain;
+            margin-bottom: 3px;
+        }
+
+        .branch-info {
+            font-size: 12px;
+            text-decoration: underline;
+            margin-top: 5px;
+            font-weight: bold;
+        }
 
         .qr-area {
             width: 80px; height: 80px;
             border: 1px solid #000;
             display: flex; align-items: center; justify-content: center;
+            flex-shrink: 0;
         }
 
         /* Judul */
@@ -195,6 +208,15 @@
         /* Edit Mode */
         [contenteditable="true"]:hover { background-color: #f9f9f9; outline: 1px dashed #ccc; cursor: text; }
         [contenteditable="true"]:focus { background-color: #fff; outline: 2px solid #007bff; }
+
+        /* =========================================
+           RESPONSIVE - Untuk layar kecil
+           ========================================= */
+        @media (max-width: 1200px) {
+            body { flex-direction: column; align-items: center; }
+            .input-panel { width: 100%; max-width: 210mm; position: static; max-height: none; }
+            .document-area { width: 100%; overflow-x: auto; }
+        }
 
         /* =========================================
            PRINT STYLES
@@ -320,8 +342,13 @@ NPWP: 62.416.790.4-017.000</textarea>
             <!-- Header -->
             <div class="header">
                 <div class="logo-area">
-                    <div class="logo-text">bulog</div>
-                    <div class="logo-sub">mengantarkan kebaikan</div>
+                    <!-- ✅ LOGO BULOG dari GitHub (raw URL) -->
+                    <img 
+                        src="https://raw.githubusercontent.com/shasanudin/IMBKreasiDigital/main/image/bulog%20logo.png" 
+                        alt="Logo Bulog" 
+                        class="logo-img"
+                        onerror="this.onerror=null; this.src='https://upload.wikimedia.org/wikipedia/commons/thumb/1/1e/Bulog_logo.svg/320px-Bulog_logo.svg.png';"
+                    >
                     <div class="branch-info" contenteditable="true" id="d-cabang">10030 - KANCAB CIREBON</div>
                 </div>
                 <div class="qr-area">
@@ -454,11 +481,9 @@ NPWP: 62.416.790.4-017.000</div>
                 const inputVal = document.getElementById(inputId).value;
                 const docEl = document.getElementById(docId);
 
-                // Konversi newline (\n) menjadi <br> untuk tampilan HTML
                 if (inputId === 'inp-penerima') {
                     docEl.innerHTML = inputVal.replace(/\n/g, '<br>');
                 } else if (inputId === 'inp-ttd-jabatan') {
-                    // Pisahkan dengan koma menjadi 2 baris
                     const parts = inputVal.split(',').map(s => s.trim());
                     docEl.innerHTML = parts.join(',<br>');
                 } else if (inputId === 'inp-kuantitas' || inputId === 'inp-kuantum') {
@@ -500,7 +525,6 @@ NPWP: 62.416.790.4-017.000</div>
                 const docEl = document.getElementById(docId);
                 const inputEl = document.getElementById(inputId);
                 
-                // Ambil textContent, ganti <br> dengan \n
                 let text = docEl.innerHTML
                     .replace(/<br\s*\/?>/gi, '\n')
                     .replace(/&nbsp;/g, ' ')
@@ -511,7 +535,7 @@ NPWP: 62.416.790.4-017.000</div>
 
         // ===== FUNGSI SIMPAN KE LOCAL STORAGE =====
         function simpanData() {
-            ambilDataDariDokumen(); // Sinkronkan dulu dari dokumen ke form
+            ambilDataDariDokumen();
             
             const data = {};
             document.querySelectorAll('.input-panel input, .input-panel textarea').forEach(el => {
@@ -575,7 +599,7 @@ NPWP: 62.416.790.4-017.000</div>
             tampilkanNotif('🔄 Data direset ke contoh awal.');
         }
 
-        // ===== INISIALISASI: Muat data tersimpan saat halaman dibuka =====
+        // ===== INISIALISASI =====
         window.addEventListener('DOMContentLoaded', () => {
             const saved = localStorage.getItem('suratJalanData');
             if (saved) {
