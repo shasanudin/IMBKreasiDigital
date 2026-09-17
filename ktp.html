@@ -57,7 +57,7 @@
         .btn-danger:hover { background-color: #c82333; }
 
         /* =========================================
-           KTP CARD - UKURAN STANDAR
+           KTP CARD
            ========================================= */
         .ktp-card {
             width: 85.6mm;
@@ -89,7 +89,7 @@
         .provinsi-header {
             text-align: center;
             line-height: 1;
-            margin-bottom: 1mm;
+            margin-bottom: 1.5mm;
         }
 
         .provinsi-header .provinsi,
@@ -106,7 +106,7 @@
         .nik-row {
             display: flex;
             align-items: center;
-            margin-bottom: 1.2mm;
+            margin-bottom: 1.5mm;
             line-height: 1;
         }
 
@@ -128,7 +128,7 @@
         .ktp-body {
             display: flex;
             flex: 1;
-            gap: 1.5mm;
+            gap: 2mm;
         }
 
         .kolom-kiri {
@@ -147,13 +147,13 @@
         }
 
         /* =========================================
-           DATA ROW - JARAK RAPAT
+           DATA ROW - JARAK DITAMBAH (revisi)
            ========================================= */
         .data-row {
             display: flex;
             align-items: flex-start;
-            line-height: 1.15;
-            margin: 0;
+            line-height: 1.4;          /* ✅ Diperlebar (dari 1.15) */
+            margin-bottom: 0.4mm;      /* ✅ Tambah jarak antar baris */
             padding: 0;
         }
 
@@ -161,7 +161,7 @@
             font-size: 5.5pt;
             width: 22mm;
             flex-shrink: 0;
-            line-height: 1.15;
+            line-height: 1.4;
         }
 
         .data-colon {
@@ -169,13 +169,13 @@
             width: 2.5mm;
             flex-shrink: 0;
             text-align: center;
-            line-height: 1.15;
+            line-height: 1.4;
         }
 
         .data-value {
             font-size: 5.5pt;
             flex: 1;
-            line-height: 1.15;
+            line-height: 1.4;
             word-break: break-word;
             font-weight: bold;
         }
@@ -184,8 +184,8 @@
         .data-row-indent {
             display: flex;
             align-items: flex-start;
-            line-height: 1.15;
-            margin: 0;
+            line-height: 1.4;
+            margin-bottom: 0.4mm;
             padding: 0;
         }
 
@@ -193,7 +193,7 @@
             font-size: 5.5pt;
             width: 22mm;
             flex-shrink: 0;
-            line-height: 1.15;
+            line-height: 1.4;
             padding-left: 4mm;
         }
 
@@ -203,9 +203,9 @@
         .data-row-with-goldar {
             display: flex;
             align-items: flex-start;
-            line-height: 1.15;
+            line-height: 1.4;
             position: relative;
-            margin: 0;
+            margin-bottom: 0.4mm;
             padding: 0;
         }
 
@@ -216,52 +216,89 @@
             display: flex;
             align-items: flex-start;
             white-space: nowrap;
-            line-height: 1.15;
+            line-height: 1.4;
         }
 
         .goldar-label,
         .goldar-colon,
         .goldar-value {
             font-size: 5.5pt;
-            line-height: 1.15;
+            line-height: 1.4;
         }
 
         .goldar-colon { margin: 0 1.5mm; }
         .goldar-value { font-weight: bold; }
 
         /* =========================================
-           FOTO & TTD (Kolom Kanan)
+           FOTO - BISA DIGESER & DI-RESIZE
            ========================================= */
         .foto-box {
             width: 21mm;
             height: 27mm;
             border: 0.4px solid #333;
             background-color: rgba(255,255,255,0.3);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            overflow: hidden;
             position: relative;
-            cursor: pointer;
+            overflow: hidden;
+            cursor: grab;
+            user-select: none;
+        }
+
+        .foto-box:active {
+            cursor: grabbing;
         }
 
         .foto-box img {
+            position: absolute;
             width: 100%;
             height: 100%;
             object-fit: cover;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+            user-select: none;
+            transform-origin: center center;
+            transition: none;
         }
 
         .foto-box .placeholder {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
             font-size: 5pt;
             color: #666;
             text-align: center;
             padding: 1px;
             line-height: 1.2;
+            pointer-events: none;
         }
 
-        /* TTD & Tanggal */
+        /* Hint overlay saat hover */
+        .foto-box::after {
+            content: '🖱️ Drag & Scroll';
+            position: absolute;
+            bottom: 1px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 3.5pt;
+            color: #555;
+            background-color: rgba(255,255,255,0.7);
+            padding: 0.3mm 1mm;
+            border-radius: 1mm;
+            opacity: 0;
+            transition: opacity 0.2s;
+            pointer-events: none;
+        }
+
+        .foto-box:hover::after {
+            opacity: 1;
+        }
+
+        /* =========================================
+           TTD & Tanggal
+           ========================================= */
         .ttd-area {
-            margin-top: 0.5mm;
+            margin-top: 1mm;
             width: 21mm;
             text-align: center;
             line-height: 1;
@@ -270,14 +307,14 @@
         .ttd-kota {
             font-size: 5.5pt;
             font-weight: bold;
-            line-height: 1.1;
+            line-height: 1.2;
         }
 
         .ttd-tanggal {
             font-size: 5.5pt;
             font-weight: bold;
-            line-height: 1.1;
-            margin-bottom: 0.3mm;
+            line-height: 1.2;
+            margin-bottom: 0.5mm;
         }
 
         .ttd-box {
@@ -362,6 +399,7 @@
             }
             .action-buttons { display: none !important; }
             .modal-ttd { display: none !important; }
+            .foto-box::after { display: none !important; }
             .ktp-card {
                 box-shadow: none;
                 margin: 0;
@@ -381,7 +419,6 @@
 </head>
 <body>
 
-    <!-- Tombol Aksi -->
     <div class="action-buttons">
         <button class="btn" onclick="document.getElementById('fileFoto').click()">📷 Upload Foto</button>
         <button class="btn" onclick="bukaModalTTD()">✍️ Coret TTD</button>
@@ -393,100 +430,82 @@
 
     <input type="file" id="fileFoto" accept="image/*">
 
-    <!-- KTP CARD -->
     <div class="ktp-card" id="ktp-card">
         <div class="ktp-content">
 
-            <!-- Header Provinsi -->
             <div class="provinsi-header">
                 <div class="provinsi" contenteditable="true" id="provinsi">PROVINSI JAWA BARAT</div>
                 <div class="kabupaten" contenteditable="true" id="kabupaten">KABUPATEN CIREBON</div>
             </div>
 
-            <!-- NIK -->
             <div class="nik-row">
                 <div class="nik-label">NIK</div>
                 <div class="nik-colon">:</div>
                 <div class="nik-value" contenteditable="true" id="nik">3209151007000008</div>
             </div>
 
-            <!-- Body -->
             <div class="ktp-body">
-
-                <!-- Kolom Kiri -->
                 <div class="kolom-kiri">
                     <div class="data-row">
                         <div class="data-label">Nama</div>
                         <div class="data-colon">:</div>
                         <div class="data-value" contenteditable="true" id="nama">SHIDIQ HASANUDIN</div>
                     </div>
-
                     <div class="data-row">
                         <div class="data-label">Tempat/Tgl Lahir</div>
                         <div class="data-colon">:</div>
                         <div class="data-value" contenteditable="true" id="ttl">CIREBON, 10-07-2000</div>
                     </div>
-
                     <div class="data-row-with-goldar">
                         <div class="data-label">Jenis Kelamin</div>
                         <div class="data-colon">:</div>
                         <div class="data-value" contenteditable="true" id="jenis-kelamin">LAKI-LAKI</div>
-                        
                         <div class="goldar-inline">
                             <div class="goldar-label">Gol. Darah</div>
                             <div class="goldar-colon">:</div>
                             <div class="goldar-value" contenteditable="true" id="gol-darah">-</div>
                         </div>
                     </div>
-
                     <div class="data-row">
                         <div class="data-label">Alamat</div>
                         <div class="data-colon">:</div>
                         <div class="data-value" contenteditable="true" id="alamat">LINGK MANIS</div>
                     </div>
-
                     <div class="data-row-indent">
                         <div class="data-label-indent">RT/RW</div>
                         <div class="data-colon">:</div>
                         <div class="data-value" contenteditable="true" id="rt-rw">004/009</div>
                     </div>
-
                     <div class="data-row-indent">
                         <div class="data-label-indent">Kel/Desa</div>
                         <div class="data-colon">:</div>
                         <div class="data-value" contenteditable="true" id="kel-desa">SUMBER</div>
                     </div>
-
                     <div class="data-row-indent">
                         <div class="data-label-indent">Kecamatan</div>
                         <div class="data-colon">:</div>
                         <div class="data-value" contenteditable="true" id="kecamatan">SUMBER</div>
                     </div>
-
                     <div class="data-row">
                         <div class="data-label">Agama</div>
                         <div class="data-colon">:</div>
                         <div class="data-value" contenteditable="true" id="agama">ISLAM</div>
                     </div>
-
                     <div class="data-row">
                         <div class="data-label">Status Perkawinan</div>
                         <div class="data-colon">:</div>
                         <div class="data-value" contenteditable="true" id="status">BELUM KAWIN</div>
                     </div>
-
                     <div class="data-row">
                         <div class="data-label">Pekerjaan</div>
                         <div class="data-colon">:</div>
                         <div class="data-value" contenteditable="true" id="pekerjaan">PELAJAR/MAHASISWA</div>
                     </div>
-
                     <div class="data-row">
                         <div class="data-label">Kewarganegaraan</div>
                         <div class="data-colon">:</div>
                         <div class="data-value" contenteditable="true" id="kewarganegaraan">WNI</div>
                     </div>
-
                     <div class="data-row">
                         <div class="data-label">Berlaku Hingga</div>
                         <div class="data-colon">:</div>
@@ -494,9 +513,8 @@
                     </div>
                 </div>
 
-                <!-- Kolom Kanan -->
                 <div class="kolom-kanan">
-                    <div class="foto-box" id="foto-box" onclick="document.getElementById('fileFoto').click()" title="Klik untuk upload foto">
+                    <div class="foto-box" id="foto-box" title="Klik untuk upload, drag untuk geser, scroll untuk zoom">
                         <div class="placeholder" id="foto-placeholder">Klik untuk<br>Upload Foto<br>(2×3 cm)</div>
                         <img id="foto-img" src="" alt="" style="display:none;">
                     </div>
@@ -514,7 +532,6 @@
         </div>
     </div>
 
-    <!-- MODAL TTD -->
     <div class="modal-ttd" id="modal-ttd">
         <div class="modal-ttd-content">
             <h3>✍️ Coret Tanda Tangan</h3>
@@ -533,6 +550,13 @@
         let fotoDataURL = '';
         let ttdDataURL = '';
 
+        // ✅ Data foto: posisi & zoom
+        let fotoTransform = {
+            x: 0,        // offset X (px)
+            y: 0,        // offset Y (px)
+            scale: 1     // zoom
+        };
+
         const fields = [
             'provinsi', 'kabupaten', 'nik', 'nama', 'ttl', 'jenis-kelamin', 'alamat',
             'rt-rw', 'kel-desa', 'kecamatan', 'agama', 'status',
@@ -540,7 +564,9 @@
             'ttd-kota', 'ttd-tanggal'
         ];
 
-        // ===== UPLOAD FOTO =====
+        // =========================================
+        // UPLOAD FOTO
+        // =========================================
         document.getElementById('fileFoto').addEventListener('change', function(e) {
             const file = e.target.files[0];
             if (!file) return;
@@ -556,13 +582,107 @@
                 img.src = fotoDataURL;
                 img.style.display = 'block';
                 placeholder.style.display = 'none';
+
+                // Reset transform
+                fotoTransform = { x: 0, y: 0, scale: 1 };
+                updateFotoTransform();
+
                 simpanKeStorage();
-                tampilkanNotif('📷 Foto berhasil diupload!');
+                tampilkanNotif('📷 Foto berhasil diupload! Drag untuk geser.');
             };
             reader.readAsDataURL(file);
         });
 
-        // ===== CANVAS TTD =====
+        // =========================================
+        // DRAG FOTO (Mouse + Touch)
+        // =========================================
+        const fotoBox = document.getElementById('foto-box');
+        const fotoImg = document.getElementById('foto-img');
+        let isDraggingFoto = false;
+        let dragStart = { x: 0, y: 0 };
+        let transformStart = { x: 0, y: 0 };
+
+        // Mouse drag
+        fotoBox.addEventListener('mousedown', (e) => {
+            if (!fotoDataURL) {
+                // Belum ada foto → buka file picker
+                document.getElementById('fileFoto').click();
+                return;
+            }
+            isDraggingFoto = true;
+            dragStart = { x: e.clientX, y: e.clientY };
+            transformStart = { x: fotoTransform.x, y: fotoTransform.y };
+            e.preventDefault();
+        });
+
+        document.addEventListener('mousemove', (e) => {
+            if (!isDraggingFoto) return;
+            const dx = e.clientX - dragStart.x;
+            const dy = e.clientY - dragStart.y;
+            fotoTransform.x = transformStart.x + dx;
+            fotoTransform.y = transformStart.y + dy;
+            updateFotoTransform();
+        });
+
+        document.addEventListener('mouseup', () => {
+            if (isDraggingFoto) {
+                isDraggingFoto = false;
+                simpanKeStorage();
+            }
+        });
+
+        // Touch drag (mobile)
+        fotoBox.addEventListener('touchstart', (e) => {
+            if (!fotoDataURL) {
+                document.getElementById('fileFoto').click();
+                return;
+            }
+            const touch = e.touches[0];
+            isDraggingFoto = true;
+            dragStart = { x: touch.clientX, y: touch.clientY };
+            transformStart = { x: fotoTransform.x, y: fotoTransform.y };
+        }, { passive: true });
+
+        document.addEventListener('touchmove', (e) => {
+            if (!isDraggingFoto) return;
+            const touch = e.touches[0];
+            const dx = touch.clientX - dragStart.x;
+            const dy = touch.clientY - dragStart.y;
+            fotoTransform.x = transformStart.x + dx;
+            fotoTransform.y = transformStart.y + dy;
+            updateFotoTransform();
+        }, { passive: true });
+
+        document.addEventListener('touchend', () => {
+            if (isDraggingFoto) {
+                isDraggingFoto = false;
+                simpanKeStorage();
+            }
+        });
+
+        // =========================================
+        // ZOOM FOTO (Mouse Wheel)
+        // =========================================
+        fotoBox.addEventListener('wheel', (e) => {
+            if (!fotoDataURL) return;
+            e.preventDefault();
+            const delta = e.deltaY > 0 ? -0.1 : 0.1;
+            fotoTransform.scale = Math.max(0.5, Math.min(5, fotoTransform.scale + delta));
+            updateFotoTransform();
+            simpanKeStorage();
+        }, { passive: false });
+
+        // =========================================
+        // UPDATE TRANSFORM FOTO
+        // =========================================
+        function updateFotoTransform() {
+            fotoImg.style.transform = 
+                `translate(${fotoTransform.x}px, ${fotoTransform.y}px) scale(${fotoTransform.scale})`;
+        }
+
+        // =========================================
+        // CANVAS TTD
+        // =========================================
         let isDrawing = false;
         let lastX = 0, lastY = 0;
         const ttdCanvas = document.getElementById('ttd-canvas');
@@ -668,7 +788,9 @@
             tampilkanNotif('✍️ TTD berhasil disimpan!');
         }
 
-        // ===== SIMPAN PNG =====
+        // =========================================
+        // SIMPAN PNG
+        // =========================================
         function simpanPNG() {
             const ktpCard = document.getElementById('ktp-card');
             document.querySelectorAll('[contenteditable="true"]').forEach(el => el.blur());
@@ -692,7 +814,9 @@
             });
         }
 
-        // ===== SIMPAN / MUAT =====
+        // =========================================
+        // SIMPAN / MUAT
+        // =========================================
         function simpanData() {
             simpanKeStorage();
             tampilkanNotif('💾 Data berhasil disimpan!');
@@ -706,6 +830,7 @@
             });
             data.foto = fotoDataURL;
             data.ttd = ttdDataURL;
+            data.fotoTransform = fotoTransform;
             try {
                 localStorage.setItem('ktpData', JSON.stringify(data));
             } catch (e) {
@@ -731,6 +856,11 @@
                     img.src = fotoDataURL;
                     img.style.display = 'block';
                     placeholder.style.display = 'none';
+
+                    if (data.fotoTransform) {
+                        fotoTransform = data.fotoTransform;
+                        updateFotoTransform();
+                    }
                 }
 
                 if (data.ttd) {
@@ -746,7 +876,9 @@
             }
         }
 
-        // ===== RESET =====
+        // =========================================
+        // RESET
+        // =========================================
         function resetData() {
             if (!confirm('Yakin ingin mereset semua data (termasuk foto & TTD)?')) return;
 
@@ -777,8 +909,10 @@
             });
 
             fotoDataURL = '';
+            fotoTransform = { x: 0, y: 0, scale: 1 };
             document.getElementById('foto-img').style.display = 'none';
             document.getElementById('foto-img').src = '';
+            document.getElementById('foto-img').style.transform = '';
             document.getElementById('foto-placeholder').style.display = 'block';
 
             ttdDataURL = '';
@@ -788,7 +922,9 @@
             tampilkanNotif('🔄 Data direset.');
         }
 
-        // ===== NOTIFIKASI =====
+        // =========================================
+        // NOTIFIKASI
+        // =========================================
         function tampilkanNotif(pesan, tipe = 'success') {
             const notif = document.createElement('div');
             notif.textContent = pesan;
@@ -812,7 +948,6 @@
             }, 2000);
         }
 
-        // ===== INIT =====
         document.addEventListener('DOMContentLoaded', () => {
             muatData();
             fields.forEach(id => {
