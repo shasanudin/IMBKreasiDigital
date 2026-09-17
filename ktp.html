@@ -3,11 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KTP - Kartu Tanda Penduduk</title>
+    <title>KTP - Kartu Tanda Penduduk (Lengkap)</title>
     <style>
-        /* =========================================
-           FONT NIK - OCR A EXTENDED
-           ========================================= */
         @import url('https://fonts.cdnfonts.com/css/ocr-a-extended');
 
         * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -30,15 +27,15 @@
            ========================================= */
         .action-buttons {
             display: flex;
-            gap: 10px;
+            gap: 8px;
             flex-wrap: wrap;
             justify-content: center;
-            margin-bottom: 10px;
+            margin-bottom: 5px;
         }
 
         .btn {
-            padding: 10px 20px;
-            font-size: 14px;
+            padding: 9px 16px;
+            font-size: 13px;
             font-weight: bold;
             color: #fff;
             background-color: #007bff;
@@ -54,10 +51,13 @@
         .btn-print:hover { background-color: #218838; }
         .btn-save { background-color: #ffc107; color: #000; }
         .btn-save:hover { background-color: #e0a800; }
+        .btn-png { background-color: #6f42c1; }
+        .btn-png:hover { background-color: #5a32a3; }
+        .btn-danger { background-color: #dc3545; }
+        .btn-danger:hover { background-color: #c82333; }
 
         /* =========================================
-           KTP CARD - UKURAN STANDAR (85.6mm x 54mm)
-           Background dari GitHub (raw URL)
+           KTP CARD
            ========================================= */
         .ktp-card {
             width: 85.6mm;
@@ -74,19 +74,6 @@
             color: #000;
         }
 
-        /* Overlay tipis untuk membantu keterbacaan teks */
-        .ktp-card::before {
-            content: '';
-            position: absolute;
-            top: 0; left: 0; right: 0; bottom: 0;
-            background-color: rgba(255, 255, 255, 0.05);
-            pointer-events: none;
-            z-index: 1;
-        }
-
-        /* =========================================
-           LAYOUT KTP
-           ========================================= */
         .ktp-content {
             position: relative;
             padding: 2.5mm 4mm;
@@ -96,21 +83,13 @@
             z-index: 2;
         }
 
-        /* =========================================
-           HEADER PROVINSI & KABUPATEN
-           ========================================= */
+        /* Header Provinsi */
         .provinsi-header {
             text-align: center;
-            margin-bottom: 1.5mm;
+            margin-bottom: 1.2mm;
         }
 
-        .provinsi-header .provinsi {
-            font-size: 7pt;
-            font-weight: bold;
-            letter-spacing: 0.5px;
-            line-height: 1.2;
-        }
-
+        .provinsi-header .provinsi,
         .provinsi-header .kabupaten {
             font-size: 7pt;
             font-weight: bold;
@@ -118,40 +97,26 @@
             line-height: 1.2;
         }
 
-        /* =========================================
-           BARIS NIK
-           ========================================= */
+        /* Baris NIK */
         .nik-row {
             display: flex;
             align-items: center;
-            margin-bottom: 1.5mm;
+            margin-bottom: 1mm;
         }
 
-        .nik-label {
-            font-family: 'OCR A Extended', 'OCR-A', monospace;
-            font-size: 7pt;
-            font-weight: bold;
-            letter-spacing: 1px;
-            width: 12mm;
-        }
-
-        .nik-colon {
-            font-family: 'OCR A Extended', 'OCR-A', monospace;
-            font-size: 7pt;
-            font-weight: bold;
-            margin-right: 2mm;
-        }
-
+        .nik-label,
+        .nik-colon,
         .nik-value {
             font-family: 'OCR A Extended', 'OCR-A', monospace;
             font-size: 7pt;
             font-weight: bold;
-            letter-spacing: 1.5px;
+            letter-spacing: 1px;
         }
 
-        /* =========================================
-           BODY: 2 KOLOM (Kiri & Kanan)
-           ========================================= */
+        .nik-label { width: 12mm; }
+        .nik-colon { margin-right: 2mm; }
+
+        /* Body: 3 kolom (kiri: data, tengah: foto, kanan: gol darah & ttd) */
         .ktp-body {
             display: flex;
             flex: 1;
@@ -159,31 +124,95 @@
         }
 
         .kolom-kiri {
-            width: 62%;
+            width: 55%;
             display: flex;
             flex-direction: column;
         }
 
+        .kolom-tengah {
+            width: 22%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding-top: 1mm;
+        }
+
         .kolom-kanan {
-            width: 38%;
+            width: 23%;
             display: flex;
             flex-direction: column;
             padding-top: 1mm;
         }
 
-        /* Baris data KTP */
-        .data-row {
+        /* Foto */
+        .foto-box {
+            width: 20mm;
+            height: 26mm;
+            border: 0.5px solid #333;
+            background-color: rgba(255,255,255,0.4);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            position: relative;
+            cursor: pointer;
+        }
+
+        .foto-box img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .foto-box .placeholder {
+            font-size: 6pt;
+            color: #666;
+            text-align: center;
+            padding: 2px;
+            line-height: 1.2;
+        }
+
+        /* TTD Canvas */
+        .ttd-box {
+            margin-top: 1mm;
+            width: 20mm;
+            height: 10mm;
+            border: 0.5px solid #333;
+            background-color: rgba(255,255,255,0.4);
+            position: relative;
+        }
+
+        .ttd-box canvas {
+            width: 100%;
+            height: 100%;
+            cursor: crosshair;
+            display: block;
+        }
+
+        .ttd-box .ttd-label {
+            position: absolute;
+            bottom: 1px;
+            right: 2px;
+            font-size: 4.5pt;
+            color: #555;
+            pointer-events: none;
+        }
+
+        /* Data row */
+        .data-row, .data-row-indent {
             display: flex;
             margin-bottom: 0.2mm;
             align-items: flex-start;
         }
 
-        .data-label {
+        .data-label, .data-label-indent {
             font-size: 5.5pt;
             width: 21mm;
             flex-shrink: 0;
             line-height: 1.3;
         }
+
+        .data-label-indent { padding-left: 5mm; }
 
         .data-colon {
             font-size: 5.5pt;
@@ -200,22 +229,6 @@
             font-weight: 500;
         }
 
-        /* Data row indentasi (RT/RW, Kel/Desa, Kecamatan) */
-        .data-row-indent {
-            display: flex;
-            margin-bottom: 0.2mm;
-            align-items: flex-start;
-        }
-
-        .data-label-indent {
-            font-size: 5.5pt;
-            width: 21mm;
-            flex-shrink: 0;
-            line-height: 1.3;
-            padding-left: 5mm;
-        }
-
-        /* Kolom Kanan - Gol Darah */
         .data-row-kanan {
             display: flex;
             margin-bottom: 0.2mm;
@@ -226,7 +239,6 @@
             font-size: 5.5pt;
             width: 15mm;
             flex-shrink: 0;
-            line-height: 1.3;
         }
 
         .data-colon-kanan {
@@ -239,23 +251,68 @@
         .data-value-kanan {
             font-size: 5.5pt;
             flex: 1;
-            line-height: 1.3;
             font-weight: 500;
         }
 
-        /* Edit Mode */
+        /* Edit mode */
         [contenteditable="true"]:hover {
-            background-color: rgba(255, 255, 255, 0.4);
+            background-color: rgba(255,255,255,0.4);
             outline: 1px dashed #666;
-            cursor: text;
             border-radius: 2px;
         }
-
         [contenteditable="true"]:focus {
-            background-color: rgba(255, 255, 255, 0.8);
+            background-color: rgba(255,255,255,0.85);
             outline: 2px solid #007bff;
             border-radius: 2px;
         }
+
+        /* =========================================
+           MODAL CANVAS TTD
+           ========================================= */
+        .modal-ttd {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background-color: rgba(0,0,0,0.7);
+            z-index: 9999;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-ttd.active {
+            display: flex;
+        }
+
+        .modal-ttd-content {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+            text-align: center;
+        }
+
+        .modal-ttd-content h3 {
+            margin-bottom: 12px;
+            font-size: 16px;
+        }
+
+        .modal-ttd-content canvas {
+            border: 2px dashed #999;
+            background-color: #fafafa;
+            cursor: crosshair;
+            touch-action: none;
+            display: block;
+        }
+
+        .modal-ttd-actions {
+            margin-top: 15px;
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+        }
+
+        /* Hidden input file */
+        #fileFoto { display: none; }
 
         /* =========================================
            PRINT STYLES
@@ -267,11 +324,8 @@
                 margin: 0;
                 display: block;
             }
-
-            .action-buttons {
-                display: none !important;
-            }
-
+            .action-buttons { display: none !important; }
+            .modal-ttd { display: none !important; }
             .ktp-card {
                 box-shadow: none;
                 margin: 0;
@@ -281,21 +335,10 @@
                 -webkit-print-color-adjust: exact;
                 print-color-adjust: exact;
             }
-
             [contenteditable="true"]:hover,
             [contenteditable="true"]:focus {
                 background-color: transparent;
                 outline: none;
-            }
-        }
-
-        /* =========================================
-           RESPONSIVE
-           ========================================= */
-        @media (max-width: 500px) {
-            .ktp-card {
-                width: 95vw;
-                height: 60vw;
             }
         }
     </style>
@@ -304,10 +347,16 @@
 
     <!-- Tombol Aksi -->
     <div class="action-buttons">
+        <button class="btn" onclick="document.getElementById('fileFoto').click()">📷 Upload Foto</button>
+        <button class="btn" onclick="bukaModalTTD()">✍️ Coret TTD</button>
         <button class="btn btn-save" onclick="simpanData()">💾 Simpan Data</button>
-        <button class="btn btn-print" onclick="window.print()">🖨️ Cetak / Simpan PDF</button>
-        <button class="btn" onclick="resetData()">🔄 Reset</button>
+        <button class="btn btn-png" onclick="simpanPNG()">🖼️ Simpan PNG</button>
+        <button class="btn btn-print" onclick="window.print()">🖨️ Cetak</button>
+        <button class="btn btn-danger" onclick="resetData()">🔄 Reset</button>
     </div>
+
+    <!-- Hidden File Input -->
+    <input type="file" id="fileFoto" accept="image/*">
 
     <!-- =========================================
          KTP CARD
@@ -315,90 +364,79 @@
     <div class="ktp-card" id="ktp-card">
         <div class="ktp-content">
 
-            <!-- ✅ Header Provinsi & Kabupaten -->
+            <!-- Header Provinsi -->
             <div class="provinsi-header">
                 <div class="provinsi" contenteditable="true" id="provinsi">PROVINSI JAWA BARAT</div>
                 <div class="kabupaten" contenteditable="true" id="kabupaten">KABUPATEN CIREBON</div>
             </div>
 
-            <!-- Baris NIK -->
+            <!-- NIK -->
             <div class="nik-row">
                 <div class="nik-label">NIK</div>
                 <div class="nik-colon">:</div>
                 <div class="nik-value" contenteditable="true" id="nik">3201234567890001</div>
             </div>
 
-            <!-- Body KTP -->
+            <!-- Body -->
             <div class="ktp-body">
 
-                <!-- Kolom Kiri -->
+                <!-- Kolom Kiri - Data -->
                 <div class="kolom-kiri">
                     <div class="data-row">
                         <div class="data-label">Nama</div>
                         <div class="data-colon">:</div>
                         <div class="data-value" contenteditable="true" id="nama">AHMAD FAUZI</div>
                     </div>
-
                     <div class="data-row">
                         <div class="data-label">Tempat/Tgl Lahir</div>
                         <div class="data-colon">:</div>
                         <div class="data-value" contenteditable="true" id="ttl">CIREBON, 15-08-1990</div>
                     </div>
-
                     <div class="data-row">
                         <div class="data-label">Jenis Kelamin</div>
                         <div class="data-colon">:</div>
                         <div class="data-value" contenteditable="true" id="jenis-kelamin">LAKI-LAKI</div>
                     </div>
-
                     <div class="data-row">
                         <div class="data-label">Alamat</div>
                         <div class="data-colon">:</div>
                         <div class="data-value" contenteditable="true" id="alamat">JL. MERDEKA NO. 123</div>
                     </div>
-
                     <div class="data-row-indent">
                         <div class="data-label-indent">RT/RW</div>
                         <div class="data-colon">:</div>
                         <div class="data-value" contenteditable="true" id="rt-rw">001/002</div>
                     </div>
-
                     <div class="data-row-indent">
                         <div class="data-label-indent">Kel/Desa</div>
                         <div class="data-colon">:</div>
                         <div class="data-value" contenteditable="true" id="kel-desa">KARYAMULYA</div>
                     </div>
-
                     <div class="data-row-indent">
                         <div class="data-label-indent">Kecamatan</div>
                         <div class="data-colon">:</div>
                         <div class="data-value" contenteditable="true" id="kecamatan">KESAMBI</div>
                     </div>
-
                     <div class="data-row">
                         <div class="data-label">Agama</div>
                         <div class="data-colon">:</div>
                         <div class="data-value" contenteditable="true" id="agama">ISLAM</div>
                     </div>
-
                     <div class="data-row">
                         <div class="data-label">Status Perkawinan</div>
                         <div class="data-colon">:</div>
                         <div class="data-value" contenteditable="true" id="status">KAWIN</div>
                     </div>
-
                     <div class="data-row">
                         <div class="data-label">Pekerjaan</div>
                         <div class="data-colon">:</div>
                         <div class="data-value" contenteditable="true" id="pekerjaan">KARYAWAN SWASTA</div>
                     </div>
-
                     <div class="data-row">
                         <div class="data-label">Kewarganegaraan</div>
                         <div class="data-colon">:</div>
                         <div class="data-value" contenteditable="true" id="kewarganegaraan">WNI</div>
                     </div>
-
                     <div class="data-row">
                         <div class="data-label">Berlaku Hingga</div>
                         <div class="data-colon">:</div>
@@ -406,12 +444,27 @@
                     </div>
                 </div>
 
-                <!-- Kolom Kanan - Gol Darah -->
+                <!-- Kolom Tengah - FOTO -->
+                <div class="kolom-tengah">
+                    <div class="foto-box" id="foto-box" onclick="document.getElementById('fileFoto').click()" title="Klik untuk upload foto">
+                        <div class="placeholder" id="foto-placeholder">Klik untuk<br>Upload Foto<br>(2×3 cm)</div>
+                        <img id="foto-img" src="" alt="" style="display:none;">
+                    </div>
+                </div>
+
+                <!-- Kolom Kanan - Gol Darah & TTD -->
                 <div class="kolom-kanan">
                     <div class="data-row-kanan">
                         <div class="data-label-kanan">Gol. Darah</div>
                         <div class="data-colon-kanan">:</div>
                         <div class="data-value-kanan" contenteditable="true" id="gol-darah">O</div>
+                    </div>
+                    <div class="data-row-kanan" style="margin-top: 1mm;">
+                        <div class="data-label-kanan" style="width:auto;">Tanda Tangan:</div>
+                    </div>
+                    <div class="ttd-box" onclick="bukaModalTTD()" title="Klik untuk tanda tangan">
+                        <canvas id="ttd-preview" width="200" height="100"></canvas>
+                        <div class="ttd-label">TTD</div>
                     </div>
                 </div>
 
@@ -420,26 +473,230 @@
     </div>
 
     <!-- =========================================
-         JAVASCRIPT LOGIC
+         MODAL TTD
          ========================================= -->
+    <div class="modal-ttd" id="modal-ttd">
+        <div class="modal-ttd-content">
+            <h3>✍️ Coret Tanda Tangan</h3>
+            <canvas id="ttd-canvas" width="500" height="250"></canvas>
+            <div class="modal-ttd-actions">
+                <button class="btn btn-danger" onclick="hapusTTD()">🗑️ Hapus</button>
+                <button class="btn btn-save" onclick="simpanTTD()">✅ Simpan</button>
+                <button class="btn" onclick="tutupModalTTD()">❌ Batal</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- =========================================
+         LIBRARY html2canvas
+         ========================================= -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+
     <script>
+        // =========================================
+        // VARIABEL GLOBAL
+        // =========================================
+        let fotoDataURL = '';  // Simpan foto sebagai base64
+        let ttdDataURL = '';   // Simpan TTD sebagai base64
+
         const fields = [
             'provinsi', 'kabupaten', 'nik', 'nama', 'ttl', 'jenis-kelamin', 'alamat',
             'rt-rw', 'kel-desa', 'kecamatan', 'agama', 'status',
             'pekerjaan', 'kewarganegaraan', 'berlaku', 'gol-darah'
         ];
 
+        // =========================================
+        // FITUR 1: UPLOAD FOTO
+        // =========================================
+        document.getElementById('fileFoto').addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            if (!file) return;
+
+            if (!file.type.startsWith('image/')) {
+                tampilkanNotif('❌ File harus berupa gambar!', 'error');
+                return;
+            }
+
+            const reader = new FileReader();
+            reader.onload = function(event) {
+                fotoDataURL = event.target.result;
+                const img = document.getElementById('foto-img');
+                const placeholder = document.getElementById('foto-placeholder');
+                img.src = fotoDataURL;
+                img.style.display = 'block';
+                placeholder.style.display = 'none';
+                simpanKeStorage();
+                tampilkanNotif('📷 Foto berhasil diupload!');
+            };
+            reader.readAsDataURL(file);
+        });
+
+        // =========================================
+        // FITUR 2: CORET TTD (Canvas)
+        // =========================================
+        let isDrawing = false;
+        let lastX = 0, lastY = 0;
+        const ttdCanvas = document.getElementById('ttd-canvas');
+        const ttdCtx = ttdCanvas.getContext('2d');
+        const ttdPreview = document.getElementById('ttd-preview');
+        const ttdPreviewCtx = ttdPreview.getContext('2d');
+
+        // Setup awal canvas TTD
+        ttdCtx.strokeStyle = '#000';
+        ttdCtx.lineWidth = 2.5;
+        ttdCtx.lineCap = 'round';
+        ttdCtx.lineJoin = 'round';
+
+        // Event: Mouse
+        ttdCanvas.addEventListener('mousedown', mulaiGambar);
+        ttdCanvas.addEventListener('mousemove', gambar);
+        ttdCanvas.addEventListener('mouseup', selesaiGambar);
+        ttdCanvas.addEventListener('mouseout', selesaiGambar);
+
+        // Event: Touch
+        ttdCanvas.addEventListener('touchstart', (e) => {
+            e.preventDefault();
+            const rect = ttdCanvas.getBoundingClientRect();
+            const touch = e.touches[0];
+            lastX = touch.clientX - rect.left;
+            lastY = touch.clientY - rect.top;
+            isDrawing = true;
+        }, { passive: false });
+
+        ttdCanvas.addEventListener('touchmove', (e) => {
+            e.preventDefault();
+            if (!isDrawing) return;
+            const rect = ttdCanvas.getBoundingClientRect();
+            const touch = e.touches[0];
+            const x = touch.clientX - rect.left;
+            const y = touch.clientY - rect.top;
+            ttdCtx.beginPath();
+            ttdCtx.moveTo(lastX, lastY);
+            ttdCtx.lineTo(x, y);
+            ttdCtx.stroke();
+            lastX = x;
+            lastY = y;
+        }, { passive: false });
+
+        ttdCanvas.addEventListener('touchend', (e) => {
+            e.preventDefault();
+            isDrawing = false;
+        }, { passive: false });
+
+        function mulaiGambar(e) {
+            isDrawing = true;
+            const rect = ttdCanvas.getBoundingClientRect();
+            lastX = e.clientX - rect.left;
+            lastY = e.clientY - rect.top;
+        }
+
+        function gambar(e) {
+            if (!isDrawing) return;
+            const rect = ttdCanvas.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+            ttdCtx.beginPath();
+            ttdCtx.moveTo(lastX, lastY);
+            ttdCtx.lineTo(x, y);
+            ttdCtx.stroke();
+            lastX = x;
+            lastY = y;
+        }
+
+        function selesaiGambar() { isDrawing = false; }
+
+        // Buka Modal TTD
+        function bukaModalTTD() {
+            document.getElementById('modal-ttd').classList.add('active');
+            // Jika sudah ada TTD, muat ke canvas
+            if (ttdDataURL) {
+                const img = new Image();
+                img.onload = function() {
+                    ttdCtx.clearRect(0, 0, ttdCanvas.width, ttdCanvas.height);
+                    ttdCtx.drawImage(img, 0, 0, ttdCanvas.width, ttdCanvas.height);
+                };
+                img.src = ttdDataURL;
+            }
+        }
+
+        function tutupModalTTD() {
+            document.getElementById('modal-ttd').classList.remove('active');
+        }
+
+        function hapusTTD() {
+            ttdCtx.clearRect(0, 0, ttdCanvas.width, ttdCanvas.height);
+            ttdPreviewCtx.clearRect(0, 0, ttdPreview.width, ttdPreview.height);
+            ttdDataURL = '';
+            simpanKeStorage();
+            tampilkanNotif('🗑️ TTD dihapus.');
+        }
+
+        function simpanTTD() {
+            // Konversi canvas TTD ke image, lalu render ke preview
+            ttdDataURL = ttdCanvas.toDataURL('image/png');
+
+            const img = new Image();
+            img.onload = function() {
+                ttdPreviewCtx.clearRect(0, 0, ttdPreview.width, ttdPreview.height);
+                ttdPreviewCtx.drawImage(img, 0, 0, ttdPreview.width, ttdPreview.height);
+            };
+            img.src = ttdDataURL;
+
+            tutupModalTTD();
+            simpanKeStorage();
+            tampilkanNotif('✍️ TTD berhasil disimpan!');
+        }
+
+        // =========================================
+        // FITUR 3: SIMPAN PNG (html2canvas)
+        // =========================================
+        function simpanPNG() {
+            const ktpCard = document.getElementById('ktp-card');
+
+            // Sembunyikan caret / outline sementara
+            document.querySelectorAll('[contenteditable="true"]').forEach(el => el.blur());
+
+            html2canvas(ktpCard, {
+                scale: 4,               // Kualitas tinggi (4x)
+                useCORS: true,          // Izinkan gambar cross-origin
+                allowTaint: true,
+                backgroundColor: null,
+                logging: false
+            }).then(canvas => {
+                // Konversi ke PNG dan download
+                const link = document.createElement('a');
+                const nik = document.getElementById('nik').textContent.trim().replace(/\s/g, '');
+                link.download = 'KTP_' + nik + '_' + Date.now() + '.png';
+                link.href = canvas.toDataURL('image/png');
+                link.click();
+                tampilkanNotif('🖼️ KTP berhasil disimpan sebagai PNG!');
+            }).catch(err => {
+                console.error(err);
+                tampilkanNotif('❌ Gagal menyimpan PNG.', 'error');
+            });
+        }
+
+        // =========================================
+        // SIMPAN / MUAT DATA
+        // =========================================
         function simpanData() {
+            simpanKeStorage();
+            tampilkanNotif('💾 Data berhasil disimpan!');
+        }
+
+        function simpanKeStorage() {
             const data = {};
             fields.forEach(id => {
                 const el = document.getElementById(id);
                 if (el) data[id] = el.textContent.trim();
             });
+            data.foto = fotoDataURL;
+            data.ttd = ttdDataURL;
+
             try {
                 localStorage.setItem('ktpData', JSON.stringify(data));
-                tampilkanNotif('💾 Data berhasil disimpan!');
             } catch (e) {
-                tampilkanNotif('❌ Gagal menyimpan data.', 'error');
+                console.warn('Gagal menyimpan data:', e);
             }
         }
 
@@ -448,17 +705,42 @@
                 const saved = localStorage.getItem('ktpData');
                 if (!saved) return;
                 const data = JSON.parse(saved);
-                Object.keys(data).forEach(id => {
+
+                // Muat field teks
+                fields.forEach(id => {
                     const el = document.getElementById(id);
-                    if (el) el.textContent = data[id];
+                    if (el && data[id]) el.textContent = data[id];
                 });
+
+                // Muat foto
+                if (data.foto) {
+                    fotoDataURL = data.foto;
+                    const img = document.getElementById('foto-img');
+                    const placeholder = document.getElementById('foto-placeholder');
+                    img.src = fotoDataURL;
+                    img.style.display = 'block';
+                    placeholder.style.display = 'none';
+                }
+
+                // Muat TTD
+                if (data.ttd) {
+                    ttdDataURL = data.ttd;
+                    const img = new Image();
+                    img.onload = function() {
+                        ttdPreviewCtx.drawImage(img, 0, 0, ttdPreview.width, ttdPreview.height);
+                    };
+                    img.src = ttdDataURL;
+                }
             } catch (e) {
-                console.warn('Gagal memuat data tersimpan.');
+                console.warn('Gagal memuat data:', e);
             }
         }
 
+        // =========================================
+        // RESET
+        // =========================================
         function resetData() {
-            if (!confirm('Yakin ingin mereset ke data contoh awal?')) return;
+            if (!confirm('Yakin ingin mereset semua data (termasuk foto & TTD)?')) return;
 
             const defaultData = {
                 'provinsi': 'PROVINSI JAWA BARAT',
@@ -483,10 +765,24 @@
                 const el = document.getElementById(id);
                 if (el) el.textContent = defaultData[id];
             });
+
+            // Reset foto
+            fotoDataURL = '';
+            document.getElementById('foto-img').style.display = 'none';
+            document.getElementById('foto-img').src = '';
+            document.getElementById('foto-placeholder').style.display = 'block';
+
+            // Reset TTD
+            ttdDataURL = '';
+            ttdPreviewCtx.clearRect(0, 0, ttdPreview.width, ttdPreview.height);
+
             localStorage.removeItem('ktpData');
-            tampilkanNotif('🔄 Data direset ke contoh awal.');
+            tampilkanNotif('🔄 Data direset.');
         }
 
+        // =========================================
+        // NOTIFIKASI
+        // =========================================
         function tampilkanNotif(pesan, tipe = 'success') {
             const notif = document.createElement('div');
             notif.textContent = pesan;
@@ -499,7 +795,7 @@
                 color: #fff;
                 border-radius: 5px;
                 font-weight: bold;
-                z-index: 9999;
+                z-index: 99999;
                 box-shadow: 0 4px 12px rgba(0,0,0,0.3);
                 transition: opacity 0.3s;
             `;
@@ -510,22 +806,16 @@
             }, 2000);
         }
 
+        // =========================================
+        // AUTO-SAVE SAAT EDIT
+        // =========================================
         document.addEventListener('DOMContentLoaded', () => {
             muatData();
 
             fields.forEach(id => {
                 const el = document.getElementById(id);
                 if (el) {
-                    el.addEventListener('blur', () => {
-                        const data = {};
-                        fields.forEach(fid => {
-                            const fel = document.getElementById(fid);
-                            if (fel) data[fid] = fel.textContent.trim();
-                        });
-                        try {
-                            localStorage.setItem('ktpData', JSON.stringify(data));
-                        } catch (e) {}
-                    });
+                    el.addEventListener('blur', simpanKeStorage);
                 }
             });
         });
