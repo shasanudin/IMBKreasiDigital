@@ -5,9 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>KTP - Kartu Tanda Penduduk</title>
     <style>
-        /* =========================================
-           FONT NIK - OCR A EXTENDED
-           ========================================= */
         @import url('https://fonts.cdnfonts.com/css/ocr-a-extended');
 
         * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -60,7 +57,7 @@
         .btn-danger:hover { background-color: #c82333; }
 
         /* =========================================
-           KTP CARD - UKURAN STANDAR (85.6mm x 54mm)
+           KTP CARD - UKURAN STANDAR
            ========================================= */
         .ktp-card {
             width: 85.6mm;
@@ -74,12 +71,12 @@
             position: relative;
             overflow: hidden;
             font-family: Arial, Helvetica, sans-serif;
-            color: #000;
+            color: #1a1a1a;
         }
 
         .ktp-content {
             position: relative;
-            padding: 3mm 4mm 2mm 4mm;
+            padding: 3mm 3mm 2mm 4mm;
             height: 100%;
             display: flex;
             flex-direction: column;
@@ -87,180 +84,159 @@
         }
 
         /* =========================================
-           HEADER PROVINSI & KABUPATEN
+           HEADER PROVINSI
            ========================================= */
         .provinsi-header {
             text-align: center;
-            margin-bottom: 1.5mm;
+            line-height: 1;
+            margin-bottom: 1mm;
         }
 
         .provinsi-header .provinsi,
         .provinsi-header .kabupaten {
-            font-size: 8pt;
+            font-size: 7.5pt;
             font-weight: bold;
-            letter-spacing: 0.5px;
-            line-height: 1.15;
-            color: #1a1a1a;
+            letter-spacing: 0.3px;
+            line-height: 1.1;
         }
 
         /* =========================================
-           BARIS NIK
+           NIK
            ========================================= */
         .nik-row {
             display: flex;
             align-items: center;
             margin-bottom: 1.2mm;
-            margin-top: 0.5mm;
+            line-height: 1;
         }
 
-        .nik-label {
-            font-family: 'OCR A Extended', 'OCR-A', monospace;
-            font-size: 8pt;
-            font-weight: bold;
-            letter-spacing: 1px;
-            width: 14mm;
-            color: #1a1a1a;
-        }
-
-        .nik-colon {
-            font-family: 'OCR A Extended', 'OCR-A', monospace;
-            font-size: 8pt;
-            font-weight: bold;
-            margin-right: 2mm;
-            color: #1a1a1a;
-        }
-
+        .nik-label,
+        .nik-colon,
         .nik-value {
             font-family: 'OCR A Extended', 'OCR-A', monospace;
             font-size: 8pt;
             font-weight: bold;
-            letter-spacing: 1px;
-            color: #1a1a1a;
+            letter-spacing: 0.8px;
         }
 
+        .nik-label { width: 13mm; }
+        .nik-colon { margin-right: 1.5mm; }
+
         /* =========================================
-           BODY: 2 KOLOM UTAMA
+           BODY: 2 KOLOM
            ========================================= */
         .ktp-body {
             display: flex;
             flex: 1;
-            gap: 2mm;
+            gap: 1.5mm;
         }
 
-        /* Kolom Kiri - Data Diri */
         .kolom-kiri {
             width: 62%;
             display: flex;
             flex-direction: column;
+            line-height: 1;
         }
 
-        /* Kolom Kanan - Foto, TTD, Tanggal */
         .kolom-kanan {
             width: 38%;
             display: flex;
             flex-direction: column;
             align-items: center;
-            padding-top: 0.5mm;
+            line-height: 1;
         }
 
         /* =========================================
-           DATA ROW (Kolom Kiri)
+           DATA ROW - JARAK RAPAT
            ========================================= */
         .data-row {
             display: flex;
-            margin-bottom: 0.3mm;
             align-items: flex-start;
+            line-height: 1.15;
+            margin: 0;
+            padding: 0;
         }
 
         .data-label {
-            font-size: 6pt;
-            width: 26mm;
+            font-size: 5.5pt;
+            width: 22mm;
             flex-shrink: 0;
-            line-height: 1.25;
-            color: #1a1a1a;
+            line-height: 1.15;
         }
 
         .data-colon {
-            font-size: 6pt;
-            width: 3mm;
+            font-size: 5.5pt;
+            width: 2.5mm;
             flex-shrink: 0;
             text-align: center;
-            line-height: 1.25;
-            color: #1a1a1a;
+            line-height: 1.15;
         }
 
         .data-value {
-            font-size: 6pt;
+            font-size: 5.5pt;
             flex: 1;
-            line-height: 1.25;
+            line-height: 1.15;
             word-break: break-word;
-            font-weight: 600;
-            color: #1a1a1a;
+            font-weight: bold;
         }
 
-        /* Data row indentasi (RT/RW, Kel/Desa, Kecamatan) */
+        /* Indentasi */
         .data-row-indent {
             display: flex;
-            margin-bottom: 0.3mm;
             align-items: flex-start;
+            line-height: 1.15;
+            margin: 0;
+            padding: 0;
         }
 
         .data-label-indent {
-            font-size: 6pt;
-            width: 26mm;
+            font-size: 5.5pt;
+            width: 22mm;
             flex-shrink: 0;
-            line-height: 1.25;
-            padding-left: 5mm;
-            color: #1a1a1a;
+            line-height: 1.15;
+            padding-left: 4mm;
         }
 
         /* =========================================
-           GOL DARAH (di sebelah kanan Jenis Kelamin)
+           GOL DARAH (sejajar dengan Jenis Kelamin)
            ========================================= */
         .data-row-with-goldar {
             display: flex;
-            margin-bottom: 0.3mm;
             align-items: flex-start;
+            line-height: 1.15;
             position: relative;
+            margin: 0;
+            padding: 0;
         }
 
         .goldar-inline {
             position: absolute;
-            left: 45mm;
+            left: 42mm;
             top: 0;
             display: flex;
             align-items: flex-start;
             white-space: nowrap;
+            line-height: 1.15;
         }
 
-        .goldar-label {
-            font-size: 6pt;
-            line-height: 1.25;
-            color: #1a1a1a;
-        }
-
-        .goldar-colon {
-            font-size: 6pt;
-            margin: 0 1.5mm;
-            line-height: 1.25;
-            color: #1a1a1a;
-        }
-
+        .goldar-label,
+        .goldar-colon,
         .goldar-value {
-            font-size: 6pt;
-            font-weight: 600;
-            line-height: 1.25;
-            color: #1a1a1a;
+            font-size: 5.5pt;
+            line-height: 1.15;
         }
+
+        .goldar-colon { margin: 0 1.5mm; }
+        .goldar-value { font-weight: bold; }
 
         /* =========================================
-           FOTO
+           FOTO & TTD (Kolom Kanan)
            ========================================= */
         .foto-box {
-            width: 22mm;
-            height: 28mm;
-            border: 0.5px solid #333;
-            background-color: rgba(255,255,255,0.4);
+            width: 21mm;
+            height: 27mm;
+            border: 0.4px solid #333;
+            background-color: rgba(255,255,255,0.3);
             display: flex;
             align-items: center;
             justify-content: center;
@@ -276,42 +252,37 @@
         }
 
         .foto-box .placeholder {
-            font-size: 5.5pt;
+            font-size: 5pt;
             color: #666;
             text-align: center;
-            padding: 2px;
+            padding: 1px;
             line-height: 1.2;
         }
 
-        /* =========================================
-           TTD & TANGGAL (di bawah foto)
-           ========================================= */
+        /* TTD & Tanggal */
         .ttd-area {
-            margin-top: 1mm;
-            width: 22mm;
+            margin-top: 0.5mm;
+            width: 21mm;
             text-align: center;
-            position: relative;
+            line-height: 1;
         }
 
         .ttd-kota {
-            font-size: 6pt;
-            font-weight: 600;
-            line-height: 1.2;
-            color: #1a1a1a;
-            margin-bottom: 0.3mm;
+            font-size: 5.5pt;
+            font-weight: bold;
+            line-height: 1.1;
         }
 
         .ttd-tanggal {
-            font-size: 6pt;
-            font-weight: 600;
-            line-height: 1.2;
-            color: #1a1a1a;
-            margin-bottom: 0.5mm;
+            font-size: 5.5pt;
+            font-weight: bold;
+            line-height: 1.1;
+            margin-bottom: 0.3mm;
         }
 
         .ttd-box {
-            width: 22mm;
-            height: 12mm;
+            width: 21mm;
+            height: 9mm;
             position: relative;
             cursor: pointer;
         }
@@ -322,30 +293,20 @@
             display: block;
         }
 
-        .ttd-box .ttd-label {
-            position: absolute;
-            bottom: 1px;
-            right: 1px;
-            font-size: 4pt;
-            color: #888;
-            pointer-events: none;
-            display: none;
-        }
-
         /* Edit mode */
         [contenteditable="true"]:hover {
             background-color: rgba(255,255,255,0.4);
             outline: 1px dashed #666;
-            border-radius: 2px;
+            border-radius: 1px;
         }
         [contenteditable="true"]:focus {
-            background-color: rgba(255,255,255,0.85);
+            background-color: rgba(255,255,255,0.8);
             outline: 2px solid #007bff;
-            border-radius: 2px;
+            border-radius: 1px;
         }
 
         /* =========================================
-           MODAL CANVAS TTD
+           MODAL TTD
            ========================================= */
         .modal-ttd {
             display: none;
@@ -390,7 +351,7 @@
         #fileFoto { display: none; }
 
         /* =========================================
-           PRINT STYLES
+           PRINT
            ========================================= */
         @media print {
             body {
@@ -432,9 +393,7 @@
 
     <input type="file" id="fileFoto" accept="image/*">
 
-    <!-- =========================================
-         KTP CARD
-         ========================================= -->
+    <!-- KTP CARD -->
     <div class="ktp-card" id="ktp-card">
         <div class="ktp-content">
 
@@ -454,7 +413,7 @@
             <!-- Body -->
             <div class="ktp-body">
 
-                <!-- Kolom Kiri - Data Diri -->
+                <!-- Kolom Kiri -->
                 <div class="kolom-kiri">
                     <div class="data-row">
                         <div class="data-label">Nama</div>
@@ -468,13 +427,11 @@
                         <div class="data-value" contenteditable="true" id="ttl">CIREBON, 10-07-2000</div>
                     </div>
 
-                    <!-- Baris dengan Gol Darah inline -->
                     <div class="data-row-with-goldar">
                         <div class="data-label">Jenis Kelamin</div>
                         <div class="data-colon">:</div>
                         <div class="data-value" contenteditable="true" id="jenis-kelamin">LAKI-LAKI</div>
                         
-                        <!-- Gol Darah di kanan -->
                         <div class="goldar-inline">
                             <div class="goldar-label">Gol. Darah</div>
                             <div class="goldar-colon">:</div>
@@ -537,21 +494,18 @@
                     </div>
                 </div>
 
-                <!-- Kolom Kanan - Foto, TTD, Tanggal -->
+                <!-- Kolom Kanan -->
                 <div class="kolom-kanan">
-                    <!-- Foto -->
                     <div class="foto-box" id="foto-box" onclick="document.getElementById('fileFoto').click()" title="Klik untuk upload foto">
                         <div class="placeholder" id="foto-placeholder">Klik untuk<br>Upload Foto<br>(2×3 cm)</div>
                         <img id="foto-img" src="" alt="" style="display:none;">
                     </div>
 
-                    <!-- TTD & Tanggal -->
                     <div class="ttd-area">
                         <div class="ttd-kota" contenteditable="true" id="ttd-kota">CIREBON</div>
                         <div class="ttd-tanggal" contenteditable="true" id="ttd-tanggal">21-12-2017</div>
                         <div class="ttd-box" onclick="bukaModalTTD()" title="Klik untuk tanda tangan">
                             <canvas id="ttd-preview" width="200" height="100"></canvas>
-                            <div class="ttd-label">TTD</div>
                         </div>
                     </div>
                 </div>
@@ -560,9 +514,7 @@
         </div>
     </div>
 
-    <!-- =========================================
-         MODAL TTD
-         ========================================= -->
+    <!-- MODAL TTD -->
     <div class="modal-ttd" id="modal-ttd">
         <div class="modal-ttd-content">
             <h3>✍️ Coret Tanda Tangan</h3>
@@ -575,7 +527,6 @@
         </div>
     </div>
 
-    <!-- Library html2canvas -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 
     <script>
