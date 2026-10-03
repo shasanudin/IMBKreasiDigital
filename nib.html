@@ -14,7 +14,7 @@
 
         body {
             font-family: Arial, Helvetica, sans-serif;
-            font-size: 12px;
+            font-size: 11px;
             background: #e0e0e0;
             display: flex;
             flex-direction: column;
@@ -22,13 +22,13 @@
             padding: 20px 10px;
         }
 
-        /* A4 Paper Simulation */
+        /* A4 Paper Simulation — margin kiri & kanan 1cm */
         .a4-page {
             width: 210mm;
             min-height: 297mm;
             background: #ffffff;
             box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
-            padding: 15mm 20mm 15mm 20mm;
+            padding: 15mm 10mm 15mm 10mm;   /* atas 15mm, kiri/kanan 10mm, bawah 15mm */
             margin-bottom: 30px;
             position: relative;
             display: flex;
@@ -44,7 +44,7 @@
         }
 
         .header-center .logo-garuda {
-            width: 90px;          /* Diperkecil dari 140px */
+            width: 90px;
             height: auto;
             margin-bottom: 10px;
         }
@@ -89,12 +89,13 @@
             flex-direction: column;
         }
 
+        /* Mulai dari sini font 11px */
         .lampiran-desc {
-            font-size: 12px;
+            font-size: 11px;
             margin-bottom: 8px;
         }
 
-        /* Table */
+        /* Table — font 11px */
         .table-wrapper {
             overflow-x: auto;
             margin-bottom: 15px;
@@ -104,7 +105,7 @@
         table {
             width: 100%;
             border-collapse: collapse;
-            font-size: 12px;
+            font-size: 11px;
         }
 
         th, td {
@@ -115,11 +116,11 @@
         }
 
         th {
-            background: #ffffff;   /* Tanpa warna */
+            background: #ffffff;
             font-weight: bold;
             text-align: center;
             vertical-align: middle;
-            font-size: 12px;
+            font-size: 11px;
         }
 
         td {
@@ -171,17 +172,17 @@
         .group-header {
             text-align: center;
             font-weight: bold;
-            background: #ffffff;   /* Tanpa warna */
+            background: #ffffff;
         }
 
-        /* Input styling */
+        /* Input styling — font 11px */
         td input,
         td textarea {
             width: 100%;
             border: none;
             background: transparent;
             font-family: Arial, Helvetica, sans-serif;
-            font-size: 12px;
+            font-size: 11px;
             padding: 1px 0;
             resize: vertical;
             outline: none;
@@ -208,11 +209,11 @@
             text-align: center;
         }
 
-        /* ===== CATATAN DI BAWAH TABEL (font 10px) ===== */
+        /* ===== CATATAN DI BAWAH TABEL — font 11px ===== */
         .catatan-bawah {
             margin-top: 10px;
             margin-bottom: 15px;
-            font-size: 10px;        /* Diubah ke 10px */
+            font-size: 11px;
             line-height: 1.5;
         }
 
@@ -226,46 +227,47 @@
             text-align: justify;
         }
 
-        /* ===== FOOTER DENGAN KOTAK (font 10px) ===== */
+        /* ===== FOOTER DENGAN KOTAK LEBAR & PENDEK ===== */
         .footer-box {
             margin-top: 20px;
             border: 2px solid #000;
-            padding: 12px 15px;
+            padding: 8px 12px;           /* padding vertikal dikurangi */
             display: flex;
             justify-content: space-between;
             align-items: flex-start;
-            gap: 20px;
+            gap: 15px;
+            width: 100%;                 /* melebar penuh */
         }
 
         .footer-notes {
             flex: 1;
-            font-size: 10px;        /* Diubah ke 10px */
-            line-height: 1.5;
+            font-size: 10px;
+            line-height: 1.4;            /* line-height dikurangi agar tidak terlalu tinggi */
         }
 
         .footer-notes ol {
-            padding-left: 18px;
+            padding-left: 16px;
             margin: 0;
         }
 
         .footer-notes li {
-            margin-bottom: 4px;
+            margin-bottom: 2px;
             text-align: justify;
         }
 
         .footer-logo {
             flex-shrink: 0;
-            width: 130px;
+            width: 110px;
             text-align: center;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            padding: 6px 8px;
+            padding: 2px 4px;
         }
 
         .footer-logo img {
-            width: 110px;
+            width: 95px;
             height: auto;
             display: block;
         }
@@ -335,14 +337,14 @@
                 padding: 0;
                 margin: 0;
                 font-family: Arial, Helvetica, sans-serif;
-                font-size: 12px;
+                font-size: 11px;
             }
 
             .a4-page {
                 width: 210mm;
                 min-height: 297mm;
                 box-shadow: none;
-                padding: 12mm 18mm 12mm 18mm;
+                padding: 12mm 10mm 12mm 10mm;   /* margin cetak kiri/kanan 1cm */
                 margin: 0;
                 border-radius: 0;
                 page-break-after: avoid;
@@ -395,19 +397,19 @@
             }
 
             .catatan-bawah {
-                font-size: 10px;
+                font-size: 11px;
             }
 
             .footer-logo img {
-                width: 100px;
+                width: 90px;
             }
 
             .footer-logo {
-                width: 120px;
+                width: 105px;
             }
 
             .header-center .logo-garuda {
-                width: 80px;        /* Lebih kecil untuk cetak */
+                width: 80px;
             }
 
             .header-center h1 {
@@ -424,7 +426,7 @@
             }
 
             .lampiran-desc {
-                font-size: 12px;
+                font-size: 11px;
             }
         }
 
@@ -433,7 +435,7 @@
             .a4-page {
                 width: 100%;
                 min-height: auto;
-                padding: 20px 15px;
+                padding: 20px 10px;
             }
 
             .footer-box {
@@ -442,7 +444,7 @@
             }
 
             .footer-logo {
-                width: 130px;
+                width: 120px;
             }
 
             .action-bar {
@@ -484,6 +486,7 @@
 
         <!-- ===== CONTENT ===== -->
         <div class="content">
+            <!-- Mulai font 11px dari sini -->
             <div class="lampiran-desc">
                 Lampiran berikut ini memuat daftar bidang usaha untuk:
             </div>
@@ -527,7 +530,7 @@ Usaha Mikro berjalan sejak: Februari 2021</textarea></td>
                 </table>
             </div>
 
-            <!-- ===== CATATAN DI BAWAH TABEL (font 10px) ===== -->
+            <!-- ===== CATATAN DI BAWAH TABEL — font 11px ===== -->
             <div class="catatan-bawah">
                 <ol>
                     <li>Dengan ketentuan bahwa NIB tersebut hanya berlaku untuk Kode dan Judul KBLI yang tercantum dalam lampiran ini.</li>
@@ -538,7 +541,7 @@ Usaha Mikro berjalan sejak: Februari 2021</textarea></td>
             </div>
         </div>
 
-        <!-- ===== FOOTER DENGAN KOTAK (font 10px) ===== -->
+        <!-- ===== FOOTER DENGAN KOTAK LEBAR & PENDEK ===== -->
         <div class="footer-box">
             <div class="footer-notes">
                 <ol>
