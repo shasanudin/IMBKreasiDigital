@@ -13,7 +13,8 @@
         }
 
         body {
-            font-family: 'Times New Roman', Times, serif;
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: 12px;
             background: #e0e0e0;
             display: flex;
             flex-direction: column;
@@ -43,13 +44,13 @@
         }
 
         .header-center .logo-garuda {
-            width: 90px;
+            width: 140px;
             height: auto;
-            margin-bottom: 10px;
+            margin-bottom: 12px;
         }
 
         .header-center h1 {
-            font-size: 16px;
+            font-size: 14px;
             font-weight: bold;
             text-transform: uppercase;
             letter-spacing: 0.5px;
@@ -58,21 +59,21 @@
         }
 
         .header-center h2 {
-            font-size: 15px;
+            font-size: 13px;
             font-weight: bold;
             text-transform: uppercase;
             margin-bottom: 2px;
         }
 
         .header-center h3 {
-            font-size: 15px;
+            font-size: 13px;
             font-weight: bold;
             text-transform: uppercase;
             margin-bottom: 2px;
         }
 
         .header-center .nib-number {
-            font-size: 15px;
+            font-size: 13px;
             font-weight: bold;
             margin-top: 4px;
         }
@@ -89,7 +90,7 @@
         }
 
         .lampiran-desc {
-            font-size: 13px;
+            font-size: 12px;
             margin-bottom: 8px;
         }
 
@@ -118,7 +119,7 @@
             font-weight: bold;
             text-align: center;
             vertical-align: middle;
-            font-size: 11px;
+            font-size: 12px;
         }
 
         td {
@@ -179,7 +180,7 @@
             width: 100%;
             border: none;
             background: transparent;
-            font-family: inherit;
+            font-family: Arial, Helvetica, sans-serif;
             font-size: 12px;
             padding: 1px 0;
             resize: vertical;
@@ -207,12 +208,29 @@
             text-align: center;
         }
 
-        /* ===== FOOTER ===== */
-        .footer {
+        /* ===== CATATAN DI BAWAH TABEL ===== */
+        .catatan-bawah {
+            margin-top: 10px;
+            margin-bottom: 15px;
+            font-size: 12px;
+            line-height: 1.5;
+        }
+
+        .catatan-bawah ol {
+            padding-left: 20px;
+            margin: 0;
+        }
+
+        .catatan-bawah li {
+            margin-bottom: 4px;
+            text-align: justify;
+        }
+
+        /* ===== FOOTER DENGAN KOTAK ===== */
+        .footer-box {
             margin-top: 20px;
-            border-top: 1px solid #000;
-            padding-top: 12px;
-            position: relative;
+            border: 2px solid #000;
+            padding: 12px 15px;
             display: flex;
             justify-content: space-between;
             align-items: flex-start;
@@ -221,7 +239,7 @@
 
         .footer-notes {
             flex: 1;
-            font-size: 11px;
+            font-size: 12px;
             line-height: 1.5;
         }
 
@@ -237,19 +255,17 @@
 
         .footer-logo {
             flex-shrink: 0;
-            width: 130px;
+            width: 150px;
             text-align: center;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            border: 1px solid #000;
             padding: 6px 8px;
-            border-radius: 4px;
         }
 
         .footer-logo img {
-            width: 110px;
+            width: 130px;
             height: auto;
             display: block;
         }
@@ -271,7 +287,7 @@
             border-radius: 5px;
             cursor: pointer;
             transition: background 0.2s, transform 0.1s;
-            font-family: 'Times New Roman', Times, serif;
+            font-family: Arial, Helvetica, sans-serif;
             letter-spacing: 0.5px;
         }
 
@@ -318,6 +334,8 @@
                 background: #fff;
                 padding: 0;
                 margin: 0;
+                font-family: Arial, Helvetica, sans-serif;
+                font-size: 12px;
             }
 
             .a4-page {
@@ -354,7 +372,8 @@
                 -webkit-appearance: none;
                 appearance: none;
                 color: #000;
-                font-size: 11px;
+                font-size: 12px;
+                font-family: Arial, Helvetica, sans-serif;
             }
 
             td textarea {
@@ -364,28 +383,31 @@
             }
 
             table {
-                font-size: 11px;
+                font-size: 12px;
             }
 
             th, td {
-                padding: 3px 3px;
+                padding: 4px 4px;
             }
 
             .footer-notes {
-                font-size: 10px;
+                font-size: 12px;
+            }
+
+            .catatan-bawah {
+                font-size: 12px;
             }
 
             .footer-logo img {
-                width: 100px;
+                width: 120px;
             }
 
             .footer-logo {
-                width: 115px;
-                padding: 4px 6px;
+                width: 140px;
             }
 
             .header-center .logo-garuda {
-                width: 75px;
+                width: 130px;
             }
 
             .header-center h1 {
@@ -414,13 +436,13 @@
                 padding: 20px 15px;
             }
 
-            .footer {
+            .footer-box {
                 flex-direction: column;
                 align-items: center;
             }
 
             .footer-logo {
-                width: 140px;
+                width: 150px;
             }
 
             .action-bar {
@@ -434,7 +456,7 @@
             }
 
             table {
-                font-size: 10px;
+                font-size: 11px;
                 min-width: 600px;
             }
 
@@ -504,11 +526,9 @@ Usaha Mikro berjalan sejak: Februari 2021</textarea></td>
                     </tbody>
                 </table>
             </div>
-        </div>
 
-        <!-- ===== FOOTER ===== -->
-        <div class="footer">
-            <div class="footer-notes">
+            <!-- ===== CATATAN DI BAWAH TABEL ===== -->
+            <div class="catatan-bawah">
                 <ol>
                     <li>Dengan ketentuan bahwa NIB tersebut hanya berlaku untuk Kode dan Judul KBLI yang tercantum dalam lampiran ini.</li>
                     <li>Pelaku Usaha wajib memenuhi persyaratan dan/atau kewajiban sesuai Norma, Standar, Prosedur, dan Kriteria (NSPK) Kementerian/Lembaga (K/L).</li>
@@ -516,11 +536,23 @@ Usaha Mikro berjalan sejak: Februari 2021</textarea></td>
                     <li>Lampiran ini merupakan bagian tidak terpisahkan dari dokumen NIB tersebut.</li>
                 </ol>
             </div>
+        </div>
+
+        <!-- ===== FOOTER DENGAN KOTAK ===== -->
+        <div class="footer-box">
+            <div class="footer-notes">
+                <ol>
+                    <li>Dokumen ini diterbitkan sistem OSS berdasarkan data dari Pelaku Usaha, tersimpan dalam sistem OSS, yang menjadi tanggung jawab Pelaku Usaha.</li>
+                    <li>Dalam hal terjadi kekeliruan isi dokumen ini akan dilakukan perbaikan sebagaimana mestinya.</li>
+                    <li>Dokumen ini telah ditandatangani secara elektronik menggunakan sertifikat elektronik yang diterbitkan oleh BSrE-BSSN.</li>
+                    <li>Data lengkap Perizinan Berusaha dapat diperoleh melalui sistem OSS menggunakan hak akses.</li>
+                </ol>
+            </div>
             <div class="footer-logo">
-                <img src="https://raw.githubusercontent.com/shasanudin/IMBKreasiDigital/main/image/bsre-logo.png"
-                     alt="Logo BSrE"
+                <img src="https://raw.githubusercontent.com/shasanudin/IMBKreasiDigital/main/image/logo%20bnsp.png"
+                     alt="Logo Balai Sertifikasi Elektronik"
                      onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
-                <div style="display:none; font-size:10px; font-weight:bold; color:#0d47a1; text-align:center; line-height:1.2;">
+                <div style="display:none; font-size:11px; font-weight:bold; color:#0d47a1; text-align:center; line-height:1.2;">
                     Balai<br>Sertifikasi<br>Elektronik
                 </div>
             </div>
