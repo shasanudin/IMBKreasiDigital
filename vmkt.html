@@ -1,0 +1,866 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Visi Misi Eka Wildanu — Karang Taruna Kab. Cirebon</title>
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Roboto, system-ui, sans-serif;
+        }
+
+        body {
+            background: #1a2b3c;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        /* SLIDE CONTAINER */
+        .presentation-container {
+            position: relative;
+            width: 100%;
+            max-width: 1280px;
+            aspect-ratio: 16 / 9;
+            background: #eef3f7;
+            border-radius: 24px;
+            overflow: hidden;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.6);
+            transition: all 0.2s;
+        }
+
+        .slides-wrapper {
+            position: relative;
+            width: 100%;
+            height: 100%;
+        }
+
+        .slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            padding: 40px 50px;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.5s ease, visibility 0.5s;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            background: #ffffff;
+            background-image: radial-gradient(circle at 10% 20%, rgba(255, 215, 0, 0.05) 0%, transparent 30%);
+        }
+
+        .slide.active {
+            opacity: 1;
+            visibility: visible;
+            z-index: 2;
+        }
+
+        /* SCROLLBAR STYLING */
+        .slide::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .slide::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 8px;
+        }
+
+        .slide::-webkit-scrollbar-thumb {
+            background: #1e4a6b;
+            border-radius: 8px;
+        }
+
+        /* TYPOGRAPHY */
+        h1 {
+            font-size: 2.8rem;
+            font-weight: 800;
+            color: #0b2a41;
+            letter-spacing: -0.02em;
+            line-height: 1.2;
+        }
+
+        h2 {
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: #0b2a41;
+            margin-bottom: 16px;
+            border-left: 8px solid #f5b342;
+            padding-left: 20px;
+        }
+
+        h3 {
+            font-size: 1.4rem;
+            font-weight: 600;
+            color: #1e4a6b;
+            margin-bottom: 12px;
+        }
+
+        .visi-text {
+            font-size: 1.5rem;
+            font-weight: 500;
+            color: #1e4a6b;
+            line-height: 1.5;
+            background: #f0f7fe;
+            padding: 24px 28px;
+            border-radius: 30px;
+            border-left: 12px solid #f5b342;
+            box-shadow: 0 6px 14px rgba(0, 0, 0, 0.05);
+            font-style: italic;
+            margin: 10px 0;
+        }
+
+        /* BADGE & ORNAMENTS */
+        .badge {
+            display: inline-block;
+            background: #f5b342;
+            color: #0b2a41;
+            font-weight: 700;
+            padding: 6px 20px;
+            border-radius: 40px;
+            font-size: 1rem;
+            letter-spacing: 0.5px;
+            margin-bottom: 12px;
+        }
+
+        .logo-area {
+            display: flex;
+            align-items: center;
+            gap: 18px;
+            margin-bottom: 20px;
+        }
+
+        .logo-placeholder {
+            width: 70px;
+            height: 70px;
+            background: #0b2a41;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #f5b342;
+            font-size: 2.2rem;
+            border: 3px solid #f5b342;
+        }
+
+        /* SLIDE 1 - COVER */
+        .cover-layout {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            height: 100%;
+            background: linear-gradient(135deg, #ffffff 0%, #e8f0f8 100%);
+            border-radius: 20px;
+            padding: 30px 45px;
+        }
+
+        .cover-title {
+            font-size: 3.8rem;
+            font-weight: 900;
+            color: #0b2a41;
+            line-height: 1.1;
+            margin-bottom: 10px;
+        }
+
+        .cover-sub {
+            font-size: 1.8rem;
+            font-weight: 600;
+            color: #1e4a6b;
+            margin-bottom: 25px;
+        }
+
+        .year-badge {
+            background: #f5b342;
+            color: #0b2a41;
+            font-weight: 800;
+            font-size: 2rem;
+            padding: 6px 35px;
+            border-radius: 60px;
+            align-self: flex-start;
+            margin: 20px 0;
+            display: inline-block;
+        }
+
+        .name-tag {
+            font-size: 1.7rem;
+            font-weight: 700;
+            color: #0b2a41;
+            margin-top: 30px;
+            border-top: 2px solid #f5b342;
+            padding-top: 18px;
+            display: inline-block;
+        }
+
+        /* TABLES */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.85rem;
+            margin: 12px 0;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+        }
+
+        th {
+            background: #0b2a41;
+            color: white;
+            font-weight: 600;
+            padding: 12px 10px;
+            text-align: left;
+            font-size: 0.85rem;
+        }
+
+        td {
+            padding: 10px 10px;
+            border-bottom: 1px solid #e0e9f0;
+            vertical-align: top;
+            background: white;
+        }
+
+        tr:last-child td {
+            border-bottom: none;
+        }
+
+        tr:nth-child(even) td {
+            background: #f9fcff;
+        }
+
+        .highlight {
+            background: #fff6e5;
+            font-weight: 500;
+        }
+
+        /* GRID LAYOUTS */
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .grid-3 {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
+        }
+
+        .card {
+            background: white;
+            border-radius: 18px;
+            padding: 18px 16px;
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.06);
+            border-left: 6px solid #f5b342;
+            transition: transform 0.2s;
+        }
+
+        .card i {
+            color: #1e4a6b;
+            font-size: 1.6rem;
+            margin-bottom: 8px;
+        }
+
+        .card h4 {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #0b2a41;
+            margin-bottom: 6px;
+        }
+
+        .card p {
+            font-size: 0.9rem;
+            color: #2e4a62;
+            line-height: 1.4;
+        }
+
+        .mission-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin: 10px 0;
+        }
+
+        .mission-item {
+            display: flex;
+            gap: 16px;
+            background: #f9fcff;
+            padding: 14px 18px;
+            border-radius: 16px;
+            border-left: 6px solid #f5b342;
+        }
+
+        .mission-number {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: #0b2a41;
+            opacity: 0.4;
+            min-width: 40px;
+        }
+
+        /* NAVIGATION */
+        .nav-controls {
+            position: absolute;
+            bottom: 25px;
+            right: 35px;
+            display: flex;
+            gap: 12px;
+            z-index: 10;
+        }
+
+        .nav-btn {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            border: none;
+            background: #0b2a41;
+            color: white;
+            font-size: 1.4rem;
+            cursor: pointer;
+            box-shadow: 0 6px 14px rgba(0, 0, 0, 0.25);
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .nav-btn:hover {
+            background: #f5b342;
+            color: #0b2a41;
+            transform: scale(1.05);
+        }
+
+        .nav-btn:disabled {
+            opacity: 0.3;
+            pointer-events: none;
+        }
+
+        .slide-counter {
+            position: absolute;
+            bottom: 35px;
+            left: 45px;
+            font-weight: 600;
+            color: #6b7f8f;
+            font-size: 1rem;
+            z-index: 10;
+        }
+
+        /* PROGRESS DOTS */
+        .dots-container {
+            position: absolute;
+            bottom: 35px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 12px;
+            z-index: 10;
+        }
+
+        .dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: #b8ccdb;
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+
+        .dot.active {
+            background: #f5b342;
+            transform: scale(1.3);
+            box-shadow: 0 0 0 3px rgba(245, 179, 66, 0.3);
+        }
+
+        /* UTILITY */
+        .mt-2 {
+            margin-top: 12px;
+        }
+
+        .mb-2 {
+            margin-bottom: 12px;
+        }
+
+        .flex {
+            display: flex;
+        }
+
+        .gap-3 {
+            gap: 18px;
+        }
+
+        .text-small {
+            font-size: 0.8rem;
+            color: #4b6a82;
+        }
+
+        .pill {
+            background: #e5eff9;
+            border-radius: 40px;
+            padding: 3px 14px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: #1e4a6b;
+            display: inline-block;
+        }
+
+        /* Slide 7 - Dasar Pemikiran */
+        .reason-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .reason-item {
+            background: #f9fcff;
+            border-radius: 14px;
+            padding: 14px 20px;
+            border-left: 6px solid #1e4a6b;
+            font-size: 0.95rem;
+            color: #1d3b4f;
+            line-height: 1.5;
+        }
+
+        .reason-item strong {
+            color: #0b2a41;
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 1000px) {
+            .slide {
+                padding: 25px 30px;
+            }
+
+            h1 {
+                font-size: 2.2rem;
+            }
+
+            h2 {
+                font-size: 1.8rem;
+            }
+
+            .cover-title {
+                font-size: 2.8rem;
+            }
+
+            .grid-3 {
+                grid-template-columns: 1fr;
+            }
+
+            .grid-2 {
+                grid-template-columns: 1fr;
+            }
+
+            table {
+                font-size: 0.75rem;
+            }
+
+            th,
+            td {
+                padding: 8px 6px;
+            }
+        }
+
+        @media (max-width: 700px) {
+            .presentation-container {
+                aspect-ratio: auto;
+                height: 95vh;
+                border-radius: 16px;
+            }
+
+            .slide {
+                padding: 18px 16px;
+            }
+
+            h1 {
+                font-size: 1.8rem;
+            }
+
+            .cover-title {
+                font-size: 2rem;
+            }
+
+            .nav-controls {
+                bottom: 12px;
+                right: 16px;
+            }
+
+            .nav-btn {
+                width: 40px;
+                height: 40px;
+                font-size: 1.1rem;
+            }
+
+            .dots-container {
+                bottom: 18px;
+                gap: 6px;
+            }
+
+            .dot {
+                width: 8px;
+                height: 8px;
+            }
+
+            .slide-counter {
+                bottom: 18px;
+                left: 16px;
+                font-size: 0.75rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="presentation-container">
+        <!-- Slides Wrapper -->
+        <div class="slides-wrapper" id="slidesWrapper">
+            <!-- Slide 1: Cover -->
+            <div class="slide active" data-index="0">
+                <div class="cover-layout">
+                    <div class="logo-area">
+                        <div class="logo-placeholder">
+                            <i class="fas fa-leaf"></i>
+                        </div>
+                        <div>
+                            <span class="pill">Karang Taruna Kabupaten Cirebon</span>
+                        </div>
+                    </div>
+                    <div class="cover-title">VISI & MISI</div>
+                    <div class="cover-sub">Calon Ketua Karang Taruna<br>Kabupaten Cirebon</div>
+                    <div class="year-badge">2026 – 2031</div>
+                    <div class="name-tag">Eka Wildanu, S.AP., M.Si</div>
+                </div>
+            </div>
+
+            <!-- Slide 2: Visi + Sinkronisasi Elemen -->
+            <div class="slide" data-index="1">
+                <h2>Visi</h2>
+                <div class="visi-text">
+                    “Terwujudnya Karang Taruna Kabupaten Cirebon yang inovatif, mandiri, dan peduli lingkungan, sebagai mitra strategis Pemerintah Daerah dalam membangun pemuda dan desa menuju masyarakat Cirebon yang maju, sejahtera, dan berdaya saing.”
+                </div>
+
+                <div style="margin-top: 16px;">
+                    <h3 style="font-size:1.2rem; margin-bottom:10px;"><i class="fas fa-sync-alt" style="color:#f5b342; margin-right:10px;"></i>Elemen Sinkronisasi</h3>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Elemen Visi</th>
+                                <th>Keterkaitan</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Inovatif</strong></td>
+                                <td>Misi Bupati Cirebon (BERIMAN: Inovatif) + Asta Cita Misi 4 (SDM, teknologi)</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Mandiri</strong></td>
+                                <td>Asta Cita Misi 3 (kewirausahaan) + Misi Bupati (Maju)</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Peduli lingkungan</strong></td>
+                                <td>Asta Cita Misi 8 + permasalahan riil Cirebon (banjir, sampah, air bersih)</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Mitra strategis Pemda</strong></td>
+                                <td>Permendagri 18/2018 (LKD) + Misi Bupati (kolaborasi)</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Membangun pemuda & desa</strong></td>
+                                <td>Asta Cita Misi 6 (dari desa) + Misi Bupati (Maju)</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Slide 3: Misi (5 Butir) dengan Tabel Sinkronisasi -->
+            <div class="slide" data-index="2">
+                <h2>Misi</h2>
+                <p style="margin-bottom: 10px; color: #2e4a62; font-weight: 500;">5 butir yang menjembatani tiga lapis</p>
+                <table>
+                    <thead>
+                        <tr>
+                            <th style="width:5%;">No</th>
+                            <th style="width:30%;">Misi</th>
+                            <th style="width:20%;">Sinkronisasi Asta Cita</th>
+                            <th style="width:20%;">Sinkronisasi Visi Bupati</th>
+                            <th style="width:25%;">Jawaban Permasalahan Cirebon</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>1</td>
+                            <td>Memperkuat kapasitas dan literasi digital pemuda melalui pelatihan keterampilan, literasi teknologi, dan kaderisasi</td>
+                            <td>Misi 4 (SDM, teknologi, pemuda)</td>
+                            <td>Inovatif, Maju Modern</td>
+                            <td>Kebutuhan adaptasi digital dan pengurangan pengangguran</td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td>Mendorong kewirausahaan pemuda dan ekonomi kreatif berbasis potensi Desa</td>
+                            <td>Misi 3 (lapangan kerja, kewirausahaan, industri kreatif)</td>
+                            <td>Inovatif, Maju</td>
+                            <td>Pertumbuhan ekonomi 5%; kebutuhan akselerasi ekonomi desa</td>
+                        </tr>
+                        <tr>
+                            <td>3</td>
+                            <td>Menggerakkan program lingkungan berbasis desa: normalisasi saluran air, pengelolaan sampah, konservasi air</td>
+                            <td>Misi 8 (harmoni lingkungan)</td>
+                            <td>Aman (lingkungan asri)</td>
+                            <td>Banjir, sampah, krisis air bersih di berbagai desa</td>
+                        </tr>
+                        <tr>
+                            <td>4</td>
+                            <td>Memperkuat kesetiaan sosial dan kepedulian terhadap kelompok rentan (lansia, disabilitas, keluarga prasejahtera)</td>
+                            <td>Misi 6 (pemberantasan kemiskinan)</td>
+                            <td>Agamis (toleransi), Bersih (pelayanan)</td>
+                            <td>Kesenjangan sosial dan kebutuhan perlindungan sosial</td>
+                        </tr>
+                        <tr>
+                            <td>5</td>
+                            <td>Membangun kemitraan strategis dengan Pemerintah Desa, Kecamatan, dan Pemkab Cirebon dalam perencanaan dan pelaksanaan program</td>
+                            <td>Misi 6 (dari desa dan bawah)</td>
+                            <td>Seluruh misi BERIMAN (kolaborasi)</td>
+                            <td>Kebutuhan sinergi lintas level pemerintahan</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Slide 4: Program Kerja & Mitra -->
+            <div class="slide" data-index="3">
+                <h2>Program Kerja & Mitra Potensial</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th style="width:55%;">Program Kerja</th>
+                            <th style="width:45%;">Mitra Potensial</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Pelatihan literasi digital dan pemasaran online; kaderisasi Karang Taruna tingkat kecamatan</td>
+                            <td>Dinsos Cirebon, Dinas Kominfo</td>
+                        </tr>
+                        <tr>
+                            <td>Inkubasi wirausaha muda; pengembangan produk lokal Cirebon; kolaborasi dengan BUMDes</td>
+                            <td>Dinas Koperasi & UKM, BUMDes</td>
+                        </tr>
+                        <tr>
+                            <td>Kerja bakti normalisasi saluran air; kampanye pengelolaan sampah; gerakan hemat air</td>
+                            <td>DLH Cirebon, BBWS Cimanuk Cisanggarung, Pemdes</td>
+                        </tr>
+                        <tr>
+                            <td>Bakti sosial; pendampingan lansia dan disabilitas; posyandu remaja</td>
+                            <td>Dinsos, Puskesmas, Pemdes</td>
+                        </tr>
+                        <tr>
+                            <td>Forum koordinasi rutin dengan Pemdes dan Kecamatan; partisipasi dalam Musrenbangdes</td>
+                            <td>Pemdes, Kecamatan, Bappelitbangda</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div style="margin-top: 18px; display: flex; gap: 12px; flex-wrap: wrap;">
+                    <span class="pill"><i class="fas fa-check-circle" style="color:#1e4a6b;"></i> Berbasis desa</span>
+                    <span class="pill"><i class="fas fa-check-circle" style="color:#1e4a6b;"></i> Kolaboratif</span>
+                    <span class="pill"><i class="fas fa-check-circle" style="color:#1e4a6b;"></i> Berkelanjutan</span>
+                </div>
+            </div>
+
+            <!-- Slide 5: Dasar Pemikiran (1-2) -->
+            <div class="slide" data-index="4">
+                <h2>Dasar Pemikiran</h2>
+                <div class="reason-list">
+                    <div class="reason-item">
+                        <strong>1. Karang Taruna bukan pelaksana teknis pemerintah</strong> — melainkan mitra dalam kerangka Permendagri 18/2018. Visi-Misi harus mencerminkan kemitraan, bukan subordinasi.
+                    </div>
+                    <div class="reason-item">
+                        <strong>2. Permasalahan banjir dan air bersih</strong> — sebagian berada di kewenangan pusat (BBWS) atau kabupaten (PDAM). Karang Taruna dapat berperan dalam edukasi, gotong royong, dan advokasi, bukan sebagai pelaksana utama.
+                    </div>
+                    <div class="reason-item">
+                        <strong>3. Asta Cita Misi 6 (membangun dari desa)</strong> — adalah titik paling kuat bagi Karang Taruna karena posisinya yang berbasis desa/kelurahan. Program-program harus berorientasi pada solusi desa untuk masalah desa.
+                    </div>
+                    <div class="reason-item">
+                        <strong>4. Visi "BERIMAN" Bupati Cirebon</strong> — memberikan kerangka lokal yang jelas. Visi-Misi Karang Taruna sebaiknya menggunakan bahasa yang kompatibel dengan RPJMD, sehingga program Karang Taruna dapat diakomodasi dalam perencanaan daerah.
+                    </div>
+                </div>
+            </div>
+
+            <!-- Slide 6: Penutup / Ajakan -->
+            <div class="slide" data-index="5">
+                <div style="display: flex; flex-direction: column; justify-content: center; align-items: center; height: 100%; text-align: center; background: linear-gradient(145deg, #ffffff, #e8f0f8); border-radius: 30px; padding: 30px;">
+                    <i class="fas fa-handshake" style="font-size: 4rem; color: #f5b342; margin-bottom: 20px;"></i>
+                    <h1 style="font-size: 2.8rem; margin-bottom: 20px; color: #0b2a41;">Bersama Membangun Cirebon</h1>
+                    <p style="font-size: 1.4rem; color: #1e4a6b; max-width: 800px; line-height: 1.6; font-weight: 400;">Visi & Misi ini adalah komitmen untuk menjadikan Karang Taruna sebagai motor penggerak pemuda dan desa.</p>
+                    <div style="margin-top: 40px; background: #0b2a41; color: white; padding: 16px 48px; border-radius: 60px; font-weight: 700; font-size: 1.4rem;">
+                        Eka Wildanu, S.AP., M.Si
+                    </div>
+                    <p style="margin-top: 20px; color: #4b6a82;">Calon Ketua Karang Taruna Kabupaten Cirebon 2026 – 2031</p>
+                </div>
+            </div>
+
+            <!-- Slide 7: Sinergi & Penutup -->
+            <div class="slide" data-index="6">
+                <h2>Sinergi untuk Cirebon Maju</h2>
+                <div class="grid-2" style="margin-top: 15px;">
+                    <div class="card">
+                        <i class="fas fa-seedling"></i>
+                        <h4>Inovatif</h4>
+                        <p>Adaptasi digital & kaderisasi pemuda menuju SDM unggul.</p>
+                    </div>
+                    <div class="card">
+                        <i class="fas fa-store"></i>
+                        <h4>Mandiri</h4>
+                        <p>Kewirausahaan pemuda & ekonomi kreatif berbasis desa.</p>
+                    </div>
+                    <div class="card">
+                        <i class="fas fa-tree"></i>
+                        <h4>Peduli Lingkungan</h4>
+                        <p>Aksi nyata atasi banjir, sampah, dan krisis air bersih.</p>
+                    </div>
+                    <div class="card">
+                        <i class="fas fa-hand-holding-heart"></i>
+                        <h4>Mitra Strategis</h4>
+                        <p>Kolaborasi lintas sektor dengan pemerintah daerah.</p>
+                    </div>
+                </div>
+                <div style="margin-top: 20px; background: #f0f7fe; border-radius: 18px; padding: 18px 24px; border-left: 8px solid #f5b342;">
+                    <p style="font-weight: 600; color: #0b2a41; font-size: 1.1rem;"><i class="fas fa-bullseye" style="margin-right: 10px; color:#f5b342;"></i>Membangun pemuda dan desa menuju masyarakat Cirebon yang maju, sejahtera, dan berdaya saing.</p>
+                </div>
+                <div style="display: flex; gap: 12px; margin-top: 20px; justify-content: flex-end;">
+                    <span class="pill"><i class="fas fa-check"></i> BERIMAN</span>
+                    <span class="pill"><i class="fas fa-check"></i> Asta Cita</span>
+                    <span class="pill"><i class="fas fa-check"></i> Permendagri 18/2018</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Navigation Controls -->
+        <div class="nav-controls">
+            <button class="nav-btn" id="prevBtn" disabled><i class="fas fa-chevron-left"></i></button>
+            <button class="nav-btn" id="nextBtn"><i class="fas fa-chevron-right"></i></button>
+        </div>
+
+        <!-- Dots Indicator -->
+        <div class="dots-container" id="dotsContainer">
+            <!-- Dots will be generated by JS -->
+        </div>
+
+        <!-- Slide Counter -->
+        <div class="slide-counter" id="slideCounter">1 / 7</div>
+    </div>
+
+    <script>
+        (function() {
+            const slides = document.querySelectorAll('.slide');
+            const prevBtn = document.getElementById('prevBtn');
+            const nextBtn = document.getElementById('nextBtn');
+            const dotsContainer = document.getElementById('dotsContainer');
+            const slideCounter = document.getElementById('slideCounter');
+            let currentIndex = 0;
+            const totalSlides = slides.length;
+
+            // Generate dots
+            function generateDots() {
+                dotsContainer.innerHTML = '';
+                for (let i = 0; i < totalSlides; i++) {
+                    const dot = document.createElement('div');
+                    dot.classList.add('dot');
+                    if (i === currentIndex) dot.classList.add('active');
+                    dot.addEventListener('click', () => goToSlide(i));
+                    dotsContainer.appendChild(dot);
+                }
+            }
+
+            // Update UI
+            function updateUI() {
+                // Slides visibility
+                slides.forEach((slide, i) => {
+                    slide.classList.toggle('active', i === currentIndex);
+                });
+
+                // Buttons
+                prevBtn.disabled = currentIndex === 0;
+                nextBtn.disabled = currentIndex === totalSlides - 1;
+
+                // Dots
+                const dots = document.querySelectorAll('.dot');
+                dots.forEach((dot, i) => {
+                    dot.classList.toggle('active', i === currentIndex);
+                });
+
+                // Counter
+                slideCounter.textContent = `${currentIndex + 1} / ${totalSlides}`;
+            }
+
+            // Navigation
+            function goToSlide(index) {
+                if (index < 0) index = 0;
+                if (index >= totalSlides) index = totalSlides - 1;
+                currentIndex = index;
+                updateUI();
+            }
+
+            function nextSlide() {
+                if (currentIndex < totalSlides - 1) {
+                    currentIndex++;
+                    updateUI();
+                }
+            }
+
+            function prevSlide() {
+                if (currentIndex > 0) {
+                    currentIndex--;
+                    updateUI();
+                }
+            }
+
+            // Event Listeners
+            prevBtn.addEventListener('click', prevSlide);
+            nextBtn.addEventListener('click', nextSlide);
+
+            // Keyboard navigation
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'ArrowRight' || e.key === 'ArrowDown') {
+                    e.preventDefault();
+                    nextSlide();
+                } else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
+                    e.preventDefault();
+                    prevSlide();
+                }
+            });
+
+            // Touch swipe (optional)
+            let touchStartX = 0;
+            let touchEndX = 0;
+            document.addEventListener('touchstart', (e) => {
+                touchStartX = e.changedTouches[0].screenX;
+            }, { passive: true });
+
+            document.addEventListener('touchend', (e) => {
+                touchEndX = e.changedTouches[0].screenX;
+                const diff = touchStartX - touchEndX;
+                if (Math.abs(diff) > 50) {
+                    if (diff > 0) nextSlide();
+                    else prevSlide();
+                }
+            }, { passive: true });
+
+            // Init
+            generateDots();
+            updateUI();
+
+            // Make slides scrollable when content overflows
+            // (already handled by overflow-y: auto in CSS)
+        })();
+    </script>
+
+</body>
+</html>
