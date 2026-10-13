@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<title>Ambil Antrian Online</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Segoe UI', sans-serif;
+    background: linear-gradient(135deg, #1e3c72, #2a5298);
+    min-height: 100vh;
+    display: flex; align-items: center; justify-content: center;
+    color: #fff;
+  }
+  .container {
+    background: rgba(255,255,255,0.1);
+    backdrop-filter: blur(10px);
+    padding: 40px;
+    border-radius: 20px;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+    text-align: center;
+    width: 90%; max-width: 500px;
+    border: 1px solid rgba(255,255,255,0.2);
+  }
+  h1 { margin-bottom: 10px; font-size: 28px; }
+  p.subtitle { margin-bottom: 30px; opacity: 0.8; font-size: 14px; }
+  .input-group { margin-bottom: 20px; text-align: left; }
+  label { display: block; margin-bottom: 8px; font-size: 14px; }
+  select, input {
+    width: 100%; padding: 12px;
+    border-radius: 10px; border: none;
+    font-size: 16px; outline: none;
+    background: rgba(255,255,255,0.9);
+    color: #333;
+  }
+  button {
+    width: 100%; padding: 15px;
+    background: #00c9a7; color: white;
+    border: none; border-radius: 10px;
+    font-size: 18px; font-weight: bold;
+    cursor: pointer; transition: 0.3s;
+    margin-top: 10px;
+  }
+  button:hover { background: #00a98c; transform: translateY(-2px); }
+  button:disabled { background: #666; cursor: not-allowed; }
+  .ticket {
+    margin-top: 25px; padding: 25px;
+    background: #fff; color: #333;
+    border-radius: 15px; display: none;
+    animation: pop 0.5s ease;
+  }
+  @keyframes pop {
+    0% { transform: scale(0.5); opacity: 0; }
+    100% { transform: scale(1); opacity: 1; }
+  }
+  .ticket .number {
+    font-size: 60px; font-weight: bold;
+    color: #1e3c72; letter-spacing: 3px;
+  }
+  .ticket .info { margin-top: 10px; font-size: 14px; color: #666; }
+  .link-display {
+    display: inline-block; margin-top: 20px;
+    color: #fff; text-decoration: underline;
+    font-size: 13px; opacity: 0.8;
+  }
+</style>
+</head>
+<body>
+<div class="container">
+  <h1>🏥 Ambil Antrian</h1>
+  <p class="subtitle">Silakan pilih layanan dan masukkan nama Anda</p>
+
+  <div class="input-group">
+    <label>Jenis Layanan</label>
+    <select id="layanan">
+      <option value="A">A - Pendaftaran</option>
+      <option value="B">B - Poli Umum</option>
+      <option value="C">C - Farmasi</option>
+    </select>
+  </div>
+
+  <div class="input-group">
+    <label>Nama Anda</label>
+    <input type="text" id="nama" placeholder="Masukkan nama..." maxlength="30">
+  </div>
+
+  <button id="btnAmbil">Ambil Nomor Antrian</button>
+
+  <div class="ticket" id="ticket">
+    <div>Nomor Antrian Anda</div>
+    <div class="number" id="noAntrian">A-001</div>
+    <div class="info" id="infoTicket"></div>
+  </div>
+
+  <a href="display.html" target="_blank" class="link-display">🖥️ Buka Layar Tampilan Panggilan</a>
+</div>
+
+<script>
+  const CHANNEL_NAME = 'antrian_channel';
+  const STORAGE_KEY = 'antrian_data';
+  const channel = new BroadcastChannel(CHANNEL_NAME);
+
+  // Ambil state antrian dari localStorage
+  function getState() {
+    const data = localStorage.getItem(STORAGE_KEY);
+    return data ? JSON.parse(data) : { counters: { A: 0, B: 0, C: 0 }, list: [] };
+  }
+  function saveState(state) {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+  }
+
+  document.getElementById('btnAmbil').addEventListener('click', () => {
+    const layanan = document.getElementById('layanan').value;
+    const nama = document.getElementById('nama').value.trim();
+
+    if (!nama) {
+      alert('Silakan masukkan nama Anda terlebih dahulu!');
+      return;
+    }
+
+    const state = getState();
+    state.counters[layanan] = (state.counters[layanan] || 0) + 1;
+    const nomor = `${layanan}-${String(state.counters[layanan]).padStart(3, '0')}`;
+
+    const antrianBaru = {
+      nomor,
+      layanan,
+      nama,
+      waktu: new Date().toLocaleTimeString('id-ID'),
+      status: 'menunggu'
+    };
+    state.list.push(antrianBaru);
+    saveState(state);
+
+    // Kirim ke display
+    channel.postMessage({ type: 'NEW_QUEUE', data: antrianBaru });
+
+    // Tampilkan tiket
+    document.getElementById('ticket').style.display = 'block';
+    document.getElementById('noAntrian').textContent = nomor;
+    document.getElementById('infoTicket').innerHTML =
+      `Nama: <b>${nama}</b><br>Layanan: ${layanan}<br>Waktu: ${antrianBaru.waktu}`;
+
+    document.getElementById('btnAmbil').disabled = true;
+    document.getElementById('nama').disabled = true;
+    document.getElementById('layanan').disabled = true;
+  });
+</script>
+</body>
+</html>
