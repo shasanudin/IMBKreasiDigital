@@ -2,97 +2,371 @@
 <html lang="id">
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Ambil Antrian Online</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet">
 <style>
   * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --primary: #6366f1;
+    --primary-dark: #4f46e5;
+    --accent: #ec4899;
+    --accent-2: #8b5cf6;
+    --gold: #f59e0b;
+    --bg-dark: #0f0f23;
+    --text-light: #e2e8f0;
+    --glass-bg: rgba(255, 255, 255, 0.06);
+    --glass-border: rgba(255, 255, 255, 0.12);
+  }
+
+  html, body { height: 100%; }
+
   body {
-    font-family: 'Segoe UI', sans-serif;
-    background: linear-gradient(135deg, #1e3c72, #2a5298);
+    font-family: 'Inter', -apple-system, sans-serif;
+    background: var(--bg-dark);
     min-height: 100vh;
     display: flex; align-items: center; justify-content: center;
-    color: #fff;
+    color: var(--text-light);
+    overflow: hidden;
+    position: relative;
   }
+
+  /* Animated gradient mesh background */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: -50%;
+    background:
+      radial-gradient(circle at 20% 30%, rgba(99, 102, 241, 0.35), transparent 40%),
+      radial-gradient(circle at 80% 20%, rgba(236, 72, 153, 0.30), transparent 40%),
+      radial-gradient(circle at 60% 80%, rgba(139, 92, 246, 0.35), transparent 40%),
+      radial-gradient(circle at 10% 90%, rgba(245, 158, 11, 0.20), transparent 40%);
+    animation: meshMove 20s ease-in-out infinite alternate;
+    z-index: 0;
+  }
+  @keyframes meshMove {
+    0%   { transform: translate(0, 0) rotate(0deg); }
+    50%  { transform: translate(-5%, 3%) rotate(3deg); }
+    100% { transform: translate(3%, -5%) rotate(-3deg); }
+  }
+
+  /* Subtle noise overlay */
+  body::after {
+    content: '';
+    position: fixed; inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' /%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.5'/%3E%3C/svg%3E");
+    opacity: 0.04;
+    pointer-events: none;
+    z-index: 1;
+  }
+
   .container {
-    background: rgba(255,255,255,0.1);
-    backdrop-filter: blur(10px);
-    padding: 40px;
-    border-radius: 20px;
-    box-shadow: 0 8px 32px rgba(0,0,0,0.3);
-    text-align: center;
-    width: 90%; max-width: 500px;
-    border: 1px solid rgba(255,255,255,0.2);
+    position: relative;
+    z-index: 2;
+    width: 100%; max-width: 520px;
+    padding: 48px 40px;
+    background: rgba(20, 20, 40, 0.55);
+    backdrop-filter: blur(30px) saturate(180%);
+    -webkit-backdrop-filter: blur(30px) saturate(180%);
+    border-radius: 28px;
+    border: 1px solid var(--glass-border);
+    box-shadow:
+      0 30px 80px rgba(0, 0, 0, 0.5),
+      inset 0 1px 0 rgba(255, 255, 255, 0.1);
+    animation: fadeUp 0.7s cubic-bezier(0.22, 1, 0.36, 1);
   }
-  h1 { margin-bottom: 10px; font-size: 28px; }
-  p.subtitle { margin-bottom: 30px; opacity: 0.8; font-size: 14px; }
-  .input-group { margin-bottom: 20px; text-align: left; }
-  label { display: block; margin-bottom: 8px; font-size: 14px; }
-  select, input {
-    width: 100%; padding: 12px;
-    border-radius: 10px; border: none;
-    font-size: 16px; outline: none;
-    background: rgba(255,255,255,0.9);
-    color: #333;
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to   { opacity: 1; transform: translateY(0); }
   }
-  button {
-    width: 100%; padding: 15px;
-    background: #00c9a7; color: white;
-    border: none; border-radius: 10px;
-    font-size: 18px; font-weight: bold;
-    cursor: pointer; transition: 0.3s;
-    margin-top: 10px;
+
+  /* Header */
+  .header { text-align: center; margin-bottom: 36px; }
+
+  .badge {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 6px 14px;
+    background: rgba(99, 102, 241, 0.12);
+    border: 1px solid rgba(99, 102, 241, 0.3);
+    border-radius: 100px;
+    font-size: 12px; font-weight: 500;
+    color: #a5b4fc;
+    letter-spacing: 0.5px;
+    margin-bottom: 18px;
   }
-  button:hover { background: #00a98c; transform: translateY(-2px); }
-  button:disabled { background: #666; cursor: not-allowed; }
+  .badge .dot {
+    width: 6px; height: 6px; border-radius: 50%;
+    background: #10b981;
+    box-shadow: 0 0 10px #10b981;
+    animation: pulseDot 2s infinite;
+  }
+  @keyframes pulseDot {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.4; }
+  }
+
+  h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: 40px;
+    font-weight: 900;
+    line-height: 1.1;
+    letter-spacing: -0.5px;
+    background: linear-gradient(135deg, #ffffff 0%, #c7d2fe 50%, #f0abfc 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 10px;
+  }
+  .subtitle {
+    font-size: 14px;
+    color: rgba(226, 232, 240, 0.6);
+    font-weight: 400;
+    letter-spacing: 0.3px;
+  }
+
+  /* Form */
+  .input-group { margin-bottom: 22px; }
+  .input-group label {
+    display: block;
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: rgba(226, 232, 240, 0.55);
+    margin-bottom: 10px;
+  }
+
+  .input-wrap { position: relative; }
+
+  select, input[type="text"] {
+    width: 100%;
+    padding: 15px 18px;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1.5px solid rgba(255, 255, 255, 0.08);
+    border-radius: 14px;
+    font-family: inherit;
+    font-size: 15px;
+    color: #fff;
+    outline: none;
+    transition: all 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+    appearance: none;
+  }
+  select { cursor: pointer; padding-right: 44px; }
+  select option { background: #1a1a2e; color: #fff; }
+
+  select:hover, input:hover {
+    border-color: rgba(99, 102, 241, 0.4);
+    background: rgba(255, 255, 255, 0.06);
+  }
+  select:focus, input:focus {
+    border-color: var(--primary);
+    background: rgba(99, 102, 241, 0.08);
+    box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.15);
+  }
+
+  .select-arrow {
+    position: absolute;
+    right: 18px; top: 50%;
+    transform: translateY(-50%);
+    pointer-events: none;
+    color: rgba(226, 232, 240, 0.5);
+  }
+
+  /* Button */
+  button#btnAmbil {
+    width: 100%;
+    padding: 16px;
+    margin-top: 8px;
+    border: none;
+    border-radius: 14px;
+    font-family: inherit;
+    font-size: 15px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    color: #fff;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    background: linear-gradient(135deg, #6366f1, #8b5cf6 50%, #ec4899);
+    background-size: 200% 200%;
+    box-shadow:
+      0 10px 30px rgba(99, 102, 241, 0.4),
+      inset 0 1px 0 rgba(255, 255, 255, 0.2);
+    transition: all 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  button#btnAmbil::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: linear-gradient(135deg, #ec4899, #8b5cf6 50%, #6366f1);
+    opacity: 0;
+    transition: opacity 0.4s;
+  }
+  button#btnAmbil span { position: relative; z-index: 1; }
+  button#btnAmbil:hover:not(:disabled) {
+    transform: translateY(-2px);
+    box-shadow:
+      0 15px 40px rgba(99, 102, 241, 0.55),
+      inset 0 1px 0 rgba(255, 255, 255, 0.3);
+  }
+  button#btnAmbil:hover:not(:disabled)::before { opacity: 1; }
+  button#btnAmbil:active:not(:disabled) { transform: translateY(0); }
+  button#btnAmbil:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    box-shadow: none;
+  }
+
+  /* Ticket */
   .ticket {
-    margin-top: 25px; padding: 25px;
-    background: #fff; color: #333;
-    border-radius: 15px; display: none;
-    animation: pop 0.5s ease;
+    margin-top: 28px;
+    padding: 32px 24px;
+    background: linear-gradient(135deg, #ffffff, #f1f5f9);
+    border-radius: 20px;
+    text-align: center;
+    color: #1e293b;
+    position: relative;
+    display: none;
+    overflow: hidden;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
   }
-  @keyframes pop {
-    0% { transform: scale(0.5); opacity: 0; }
-    100% { transform: scale(1); opacity: 1; }
+  .ticket.show {
+    display: block;
+    animation: ticketPop 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+  @keyframes ticketPop {
+    0%   { transform: scale(0.7) translateY(20px); opacity: 0; }
+    100% { transform: scale(1) translateY(0); opacity: 1; }
+  }
+  .ticket::before, .ticket::after {
+    content: '';
+    position: absolute;
+    width: 30px; height: 30px;
+    background: rgba(20, 20, 40, 0.55);
+    border-radius: 50%;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+  .ticket::before { left: -15px; }
+  .ticket::after { right: -15px; }
+
+  .ticket .label {
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: #64748b;
+    margin-bottom: 12px;
   }
   .ticket .number {
-    font-size: 60px; font-weight: bold;
-    color: #1e3c72; letter-spacing: 3px;
+    font-family: 'Playfair Display', serif;
+    font-size: 72px;
+    font-weight: 900;
+    line-height: 1;
+    letter-spacing: -2px;
+    background: linear-gradient(135deg, #6366f1, #ec4899);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 16px;
   }
-  .ticket .info { margin-top: 10px; font-size: 14px; color: #666; }
+  .ticket .divider {
+    height: 1px;
+    background: repeating-linear-gradient(90deg, #cbd5e1 0 8px, transparent 8px 16px);
+    margin: 18px 0;
+  }
+  .ticket .info {
+    font-size: 13px;
+    color: #475569;
+    line-height: 1.7;
+  }
+  .ticket .info b { color: #1e293b; font-weight: 700; }
+
+  /* Display link */
   .link-display {
-    display: inline-block; margin-top: 20px;
-    color: #fff; text-decoration: underline;
-    font-size: 13px; opacity: 0.8;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 26px;
+    padding: 12px;
+    font-size: 13px;
+    font-weight: 500;
+    color: rgba(165, 180, 252, 0.9);
+    text-decoration: none;
+    border-radius: 12px;
+    transition: all 0.3s;
+  }
+  .link-display:hover {
+    background: rgba(99, 102, 241, 0.1);
+    color: #c7d2fe;
+    transform: translateY(-1px);
+  }
+
+  /* Footer credit */
+  .footer-note {
+    text-align: center;
+    margin-top: 20px;
+    font-size: 11px;
+    color: rgba(226, 232, 240, 0.3);
+    letter-spacing: 0.5px;
+  }
+
+  /* Responsive */
+  @media (max-width: 540px) {
+    .container { padding: 36px 24px; margin: 16px; }
+    h1 { font-size: 32px; }
+    .ticket .number { font-size: 56px; }
   }
 </style>
 </head>
 <body>
 <div class="container">
-  <h1>🏥 Ambil Antrian</h1>
-  <p class="subtitle">Silakan pilih layanan dan masukkan nama Anda</p>
-
-  <div class="input-group">
-    <label>Jenis Layanan</label>
-    <select id="layanan">
-      <option value="A">A - Pendaftaran</option>
-      <option value="B">B - Poli Umum</option>
-      <option value="C">C - Farmasi</option>
-    </select>
+  <div class="header">
+    <div class="badge">
+      <span class="dot"></span>
+      <span>Sistem Online</span>
+    </div>
+    <h1>Ambil Antrian</h1>
+    <p class="subtitle">Isi data Anda untuk mendapatkan nomor antrian</p>
   </div>
 
   <div class="input-group">
-    <label>Nama Anda</label>
-    <input type="text" id="nama" placeholder="Masukkan nama..." maxlength="30">
+    <label for="layanan">Jenis Layanan</label>
+    <div class="input-wrap">
+      <select id="layanan">
+        <option value="A">A · Pendaftaran</option>
+        <option value="B">B · Poli Umum</option>
+        <option value="C">C · Farmasi</option>
+      </select>
+      <svg class="select-arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+    </div>
   </div>
 
-  <button id="btnAmbil">Ambil Nomor Antrian</button>
+  <div class="input-group">
+    <label for="nama">Nama Lengkap</label>
+    <div class="input-wrap">
+      <input type="text" id="nama" placeholder="Contoh: Budi Santoso" maxlength="30" autocomplete="off">
+    </div>
+  </div>
+
+  <button id="btnAmbil"><span>🎫  Ambil Nomor Antrian</span></button>
 
   <div class="ticket" id="ticket">
-    <div>Nomor Antrian Anda</div>
+    <div class="label">Nomor Antrian Anda</div>
     <div class="number" id="noAntrian">A-001</div>
+    <div class="divider"></div>
     <div class="info" id="infoTicket"></div>
   </div>
 
-  <a href="display.html" target="_blank" class="link-display">🖥️ Buka Layar Tampilan Panggilan</a>
+  <a href="display.html" target="_blank" class="link-display">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+    Buka Layar Tampilan Panggilan
+  </a>
+
+  <div class="footer-note">© Antrian Online · Sistem Real-time</div>
 </div>
 
 <script>
@@ -100,7 +374,6 @@
   const STORAGE_KEY = 'antrian_data';
   const channel = new BroadcastChannel(CHANNEL_NAME);
 
-  // Ambil state antrian dari localStorage
   function getState() {
     const data = localStorage.getItem(STORAGE_KEY);
     return data ? JSON.parse(data) : { counters: { A: 0, B: 0, C: 0 }, list: [] };
@@ -114,7 +387,14 @@
     const nama = document.getElementById('nama').value.trim();
 
     if (!nama) {
-      alert('Silakan masukkan nama Anda terlebih dahulu!');
+      const input = document.getElementById('nama');
+      input.focus();
+      input.style.borderColor = '#ef4444';
+      input.style.boxShadow = '0 0 0 4px rgba(239, 68, 68, 0.15)';
+      setTimeout(() => {
+        input.style.borderColor = '';
+        input.style.boxShadow = '';
+      }, 1500);
       return;
     }
 
@@ -123,27 +403,29 @@
     const nomor = `${layanan}-${String(state.counters[layanan]).padStart(3, '0')}`;
 
     const antrianBaru = {
-      nomor,
-      layanan,
-      nama,
+      nomor, layanan, nama,
       waktu: new Date().toLocaleTimeString('id-ID'),
       status: 'menunggu'
     };
     state.list.push(antrianBaru);
     saveState(state);
 
-    // Kirim ke display
     channel.postMessage({ type: 'NEW_QUEUE', data: antrianBaru });
 
-    // Tampilkan tiket
-    document.getElementById('ticket').style.display = 'block';
+    const ticket = document.getElementById('ticket');
+    ticket.classList.add('show');
     document.getElementById('noAntrian').textContent = nomor;
     document.getElementById('infoTicket').innerHTML =
-      `Nama: <b>${nama}</b><br>Layanan: ${layanan}<br>Waktu: ${antrianBaru.waktu}`;
+      `<b>${nama}</b><br>Layanan ${layanan} · ${antrianBaru.waktu}`;
 
     document.getElementById('btnAmbil').disabled = true;
     document.getElementById('nama').disabled = true;
     document.getElementById('layanan').disabled = true;
+  });
+
+  // Enter untuk submit
+  document.getElementById('nama').addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') document.getElementById('btnAmbil').click();
   });
 </script>
 </body>
