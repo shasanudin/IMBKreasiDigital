@@ -2,144 +2,516 @@
 <html lang="id">
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Display Antrian</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet">
 <style>
   * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --primary: #6366f1;
+    --accent: #ec4899;
+    --accent-2: #8b5cf6;
+    --gold: #f59e0b;
+    --emerald: #10b981;
+    --bg: #08081a;
+    --text: #e2e8f0;
+  }
+
+  html, body { height: 100%; }
+
   body {
-    font-family: 'Segoe UI', sans-serif;
-    background: #0a0e27;
-    color: #fff;
-    min-height: 100vh;
+    font-family: 'Inter', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    height: 100vh;
     display: grid;
     grid-template-rows: auto 1fr auto;
     overflow: hidden;
+    position: relative;
   }
-  header {
-    background: linear-gradient(90deg, #1e3c72, #2a5298);
-    padding: 20px 40px;
-    display: flex; justify-content: space-between; align-items: center;
-    box-shadow: 0 4px 20px rgba(0,0,0,0.5);
-  }
-  header h1 { font-size: 28px; letter-spacing: 2px; }
-  #clock { font-size: 24px; font-weight: bold; }
 
+  /* Animated background mesh */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: -30%;
+    background:
+      radial-gradient(circle at 15% 25%, rgba(99, 102, 241, 0.25), transparent 35%),
+      radial-gradient(circle at 85% 15%, rgba(236, 72, 153, 0.20), transparent 35%),
+      radial-gradient(circle at 70% 85%, rgba(139, 92, 246, 0.25), transparent 35%),
+      radial-gradient(circle at 5% 80%, rgba(245, 158, 11, 0.15), transparent 35%);
+    animation: meshMove 30s ease-in-out infinite alternate;
+    z-index: 0;
+  }
+  @keyframes meshMove {
+    0%   { transform: translate(0, 0) rotate(0deg) scale(1); }
+    100% { transform: translate(-5%, 5%) rotate(5deg) scale(1.1); }
+  }
+
+  /* Noise overlay */
+  body::after {
+    content: '';
+    position: fixed; inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' /%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.5'/%3E%3C/svg%3E");
+    opacity: 0.035;
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  /* ===== HEADER ===== */
+  header {
+    position: relative;
+    z-index: 3;
+    padding: 20px 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: rgba(15, 15, 35, 0.6);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  }
+
+  .brand {
+    display: flex; align-items: center; gap: 16px;
+  }
+  .brand-logo {
+    width: 46px; height: 46px;
+    border-radius: 12px;
+    background: linear-gradient(135deg, #6366f1, #8b5cf6, #ec4899);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 22px;
+    box-shadow: 0 8px 24px rgba(99, 102, 241, 0.4);
+    position: relative;
+  }
+  .brand-logo::after {
+    content: '';
+    position: absolute; inset: -2px;
+    border-radius: 14px;
+    background: linear-gradient(135deg, #6366f1, #ec4899);
+    opacity: 0.3;
+    filter: blur(12px);
+    z-index: -1;
+  }
+  .brand-text h1 {
+    font-size: 18px;
+    font-weight: 800;
+    letter-spacing: 1.5px;
+    background: linear-gradient(135deg, #ffffff, #c7d2fe);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  .brand-text p {
+    font-size: 11px;
+    color: rgba(226, 232, 240, 0.5);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-top: 2px;
+  }
+
+  .clock-wrap {
+    display: flex; flex-direction: column; align-items: flex-end;
+  }
+  #clock {
+    font-family: 'Playfair Display', serif;
+    font-size: 32px;
+    font-weight: 900;
+    letter-spacing: 1px;
+    background: linear-gradient(135deg, #f0abfc, #a5b4fc);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    line-height: 1;
+  }
+  #date {
+    font-size: 11px;
+    color: rgba(226, 232, 240, 0.5);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-top: 4px;
+  }
+
+  /* ===== MAIN ===== */
   main {
+    position: relative;
+    z-index: 2;
     display: grid;
-    grid-template-columns: 2fr 1fr;
-    gap: 20px;
-    padding: 20px;
+    grid-template-columns: 1.6fr 1fr;
+    gap: 22px;
+    padding: 22px;
     overflow: hidden;
   }
 
+  /* ===== CURRENT CALL CARD ===== */
   .current-call {
-    background: linear-gradient(135deg, #00c9a7, #00a98c);
-    border-radius: 20px;
+    position: relative;
+    border-radius: 24px;
+    padding: 30px;
     display: flex; flex-direction: column;
     align-items: center; justify-content: center;
-    padding: 30px;
-    box-shadow: 0 10px 40px rgba(0,201,167,0.4);
-    position: relative;
+    text-align: center;
+    background:
+      linear-gradient(135deg, rgba(99, 102, 241, 0.15), rgba(236, 72, 153, 0.12)),
+      rgba(20, 20, 45, 0.6);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow:
+      0 30px 80px rgba(0, 0, 0, 0.5),
+      inset 0 1px 0 rgba(255, 255, 255, 0.08);
     overflow: hidden;
   }
+
+  /* Glow ring behind number */
   .current-call::before {
-    content: ''; position: absolute;
-    width: 200%; height: 200%;
-    background: radial-gradient(circle, rgba(255,255,255,0.15), transparent 60%);
-    animation: pulse 3s infinite;
+    content: '';
+    position: absolute;
+    width: 500px; height: 500px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(99, 102, 241, 0.35), transparent 60%);
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    animation: glowPulse 4s ease-in-out infinite;
+    z-index: 0;
   }
-  @keyframes pulse {
-    0% { transform: scale(0.8); opacity: 0.5; }
-    50% { transform: scale(1.1); opacity: 0.2; }
-    100% { transform: scale(0.8); opacity: 0.5; }
-  }
-  .current-call .label { font-size: 22px; letter-spacing: 3px; opacity: 0.9; z-index: 1; }
-  .current-call .number {
-    font-size: 140px; font-weight: 900;
-    letter-spacing: 6px;
-    margin: 20px 0;
-    z-index: 1;
-    text-shadow: 0 0 30px rgba(255,255,255,0.6);
-    animation: glow 1.5s infinite alternate;
-  }
-  @keyframes glow {
-    from { text-shadow: 0 0 20px rgba(255,255,255,0.4); }
-    to { text-shadow: 0 0 40px rgba(255,255,255,0.9); }
-  }
-  .current-call .name { font-size: 32px; z-index: 1; }
-  .current-call .counter {
-    margin-top: 20px; font-size: 20px;
-    background: rgba(0,0,0,0.3);
-    padding: 10px 25px; border-radius: 30px;
-    z-index: 1;
+  @keyframes glowPulse {
+    0%, 100% { opacity: 0.6; transform: translate(-50%, -50%) scale(1); }
+    50%      { opacity: 1;   transform: translate(-50%, -50%) scale(1.15); }
   }
 
+  /* Rotating decorative ring */
+  .current-call::after {
+    content: '';
+    position: absolute;
+    width: 320px; height: 320px;
+    border-radius: 50%;
+    border: 2px dashed rgba(165, 180, 252, 0.25);
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    animation: spin 30s linear infinite;
+    z-index: 0;
+  }
+  @keyframes spin {
+    to { transform: translate(-50%, -50%) rotate(360deg); }
+  }
+
+  .current-call .content {
+    position: relative;
+    z-index: 1;
+    display: flex; flex-direction: column;
+    align-items: center;
+  }
+
+  .label-live {
+    display: inline-flex; align-items: center; gap: 10px;
+    padding: 8px 20px;
+    background: rgba(16, 185, 129, 0.15);
+    border: 1px solid rgba(16, 185, 129, 0.4);
+    border-radius: 100px;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: #6ee7b7;
+    margin-bottom: 24px;
+  }
+  .label-live .live-dot {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: #10b981;
+    box-shadow: 0 0 12px #10b981;
+    animation: livePulse 1.5s infinite;
+  }
+  @keyframes livePulse {
+    0%, 100% { transform: scale(1); opacity: 1; }
+    50%      { transform: scale(1.4); opacity: 0.6; }
+  }
+
+  .current-number {
+    font-family: 'Playfair Display', serif;
+    font-size: 180px;
+    font-weight: 900;
+    line-height: 1;
+    letter-spacing: -6px;
+    background: linear-gradient(135deg, #ffffff 0%, #c7d2fe 40%, #f0abfc 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    filter: drop-shadow(0 0 40px rgba(165, 180, 252, 0.5));
+    animation: numberGlow 2s ease-in-out infinite alternate;
+    margin: 8px 0;
+  }
+  @keyframes numberGlow {
+    from { filter: drop-shadow(0 0 30px rgba(165, 180, 252, 0.4)); }
+    to   { filter: drop-shadow(0 0 60px rgba(236, 72, 153, 0.7)); }
+  }
+
+  .current-name {
+    font-size: 32px;
+    font-weight: 700;
+    color: #fff;
+    margin: 12px 0 8px;
+    letter-spacing: 0.5px;
+  }
+
+  .counter-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    margin-top: 16px;
+    padding: 14px 32px;
+    background: linear-gradient(135deg, rgba(99, 102, 241, 0.25), rgba(236, 72, 153, 0.25));
+    border: 1px solid rgba(165, 180, 252, 0.3);
+    border-radius: 100px;
+    font-size: 17px;
+    font-weight: 600;
+    color: #e0e7ff;
+    letter-spacing: 0.5px;
+    backdrop-filter: blur(10px);
+  }
+  .counter-badge svg { color: #f0abfc; }
+
+  /* ===== QUEUE LIST CARD ===== */
   .queue-list {
-    background: rgba(255,255,255,0.05);
-    border-radius: 20px;
-    padding: 20px;
-    border: 1px solid rgba(255,255,255,0.1);
+    background: rgba(20, 20, 45, 0.55);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    border-radius: 24px;
+    padding: 26px;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    box-shadow:
+      0 20px 60px rgba(0, 0, 0, 0.4),
+      inset 0 1px 0 rgba(255, 255, 255, 0.06);
     display: flex; flex-direction: column;
     overflow: hidden;
   }
-  .queue-list h2 {
-    font-size: 20px; margin-bottom: 15px;
-    padding-bottom: 10px;
-    border-bottom: 2px solid #00c9a7;
+
+  .queue-list-header {
+    display: flex; align-items: center; justify-content: space-between;
+    margin-bottom: 20px;
+    padding-bottom: 18px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
   }
-  .queue-list ul { list-style: none; overflow-y: auto; flex: 1; }
-  .queue-list li {
-    display: flex; justify-content: space-between;
-    padding: 12px 15px; margin-bottom: 8px;
-    background: rgba(255,255,255,0.08);
-    border-radius: 10px;
-    font-size: 18px;
-    animation: slideIn 0.4s ease;
+  .queue-list-header h2 {
+    font-size: 16px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: rgba(226, 232, 240, 0.9);
+    display: flex; align-items: center; gap: 10px;
+  }
+  .queue-list-header h2 .pill {
+    background: linear-gradient(135deg, #6366f1, #ec4899);
+    color: #fff;
+    font-size: 12px;
+    font-weight: 800;
+    padding: 3px 10px;
+    border-radius: 100px;
+    letter-spacing: 0;
+  }
+
+  ul#queueList {
+    list-style: none;
+    overflow-y: auto;
+    flex: 1;
+    padding-right: 6px;
+    display: flex; flex-direction: column;
+    gap: 10px;
+  }
+  ul#queueList::-webkit-scrollbar { width: 4px; }
+  ul#queueList::-webkit-scrollbar-track { background: transparent; }
+  ul#queueList::-webkit-scrollbar-thumb {
+    background: rgba(165, 180, 252, 0.3);
+    border-radius: 4px;
+  }
+
+  ul#queueList li {
+    display: flex; align-items: center; gap: 14px;
+    padding: 14px 18px;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    border-radius: 14px;
+    transition: all 0.3s;
+    animation: slideIn 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  ul#queueList li:hover {
+    background: rgba(99, 102, 241, 0.12);
+    border-color: rgba(99, 102, 241, 0.3);
+    transform: translateX(4px);
   }
   @keyframes slideIn {
     from { transform: translateX(30px); opacity: 0; }
-    to { transform: translateX(0); opacity: 1; }
+    to   { transform: translateX(0); opacity: 1; }
   }
-  .queue-list li .nomor { font-weight: bold; color: #00c9a7; }
-  .queue-list li .nama { font-size: 14px; opacity: 0.7; margin-left: 10px; }
 
-  footer {
-    background: #060a1f;
-    padding: 12px; text-align: center;
-    font-size: 14px; opacity: 0.7;
-    display: flex; justify-content: center; gap: 30px;
+  ul#queueList li .queue-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 22px;
+    font-weight: 900;
+    background: linear-gradient(135deg, #a5b4fc, #f0abfc);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    min-width: 70px;
   }
-  footer .counter-info { color: #00c9a7; font-weight: bold; }
+  ul#queueList li .queue-name {
+    font-size: 14px;
+    color: rgba(226, 232, 240, 0.8);
+    font-weight: 500;
+    flex: 1;
+    white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  }
+  ul#queueList li .queue-status {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    padding: 4px 10px;
+    border-radius: 100px;
+    background: rgba(245, 158, 11, 0.15);
+    color: #fbbf24;
+    border: 1px solid rgba(245, 158, 11, 0.3);
+  }
+
+  .empty-state {
+    flex: 1;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    color: rgba(226, 232, 240, 0.3);
+    font-size: 13px;
+    gap: 12px;
+  }
+  .empty-state svg { opacity: 0.4; }
+
+  /* ===== FOOTER ===== */
+  footer {
+    position: relative;
+    z-index: 3;
+    padding: 14px 40px;
+    background: rgba(10, 10, 25, 0.75);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-top: 1px solid rgba(255, 255, 255, 0.06);
+    display: flex;
+    justify-content: center;
+    gap: 50px;
+    font-size: 12px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: rgba(226, 232, 240, 0.45);
+  }
+  footer .stat {
+    display: flex; align-items: center; gap: 10px;
+  }
+  footer .stat .val {
+    font-family: 'Playfair Display', serif;
+    font-size: 22px;
+    font-weight: 900;
+    color: #fff;
+    letter-spacing: 0;
+  }
+  footer .stat .val.total    { color: #a5b4fc; }
+  footer .stat .val.waiting  { color: #fbbf24; }
+  footer .stat .val.called   { color: #6ee7b7; }
+
+  footer .hint {
+    position: absolute;
+    right: 40px; top: 50%;
+    transform: translateY(-50%);
+    font-size: 10px;
+    letter-spacing: 1px;
+    color: rgba(226, 232, 240, 0.3);
+    padding: 6px 14px;
+    border-radius: 100px;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+  }
+  footer .hint kbd {
+    font-family: inherit;
+    font-weight: 700;
+    color: #c7d2fe;
+    padding: 2px 6px;
+    background: rgba(99, 102, 241, 0.2);
+    border-radius: 4px;
+    font-size: 10px;
+  }
+
+  /* ===== RESPONSIVE ===== */
+  @media (max-width: 1200px) {
+    .current-number { font-size: 140px; }
+    .current-name { font-size: 26px; }
+  }
+  @media (max-width: 900px) {
+    main { grid-template-columns: 1fr; }
+    .queue-list { display: none; }
+    .current-number { font-size: 120px; }
+    footer { gap: 24px; }
+    footer .hint { display: none; }
+  }
 </style>
 </head>
 <body>
+
 <header>
-  <h1>📺 DISPLAY ANTRIAN ONLINE</h1>
-  <div id="clock">--:--:--</div>
+  <div class="brand">
+    <div class="brand-logo">📺</div>
+    <div class="brand-text">
+      <h1>DISPLAY ANTRIAN</h1>
+      <p>Real-time Queue System</p>
+    </div>
+  </div>
+  <div class="clock-wrap">
+    <div id="clock">--:--:--</div>
+    <div id="date">—</div>
+  </div>
 </header>
 
 <main>
-  <div class="current-call" id="currentCall">
-    <div class="label">NOMOR ANTRIAN</div>
-    <div class="number" id="currentNumber">---</div>
-    <div class="name" id="currentName">Menunggu panggilan...</div>
-    <div class="counter" id="currentCounter">Silakan menuju loket</div>
+  <!-- Kartu Panggilan Aktif -->
+  <div class="current-call">
+    <div class="content">
+      <div class="label-live">
+        <span class="live-dot"></span>
+        <span>Sedang Dipanggil</span>
+      </div>
+      <div class="current-number" id="currentNumber">---</div>
+      <div class="current-name" id="currentName">Menunggu panggilan...</div>
+      <div class="counter-badge" id="currentCounter">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+        <span>Silakan menuju loket</span>
+      </div>
+    </div>
   </div>
 
+  <!-- Daftar Antrian -->
   <div class="queue-list">
-    <h2>📋 Daftar Antrian</h2>
+    <div class="queue-list-header">
+      <h2>
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#a5b4fc" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>
+        Daftar Antrian
+        <span class="pill" id="queueCount">0</span>
+      </h2>
+    </div>
     <ul id="queueList">
-      <li style="opacity:0.5;">Belum ada antrian</li>
+      <div class="empty-state">
+        <svg width="50" height="50" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+        <span>Belum ada antrian menunggu</span>
+      </div>
     </ul>
   </div>
 </main>
 
 <footer>
-  <div>Total Antrian: <span class="counter-info" id="total">0</span></div>
-  <div>Menunggu: <span class="counter-info" id="waiting">0</span></div>
-  <div>Terpanggil: <span class="counter-info" id="called">0</span></div>
+  <div class="stat">Total <span class="val total" id="total">0</span></div>
+  <div class="stat">Menunggu <span class="val waiting" id="waiting">0</span></div>
+  <div class="stat">Terpanggil <span class="val called" id="called">0</span></div>
+  <div class="hint">Tekan <kbd>SPACE</kbd> untuk panggil berikutnya</div>
 </footer>
 
-<!-- Audio panggilan (base64 sederhana berupa beep) -->
 <audio id="bell" preload="auto">
   <source src="data:audio/wav;base64,UklGRl9vT19XQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YQBvT18AAAAAAP7+/v39/fz8/Pv7+/r6+vn5+fj4+Pf39/b29vX19fT09PPz8/Ly8vHx8fDw8O/v7+7u7u3t7ezs7Ovr6+rq6unp6ejo6Ofn5+bm5uXl5eTk5OPj4+Li4uHh4eDg4N/f397e3t3d3dzc3Nvb29ra2tnZ2djY2NfX19bW1tXV1dTU1NPT09LS0tHR0dDQ0M/Pz87Ozs3NzczMzMvLy8rKysnJycjIyMfHx8bGxsXFxcTExMPDw8LCwsHBwcDAwL+/v76+vr29vby8vLu7u7q6urm5ubi4uLe3t7a2trW1tbS0tLOzs7KysrGxsbCwsK+vr66urq2traysrKurq6qqqqmpqQ=="/>
 </audio>
@@ -156,22 +528,34 @@
     return data ? JSON.parse(data) : { counters: { A: 0, B: 0, C: 0 }, list: [] };
   }
 
-  // Update jam
-  setInterval(() => {
-    document.getElementById('clock').textContent = new Date().toLocaleTimeString('id-ID');
-  }, 1000);
+  function updateClock() {
+    const now = new Date();
+    document.getElementById('clock').textContent =
+      now.toLocaleTimeString('id-ID', { hour12: false });
+    document.getElementById('date').textContent =
+      now.toLocaleDateString('id-ID', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });
+  }
+  setInterval(updateClock, 1000);
+  updateClock();
 
-  // Render daftar antrian
   function render() {
     const list = document.getElementById('queueList');
     const waiting = state.list.filter(q => q.status === 'menunggu');
 
+    document.getElementById('queueCount').textContent = waiting.length;
+
     if (waiting.length === 0) {
-      list.innerHTML = '<li style="opacity:0.5;">Belum ada antrian menunggu</li>';
+      list.innerHTML = `
+        <div class="empty-state">
+          <svg width="50" height="50" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          <span>Belum ada antrian menunggu</span>
+        </div>`;
     } else {
       list.innerHTML = waiting.map(q => `
         <li>
-          <span><span class="nomor">${q.nomor}</span><span class="nama">${q.nama}</span></span>
+          <span class="queue-num">${q.nomor}</span>
+          <span class="queue-name">${q.nama}</span>
+          <span class="queue-status">Menunggu</span>
         </li>
       `).join('');
     }
@@ -182,7 +566,6 @@
       state.list.filter(q => q.status === 'dipanggil').length;
   }
 
-  // Fungsi panggil antrian
   function panggilAntrian() {
     const next = state.list.find(q => q.status === 'menunggu');
     if (!next) return false;
@@ -191,13 +574,17 @@
     next.waktuPanggil = new Date().toLocaleTimeString('id-ID');
     localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
 
-    // Update tampilan utama
-    document.getElementById('currentNumber').textContent = next.nomor;
-    document.getElementById('currentName').textContent = next.nama;
-    document.getElementById('currentCounter').textContent =
-      `Silakan menuju loket ${next.layanan}`;
+    const numEl = document.getElementById('currentNumber');
+    numEl.textContent = next.nomor;
+    numEl.style.animation = 'none';
+    void numEl.offsetWidth;
+    numEl.style.animation = 'numberGlow 2s ease-in-out infinite alternate';
 
-    // Mainkan suara
+    document.getElementById('currentName').textContent = next.nama;
+    document.getElementById('currentCounter').innerHTML = `
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+      <span>Silakan menuju loket ${next.layanan}</span>`;
+
     playBell();
     speak(`Nomor antrian ${next.nomor.split('').join(' ')}, atas nama ${next.nama}, silakan menuju loket ${next.layanan}`);
 
@@ -213,14 +600,15 @@
 
   function speak(text) {
     if ('speechSynthesis' in window) {
+      speechSynthesis.cancel();
       const u = new SpeechSynthesisUtterance(text);
       u.lang = 'id-ID';
       u.rate = 0.9;
+      u.pitch = 1;
       speechSynthesis.speak(u);
     }
   }
 
-  // Dengarkan pesan dari halaman ambil antrian
   channel.onmessage = (e) => {
     if (e.data.type === 'NEW_QUEUE') {
       state = loadState();
@@ -232,7 +620,6 @@
     }
   };
 
-  // Sinkron antar tab (jika ada perubahan dari tab lain)
   window.addEventListener('storage', (e) => {
     if (e.key === STORAGE_KEY) {
       state = loadState();
@@ -240,7 +627,6 @@
     }
   });
 
-  // Tombol keyboard: tekan SPASI untuk memanggil antrian berikutnya
   document.addEventListener('keydown', (e) => {
     if (e.code === 'Space') {
       e.preventDefault();
@@ -249,7 +635,6 @@
     }
   });
 
-  // Inisialisasi
   render();
 </script>
 </body>
