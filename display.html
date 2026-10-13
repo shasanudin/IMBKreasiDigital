@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<title>Display Antrian</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Segoe UI', sans-serif;
+    background: #0a0e27;
+    color: #fff;
+    min-height: 100vh;
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+    overflow: hidden;
+  }
+  header {
+    background: linear-gradient(90deg, #1e3c72, #2a5298);
+    padding: 20px 40px;
+    display: flex; justify-content: space-between; align-items: center;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+  }
+  header h1 { font-size: 28px; letter-spacing: 2px; }
+  #clock { font-size: 24px; font-weight: bold; }
+
+  main {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 20px;
+    padding: 20px;
+    overflow: hidden;
+  }
+
+  .current-call {
+    background: linear-gradient(135deg, #00c9a7, #00a98c);
+    border-radius: 20px;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    padding: 30px;
+    box-shadow: 0 10px 40px rgba(0,201,167,0.4);
+    position: relative;
+    overflow: hidden;
+  }
+  .current-call::before {
+    content: ''; position: absolute;
+    width: 200%; height: 200%;
+    background: radial-gradient(circle, rgba(255,255,255,0.15), transparent 60%);
+    animation: pulse 3s infinite;
+  }
+  @keyframes pulse {
+    0% { transform: scale(0.8); opacity: 0.5; }
+    50% { transform: scale(1.1); opacity: 0.2; }
+    100% { transform: scale(0.8); opacity: 0.5; }
+  }
+  .current-call .label { font-size: 22px; letter-spacing: 3px; opacity: 0.9; z-index: 1; }
+  .current-call .number {
+    font-size: 140px; font-weight: 900;
+    letter-spacing: 6px;
+    margin: 20px 0;
+    z-index: 1;
+    text-shadow: 0 0 30px rgba(255,255,255,0.6);
+    animation: glow 1.5s infinite alternate;
+  }
+  @keyframes glow {
+    from { text-shadow: 0 0 20px rgba(255,255,255,0.4); }
+    to { text-shadow: 0 0 40px rgba(255,255,255,0.9); }
+  }
+  .current-call .name { font-size: 32px; z-index: 1; }
+  .current-call .counter {
+    margin-top: 20px; font-size: 20px;
+    background: rgba(0,0,0,0.3);
+    padding: 10px 25px; border-radius: 30px;
+    z-index: 1;
+  }
+
+  .queue-list {
+    background: rgba(255,255,255,0.05);
+    border-radius: 20px;
+    padding: 20px;
+    border: 1px solid rgba(255,255,255,0.1);
+    display: flex; flex-direction: column;
+    overflow: hidden;
+  }
+  .queue-list h2 {
+    font-size: 20px; margin-bottom: 15px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #00c9a7;
+  }
+  .queue-list ul { list-style: none; overflow-y: auto; flex: 1; }
+  .queue-list li {
+    display: flex; justify-content: space-between;
+    padding: 12px 15px; margin-bottom: 8px;
+    background: rgba(255,255,255,0.08);
+    border-radius: 10px;
+    font-size: 18px;
+    animation: slideIn 0.4s ease;
+  }
+  @keyframes slideIn {
+    from { transform: translateX(30px); opacity: 0; }
+    to { transform: translateX(0); opacity: 1; }
+  }
+  .queue-list li .nomor { font-weight: bold; color: #00c9a7; }
+  .queue-list li .nama { font-size: 14px; opacity: 0.7; margin-left: 10px; }
+
+  footer {
+    background: #060a1f;
+    padding: 12px; text-align: center;
+    font-size: 14px; opacity: 0.7;
+    display: flex; justify-content: center; gap: 30px;
+  }
+  footer .counter-info { color: #00c9a7; font-weight: bold; }
+</style>
+</head>
+<body>
+<header>
+  <h1>📺 DISPLAY ANTRIAN ONLINE</h1>
+  <div id="clock">--:--:--</div>
+</header>
+
+<main>
+  <div class="current-call" id="currentCall">
+    <div class="label">NOMOR ANTRIAN</div>
+    <div class="number" id="currentNumber">---</div>
+    <div class="name" id="currentName">Menunggu panggilan...</div>
+    <div class="counter" id="currentCounter">Silakan menuju loket</div>
+  </div>
+
+  <div class="queue-list">
+    <h2>📋 Daftar Antrian</h2>
+    <ul id="queueList">
+      <li style="opacity:0.5;">Belum ada antrian</li>
+    </ul>
+  </div>
+</main>
+
+<footer>
+  <div>Total Antrian: <span class="counter-info" id="total">0</span></div>
+  <div>Menunggu: <span class="counter-info" id="waiting">0</span></div>
+  <div>Terpanggil: <span class="counter-info" id="called">0</span></div>
+</footer>
+
+<!-- Audio panggilan (base64 sederhana berupa beep) -->
+<audio id="bell" preload="auto">
+  <source src="data:audio/wav;base64,UklGRl9vT19XQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YQBvT18AAAAAAP7+/v39/fz8/Pv7+/r6+vn5+fj4+Pf39/b29vX19fT09PPz8/Ly8vHx8fDw8O/v7+7u7u3t7ezs7Ovr6+rq6unp6ejo6Ofn5+bm5uXl5eTk5OPj4+Li4uHh4eDg4N/f397e3t3d3dzc3Nvb29ra2tnZ2djY2NfX19bW1tXV1dTU1NPT09LS0tHR0dDQ0M/Pz87Ozs3NzczMzMvLy8rKysnJycjIyMfHx8bGxsXFxcTExMPDw8LCwsHBwcDAwL+/v76+vr29vby8vLu7u7q6urm5ubi4uLe3t7a2trW1tbS0tLOzs7KysrGxsbCwsK+vr66urq2traysrKurq6qqqqmpqQ=="/>
+</audio>
+
+<script>
+  const CHANNEL_NAME = 'antrian_channel';
+  const STORAGE_KEY = 'antrian_data';
+  const channel = new BroadcastChannel(CHANNEL_NAME);
+
+  let state = loadState();
+
+  function loadState() {
+    const data = localStorage.getItem(STORAGE_KEY);
+    return data ? JSON.parse(data) : { counters: { A: 0, B: 0, C: 0 }, list: [] };
+  }
+
+  // Update jam
+  setInterval(() => {
+    document.getElementById('clock').textContent = new Date().toLocaleTimeString('id-ID');
+  }, 1000);
+
+  // Render daftar antrian
+  function render() {
+    const list = document.getElementById('queueList');
+    const waiting = state.list.filter(q => q.status === 'menunggu');
+
+    if (waiting.length === 0) {
+      list.innerHTML = '<li style="opacity:0.5;">Belum ada antrian menunggu</li>';
+    } else {
+      list.innerHTML = waiting.map(q => `
+        <li>
+          <span><span class="nomor">${q.nomor}</span><span class="nama">${q.nama}</span></span>
+        </li>
+      `).join('');
+    }
+
+    document.getElementById('total').textContent = state.list.length;
+    document.getElementById('waiting').textContent = waiting.length;
+    document.getElementById('called').textContent =
+      state.list.filter(q => q.status === 'dipanggil').length;
+  }
+
+  // Fungsi panggil antrian
+  function panggilAntrian() {
+    const next = state.list.find(q => q.status === 'menunggu');
+    if (!next) return false;
+
+    next.status = 'dipanggil';
+    next.waktuPanggil = new Date().toLocaleTimeString('id-ID');
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+
+    // Update tampilan utama
+    document.getElementById('currentNumber').textContent = next.nomor;
+    document.getElementById('currentName').textContent = next.nama;
+    document.getElementById('currentCounter').textContent =
+      `Silakan menuju loket ${next.layanan}`;
+
+    // Mainkan suara
+    playBell();
+    speak(`Nomor antrian ${next.nomor.split('').join(' ')}, atas nama ${next.nama}, silakan menuju loket ${next.layanan}`);
+
+    render();
+    return true;
+  }
+
+  function playBell() {
+    const audio = document.getElementById('bell');
+    audio.currentTime = 0;
+    audio.play().catch(() => {});
+  }
+
+  function speak(text) {
+    if ('speechSynthesis' in window) {
+      const u = new SpeechSynthesisUtterance(text);
+      u.lang = 'id-ID';
+      u.rate = 0.9;
+      speechSynthesis.speak(u);
+    }
+  }
+
+  // Dengarkan pesan dari halaman ambil antrian
+  channel.onmessage = (e) => {
+    if (e.data.type === 'NEW_QUEUE') {
+      state = loadState();
+      render();
+    }
+    if (e.data.type === 'CALL_NEXT') {
+      state = loadState();
+      panggilAntrian();
+    }
+  };
+
+  // Sinkron antar tab (jika ada perubahan dari tab lain)
+  window.addEventListener('storage', (e) => {
+    if (e.key === STORAGE_KEY) {
+      state = loadState();
+      render();
+    }
+  });
+
+  // Tombol keyboard: tekan SPASI untuk memanggil antrian berikutnya
+  document.addEventListener('keydown', (e) => {
+    if (e.code === 'Space') {
+      e.preventDefault();
+      state = loadState();
+      panggilAntrian();
+    }
+  });
+
+  // Inisialisasi
+  render();
+</script>
+</body>
+</html>
